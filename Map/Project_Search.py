@@ -90,10 +90,10 @@ def _get_project_list(region, kw, pn=10):
             # 查找小区alias
             _pattern = r'(?<=alias.:.).+?(?=])'
             _alias = re.findall(_pattern, _r)
-            if not _alias:
-                _r_alias = "Null"
-            else:
+            if _alias:
                 _r_alias = _alias[0]
+            else:
+                _r_alias = "Null"
 
             # 查找项目地址
             _pattern = r'(?<=poi_address.:.).+?(?=")'
@@ -109,10 +109,10 @@ def _get_project_list(region, kw, pn=10):
             # 查找小区developers
             _pattern = r'(?<=developers.:.).+?(?=")'
             _developer = re.findall(_pattern, _r)
-            if not _developer:
-                _r_dev = "Null"
-            else:
+            if _developer:
                 _r_dev = _developer[0]
+            else:
+                _r_dev = "Null"
 
             # 查找小区坐标x,y
             _pattern = r'(?<=navi_x.:.).+?(?=")'
@@ -127,7 +127,7 @@ def _get_project_list(region, kw, pn=10):
             _std_tag = re.findall(_pattern, _r)
             _r_tag = _std_tag[0]
 
-            # 查找小区tag
+            # 查找小区id
             _pattern = r'(?<=primary_uid.:.).+?(?=")'
             _primary_uid = re.findall(_pattern, _r)
             _r_ID = _primary_uid[0]
@@ -135,8 +135,11 @@ def _get_project_list(region, kw, pn=10):
             # 查找小区aoi
             _pattern = r'(?<=aoi.:.).+?(?=")'
             _aoi = re.findall(_pattern, _r)
-            _r_aoi = _aoi[0]
-            _r_aoi = re.sub(r'",', 'Null', _r_aoi)
+            if _aoi:
+                _r_aoi = _aoi[0]
+                _r_aoi = re.sub(r'",', 'Null', _r_aoi)
+            else:
+                _r_aoi = 'Null'
 
             # 查找小区property
             _pattern = r'(?<=property_company.:.).+?(?=")'
