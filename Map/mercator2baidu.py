@@ -90,8 +90,33 @@ def _mars_2_baidu(mars_point):
     return _baidu_point
 
 
+# 求某级别下的百度地图像素坐标
+def _mct_2_pix(mct):
+    _pix_point = dict(x=0, y=0, zoom=0)
+    _zoom = mct[2]
+    _pix_point["x"] = mct[0]
+    _pix_point["y"] = mct[1]
+    _pix_point["zoom"] = _zoom
+    _pix_point["x"] = int(_pix_point["x"] * 2 ** (_zoom - 18))
+    _pix_point["y"] = int(_pix_point["y"] * 2 ** (_zoom - 19))
+    return _pix_point
+
+
+# 计算point所在的图标坐标
+def _mct_2_area(mct):
+    _area_code = dict(x=0, y=0, zoom=0)
+    _area_code["x"] = int(mct[0] / 256)
+    _area_code["y"] = int(mct[1] / 256)
+    _area_code["zoom"] = mct[2]
+    return _area_code
+
+
 # test code: 成都市鼓楼小学: baidu: 104.080471,30.670996, mars: 104.074498,30.664996
-mercator = (11586260.2779, 3568139.31197)
+mercator = (11586260.2779, 3568139.31197, 18)
+pix_point = _mct_2_pix(mercator)
+print("\n level %s point is (x = %s, y = %s)" % (pix_point["zoom"], pix_point["x"], pix_point["y"]))
+area_code = _mct_2_area(mercator)
+print("\n the area_code is (x = %s, y = %s, zoom = %s)" % (area_code["x"], area_code["y"], area_code["zoom"]))
 m2w = _mercator_2_wgs84(mercator)
 print("\n wgs84 is (lon = %s,lat = %s)" % (m2w["lon"], m2w["lat"]))
 print("\n the point out of China: %s " % _out_of_china(m2w["lat"], m2w["lon"]))

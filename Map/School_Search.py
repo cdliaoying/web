@@ -17,6 +17,7 @@ Description:
 """
 
 import requests, re
+from Map.Public import school
 
 
 def _get_project_list(region, kw, pn=10):
@@ -37,12 +38,12 @@ def _get_project_list(region, kw, pn=10):
         "db": "0",
         "sug": "0",
         "addr": "0",
-        "da_src": "pcmappg.poi.page",
-        "on_gel": "1",
-        "src": "7",
-        "gr": "3",
-        "l": "12",
-        "tn": "B_NORMAL_MAP",
+        # "da_src": "pcmappg.poi.page",
+        # "on_gel": "1",
+        # "src": "7",
+        # "gr": "3",
+        # "l": "12",
+        # "tn": "B_NORMAL_MAP",
         # "u_loc": "12621219.536556,2630747.285024",
         "ie": "utf-8",
         # "b": "(11845157.18,3047692.2;11922085.18,3073932.2)",  #这个应该是地理位置坐标，可以忽略
@@ -132,8 +133,20 @@ def _get_project_list(region, kw, pn=10):
             else:
                 _r_aoi = 'Null'
 
-            print(_r_ID, ' ', _r_sch_name, ' ', _r_alias, ' ', _r_aoi, ' ', _r_x, ' ', _r_y, ' ', _add1, ' ', _add2,
-                  ' ', _r_tag)
+            _school = school
+            _school.ID = _r_ID
+            _school.Name = _r_sch_name
+            _school.Alias = _r_alias
+            _school.Aoi = _r_aoi
+            _school.Mct_x = _r_x
+            _school.Mct_y = _r_y
+            _school.Add1 = _add1
+            _school.Add2 = _add2
+            _school.Type = _r_tag
+
+            print(_school.ID, ' ', _school.Name, ' ', _school.Alias, ' ', _school.Aoi, ' ', _school.Mct_x, ' '
+                  , _school.Mct_y, ' ', _school.Add1, ' ', _school.Add2, ' ', _school.Type, ' ',
+                  _school.pix_area_code)
 
     except ValueError as e:
         raise e

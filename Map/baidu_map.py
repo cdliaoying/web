@@ -77,7 +77,7 @@ keywordlist = ['丝网','筛网']
 start = time.time()
 num = 1
 
-#建立csv文件，保存数据
+# 建立csv文件，保存数据
 csvFile = open(r'/Users/apple888/PycharmProjects/百度地图/Data/%s.csv' % 'CityData','a+', newline='', encoding='utf-8')
 writer = csv.writer(csvFile)
 writer.writerow(('name', 'address', 'number'))
