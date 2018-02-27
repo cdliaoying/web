@@ -45,7 +45,7 @@ def _get_project_list(region, kw, pn=10):
     }
 
     # define the url and others
-    _url = 'https://ditu.amap.com/'
+    _url = 'https://map.baidu.com/'
     _parameter["c"] = region
     _parameter["wd"] = kw
     _parameter["pn"] = pn
@@ -59,7 +59,6 @@ def _get_project_list(region, kw, pn=10):
         _pattern = r'(?<=\baddress_norm":"\[).+?(?="ty":)'
         _r_list = re.findall(_pattern, _htm_code)  # 按段落匹配
 
-
         # 将输出结果写入文件，帮助正则式分析
         f = open('/Users/liaoying/Desktop/Python Project/Baidu/dic/test', 'w')
         f.write(_htm_code)
@@ -71,4 +70,4 @@ def _get_project_list(region, kw, pn=10):
         pass
 
 
-_get_project_list("青羊区", "小学", 1)
+_get_project_list("青羊区", "幼儿园", 0)

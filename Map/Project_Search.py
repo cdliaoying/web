@@ -17,6 +17,7 @@ Description:
 
 import requests
 import re, csv, time
+from Map.Public import proj_info
 
 
 # define function that to get the list of the project
@@ -68,9 +69,9 @@ def _get_project_list(region, kw, pn=10):
         _htm_get = requests.get(_url, params=_parameter, timeout=6)
         print("\n the requests' status is %s \n" % _htm_get.raise_for_status())
         _htm_code = _htm_get.text.encode('latin-1').decode('unicode_escape')  # 转码
-        _pattern = r'(?<=\baddress_norm":"\[).+?(?="ty":)'
+        _pattern = r'(?<={"acc_flag.:).+?(?="ty":)'
         _r_list = re.findall(_pattern, _htm_code)  # 按段落匹配
-
+        _n = 0
         '''
         # 将输出结果写入文件，帮助正则式分析
         f = open('/Users/liaoying/Desktop/Python Project/Baidu/dic/community', 'w')
@@ -79,94 +80,15 @@ def _get_project_list(region, kw, pn=10):
         '''
 
         for _r in _r_list:
-            # 查找小区name
-            _pattern = r'(?<=\b"\},"name":").+?(?=")'
-            _pj_name = re.findall(_pattern, _r)
-            if not _pj_name:
-                _pattern = r'(?<=\b,"name":").+?(?=")'
-                _pj_name = re.findall(_pattern, _r)
-            _r_pjname = _pj_name[0]
+            _project = proj_info(_r)
+            _n += 1
+            print(_project.id, ', ', _project.name, ', ', _project.alias, ', ', _project.plate, ', ', _project.mct_x,
+                  ', ', _project.mct_y, ', ', _project.add1, ' ', _project.add2, ' ', _project.developer, ', ',
+                  _project.type, ', ', _project.prop_company, ', ', _project.prop_fee, ', ', _project.pix_area_x,
+                  ', ', _project.pix_area_y)
 
-            # 查找小区alias
-            _pattern = r'(?<=alias.:.).+?(?=])'
-            _alias = re.findall(_pattern, _r)
-            if _alias:
-                _r_alias = _alias[0]
-            else:
-                _r_alias = "Null"
-
-            # 查找项目地址
-            _pattern = r'(?<=poi_address.:.).+?(?=")'
-            _address = re.findall(_pattern, _r)
-            _add1 = _address[0]
-            _pattern = r'.+?(?=")'
-            adr = re.findall(_pattern, _r)
-            _pattern = r'\(.+?\['
-            _address = re.sub(_pattern, '', adr[0])
-            _pattern = r'\(.+?\]'
-            _add2 = re.sub(_pattern, '', _address)
-
-            # 查找小区developers
-            _pattern = r'(?<=developers.:.).+?(?=")'
-            _developer = re.findall(_pattern, _r)
-            if _developer:
-                _r_dev = _developer[0]
-            else:
-                _r_dev = "Null"
-
-            # 查找小区坐标x,y
-            _pattern = r'(?<=navi_x.:.).+?(?=")'
-            _navi_x = re.findall(_pattern, _r)
-            _r_x = _navi_x[0]
-            _pattern = r'(?<=navi_y.:.).+?(?=")'
-            _navi_y = re.findall(_pattern, _r)
-            _r_y = _navi_y[0]
-
-            # 查找小区tag
-            _pattern = r'(?<=std_tag.:.).+?(?=")'
-            _std_tag = re.findall(_pattern, _r)
-            _r_tag = _std_tag[0]
-
-            # 查找小区id
-            _pattern = r'(?<=primary_uid.:.).+?(?=")'
-            _primary_uid = re.findall(_pattern, _r)
-            _r_ID = _primary_uid[0]
-
-            # 查找小区aoi
-            _pattern = r'(?<=aoi.:.).+?(?=")'
-            _aoi = re.findall(_pattern, _r)
-            if _aoi:
-                _r_aoi = _aoi[0]
-                _r_aoi = re.sub(r'",', 'Null', _r_aoi)
-            else:
-                _r_aoi = 'Null'
-
-            # 查找小区property
-            _pattern = r'(?<=property_company.:.).+?(?=")'
-            _property_company = re.findall(_pattern, _r)
-            # _property_company = re.sub(r'",', "", _property_company)
-            _r_prop_compy = _property_company[0]
-            _r_prop_compy = re.sub(r'",', 'Null', _r_prop_compy)
-            _pattern = r'(?<=property_management_fee.:.).+?(?=")'
-            _property_management_fee = re.findall(_pattern, _r)
-            # _property_management_fee = re.sub(r'",', "", _property_management_fee)
-            _r_prop_fee = _property_management_fee[0]
-            _r_prop_fee = re.sub(r'",', 'Null', _r_prop_fee)
-
-            # 查找项目电话
-            _pattern = r'(?<="phone":").+?(?=")'
-            _phone = re.findall(_pattern, _r)
-            _r_phone = _phone[0]
-            _r_phone = re.sub(r'",', 'null', _r_phone)
-            # print(phone[0])  # 电话
-
-            '''
-            print(_r_pjname, ' ', _r_alias, ' ', _r_aoi, ' ', _r_x, ' ', _r_y, ' ', _add1, ' ', _add2, ' ', _r_dev, ' ',
-                  _r_tag, ' ', _r_prop_compy, ' ', _r_prop_fee, ' ', _r_phone)
-            '''
-
-            _writer.writerow((_r_ID, _r_pjname, _r_alias, _r_aoi, _r_x, _r_y, _add1, _add2, _r_dev, _r_tag,
-                              _r_prop_compy, _r_prop_fee, _r_phone))
+        _m = _n
+        return _m
 
     except ValueError as e:
         raise e
@@ -174,28 +96,34 @@ def _get_project_list(region, kw, pn=10):
         pass
 
 
-def write_csv(region, kw, n=3):
+def proj_search(region, kw, n):
+    _region = region
+    _kw = kw
+    _n = int(n)
     _start = time.time()
     _num = 1
-    for page in range(n):
-        _get_project_list(region, kw, page)
-        # 防止访问频率太高，避免被百度公司封
-        time.sleep(1)
+    _s = 0
+
+    for page in range(_n):
+        _m = _get_project_list(_region, _kw, page)  # 防止访问频率太高，避免被百度公司封
+        time.sleep(2)
         if _num % 20 == 0:
-            time.sleep(2)
+            time.sleep(4)
         if _num % 100 == 0:
-            time.sleep(3)
+            time.sleep(6)
         if _num % 200 == 0:
-            time.sleep(7)
+            time.sleep(8)
         _num = _num + 1
+        _s = _s + _m
 
     _end = time.time()
-    _last_time = int((_end - _start))
-    print('耗时' + str(_last_time) + 's')
+    _last_time = int((_end-_start))
+    print('\n 共耗时 %s s, 获取 %s 页，%s 条数据！' % (str(_last_time), _num-1, _s))
+
 
 '''
 # test code
 _get_project_list("631", "小区", 2)
 '''
 
-write_csv("631", "小区", 2)
+proj_search("631", "小区", 2)

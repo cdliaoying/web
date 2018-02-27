@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import re
 
-r = ['四川省(32)|PROV|0|NONE][成都市(75)|CITY|0|NONE][青羊区(631)|AREA|1|NONE][金阳路()|ROAD|1|NONE]390号",'
+r = ['[四川省(32)|PROV|0|NONE][成都市(75)|CITY|0|NONE][青羊区(631)|AREA|1|NONE][金阳路()|ROAD|1|NONE]390号",'
      '"alias":["成都印象金沙","印象金沙小区"],"area":631,"area_name":"成都市青羊区",'
      '"biz_type":0,"brand_id":null,"catalogID":25,"cla":[[25,"地产小区"]],'
      '"click_flag":0,"detail":1,"diPointX":1157795117,"diPointY":357056021,"di_tag":"房地产 住宅区 小区",'
@@ -73,6 +73,7 @@ r = ['四川省(32)|PROV|0|NONE][成都市(75)|CITY|0|NONE][青羊区(631)|AREA|
      '"show_tag":[],"status":1,"std_tag":"房地产;住宅区","std_tag_id":"2403","storage_src":"api",'
      '"street_id":"3d108ba9878517f7ce04ef22","tag":"房地产 住宅区 <font color="#c60a00">小区<\/font>",']
 
+"""
 pattern = r'.+?(?=")'
 adr = re.findall(pattern, r[0])
 print('adr: %s \n' % adr)
@@ -86,6 +87,16 @@ print("add2: %s \n" % add2)  # 地址
 pattern = r'(?<=aoi.:.).+?(?=")'
 alias = re.findall(pattern, r[0])
 print('alias: %s \n' % alias)
+"""
+
+adr = "[四川省(32)|PROV|0|NONE][成都市(75)|CITY|0|NONE][青羊区(631)|AREA|1|NONE][西马棚街()|ROAD|1|NONE]30号"
+_pattern = r'\(.+?\['
+_address = re.sub(_pattern, '', adr)
+print("address: %s" % _address)
+_pattern = r'\(.+?\]'
+_add2 = re.sub(_pattern, '', _address)
+print("add2: %s" % _add2)
+
 
 '''
 r'(?<="phone":").+?(?=")'

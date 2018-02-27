@@ -16,11 +16,11 @@ Description:
 
 """
 
-import requests, re
-from Map.Public import school
+import requests, re, time
+from Map.Public import school_info
 
 
-def _get_project_list(region, kw, pn=10):
+def _get_school_list(region, kw, pn=10):
     # define parameter
     _parameter = {
         "newmap": "1",
@@ -61,9 +61,9 @@ def _get_project_list(region, kw, pn=10):
         _htm_get = requests.get(_url, params=_parameter, timeout=6)
         print("\n the requests' status is %s \n" % _htm_get.raise_for_status())
         _htm_code = _htm_get.text.encode('latin-1').decode('unicode_escape')  # 转码
-        _pattern = r'(?<=\baddress_norm":"\[).+?(?="ty":)'
+        _pattern = r'(?<={"acc_flag.:).+?(?="ty":)'
         _r_list = re.findall(_pattern, _htm_code)  # 按段落匹配
-
+        _n = 0
         '''
         # 将输出结果写入文件，帮助正则式分析
         f = open('/Users/liaoying/Desktop/Python Project/Baidu/dic/school', 'w')
@@ -72,86 +72,45 @@ def _get_project_list(region, kw, pn=10):
         '''
 
         for _r in _r_list:
-
-            # find the id of school
-            _pattern = r'(?<=primary_uid.:.).+?(?=")'
-            _primary_uid = re.findall(_pattern, _r)
-            _r_ID = _primary_uid[0]
-
-            # find the school's name
-            _pattern = r'(?<=\b"\},"name":").+?(?=")'
-            _sch_name = re.findall(_pattern, _r)
-            if not _sch_name:
-                _pattern = r'(?<=\b,"name":").+?(?=")'
-                _sch_name = re.findall(_pattern, _r)
-            _r_sch_name = _sch_name[0]
-
-            # find the alias of school
-            _pattern = r'(?<=alias.:.).+?(?=])'
-            _alias = re.findall(_pattern, _r)
-            if not _alias:
-                _r_alias = "Null"
-            else:
-                _r_alias = _alias[0]
-
-            # find the address of school
-            _pattern = r'(?<=poi_address.:.).+?(?=")'
-            _address = re.findall(_pattern, _r)
-            _add1 = _address[0]
-            _pattern = r'.+?(?=")'
-            adr = re.findall(_pattern, _r)
-            _pattern = r'\(.+?\['
-            _address = re.sub(_pattern, '', adr[0])
-            _pattern = r'\(.+?\]'
-            _add2 = re.sub(_pattern, '', _address)
-
-            # find the coordinate(x,y) of school
-            _pattern = r'(?<=navi_x.:.).+?(?=")'
-            _navi_x = re.findall(_pattern, _r)
-            if _navi_x:
-                _r_x = _navi_x[0]
-            else:
-                _r_x = 0
-            _pattern = r'(?<=navi_y.:.).+?(?=")'
-            _navi_y = re.findall(_pattern, _r)
-            if _navi_y:
-                _r_y = _navi_y[0]
-            else:
-                _r_y = 0
-
-            # find the tag of school
-            _pattern = r'(?<=std_tag.:.).+?(?=")'
-            _std_tag = re.findall(_pattern, _r)
-            _r_tag = _std_tag[0]
-
-            # find the plate of school
-            _pattern = r'(?<=aoi.:.).+?(?=")'
-            _aoi = re.findall(_pattern, _r)
-            if _aoi:
-                _r_aoi = _aoi[0]
-                _r_aoi = re.sub(r'",', 'Null', _r_aoi)
-            else:
-                _r_aoi = 'Null'
-
-            _school = school
-            _school.ID = _r_ID
-            _school.Name = _r_sch_name
-            _school.Alias = _r_alias
-            _school.Aoi = _r_aoi
-            _school.Mct_x = _r_x
-            _school.Mct_y = _r_y
-            _school.Add1 = _add1
-            _school.Add2 = _add2
-            _school.Type = _r_tag
-
-            print(_school.ID, ' ', _school.Name, ' ', _school.Alias, ' ', _school.Aoi, ' ', _school.Mct_x, ' '
-                  , _school.Mct_y, ' ', _school.Add1, ' ', _school.Add2, ' ', _school.Type, ' ',
-                  _school.pix_area_code)
-
+            _school = school_info(_r)
+            _n += 1
+            print(_school.id, ', ', _school.name, ', ', _school.alias, ', ', _school.plate, ', ', _school.mct_x, ', ',
+                  _school.mct_y, ', ', _school.add1, ', ', _school.add2, ', ', _school.type, ', ',
+                  _school.pix_area_x, ', ', _school.pix_area_y)
+        _m = _n
+        return _m
     except ValueError as e:
         raise e
     finally:
         pass
 
 
-_get_project_list("631", "小学", 2)
+def school_search(region, kw, n):
+    _region = region
+    _kw = kw
+    _n = int(n)
+    _start = time.time()
+    _num = 1
+    _s = 0
+
+    for page in range(_n):
+        _m = _get_school_list(_region, _kw, page)  # 防止访问频率太高，避免被百度公司封
+        time.sleep(2)
+        if _num % 20 == 0:
+            time.sleep(4)
+        if _num % 100 == 0:
+            time.sleep(6)
+        if _num % 200 == 0:
+            time.sleep(8)
+        _num = _num + 1
+        _s = _s + _m
+
+    _end = time.time()
+    _last_time = int((_end-_start))
+    print('\n 共耗时 %s s, 获取 %s 页，%s 条数据！' % (str(_last_time), _num-1, _s))
+
+
+# test code
+# _get_school_list("631", "小学", 0)
+school_search("\n 631", "幼儿园", 2)
+

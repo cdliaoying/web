@@ -11,73 +11,319 @@ Description:
 
 """
 
+import re
+
 
 class mct_point():
     """
-    -   usage: format mct_point
-    -   attribute: mct_x(lon), mct_y(lat)
+    -   usage: format mct_point and the area code in the Baidu Map, this is the public class used for the all object
+    -   attribute: mct_x(lon), mct_y(lat), area_code_x, area_code_y
     """
+
+    def __init__(self, r_split):
+        self.r_split = r_split
 
     @property
     def mct_x(self):
-        return self._mct_x
-
-    @mct_x.setter
-    def flag(self, v_mct_x):
-        self._mct_x = v_mct_x
+        _mct_x = float(_get_navi_x(self.r_split))
+        return _mct_x
 
     @property
     def mct_y(self):
-        return self._mct_y
-
-    @mct_y.setter
-    def flag(self, v_mct_y):
-        self._mct_y = v_mct_y
-
-
-class school():
-    """
-    -   usage: format school result
-    -   attribute: ID, Name, Alias, Aoi, Mct_x, Mct_y, Add1, Add2, Type(Tag)
-    """
-
-    def __init__(self, ID, Name, Alias, Aoi, Add1, Add2, Type):
-        self.ID = ID
-        self.Name = Name
-        self.Alias = Alias
-        self.Aoi = Aoi
-        self.Add1 = Add1
-        self.Add2 = Add2
-        self.Type = Type
-
-
-    @property
-    def mct_x(self):
-        return self._mct_x
-
-    @mct_x.setter
-    def mct_x(self, v_mct_x):
-        self._mct_x = v_mct_x
-
-    @property
-    def mct_y(self):
-        return self._mct_y
-
-    @mct_y.setter
-    def mct_y(self, v_mct_y):
-        self._mct_y = v_mct_y
+        _mct_y = float(_get_navi_y(self.r_split))
+        return _mct_y
 
     @property
     def pix_area_x(self):
-        return int(self.mct_x / 250)
+        _pix_area_x = int(self.mct_x / 250)
+        return _pix_area_x
 
     @property
     def pix_area_y(self):
-        return int(self.mct_y / 250)
+        _pix_area_y = int(self.mct_y / 250)
+        return _pix_area_y
 
 
-_school = school
+class school_base():
+    """
+    -   usage: format the the base info of school
+    -   attribute: ID, Name, Alias, plate, Add1, Add2, Type(Tag)
+    """
+
+    def __init__(self, r_split):
+        self.r_split = r_split
+
+    @property
+    def id(self):
+        _id = _get_id(self.r_split)
+        return _id
+
+    @property
+    def name(self):
+        _name = _get_name(self.r_split)
+        return _name
+
+    @property
+    def alias(self):
+        _alias = _get_alias(self.r_split)
+        return _alias
+
+    @property
+    def plate(self):
+        _plate = _get_plate(self.r_split)
+        return _plate
+
+    @property
+    def add1(self):
+        _add1 = _get_add1(self.r_split)
+        return _add1
+
+    @property
+    def add2(self):
+        _add2 = _get_add2(self.r_split)
+        return _add2
+
+    @property
+    def type(self):
+        _type = _get_type(self.r_split)
+        return _type
+
+
+class school_info(school_base, mct_point):
+    pass
+
+
+class proj_base():
+    """
+    -   usage: format the base info of community
+    -   attribute: ID, pj_name, alias, aoi, _add1, _add2, dev, tag, prop_company, prop_fee
+    """
+    def __index__(self, r_split):
+        self.r_split = r_split
+
+    @property
+    def id(self):
+        _id = _get_id(self.r_split)
+        return _id
+
+    @property
+    def name(self):
+        _name = _get_name(self.r_split)
+        return _name
+
+    @property
+    def alias(self):
+        _alias = _get_alias(self.r_split)
+        return _alias
+
+    @property
+    def plate(self):
+        _plate = _get_plate(self.r_split)
+        return _plate
+
+    @property
+    def add1(self):
+        _add1 = _get_add1(self.r_split)
+        return _add1
+
+    @property
+    def add2(self):
+        _add2 = _get_add2(self.r_split)
+        return _add2
+
+    @property
+    def type(self):
+        _type = _get_type(self.r_split)
+        return _type
+
+    @property
+    def developer(self):
+        _dev = _get_dev(self.r_split)
+        return _dev
+
+    @property
+    def prop_company(self):
+        _prop_name = _get_prop_company(self.r_split)
+        return _prop_name
+
+    @property
+    def prop_fee(self):
+        _fee = _get_prop_fee(self.r_split)
+        return _fee
+
+
+class proj_info(proj_base, mct_point):
+    pass
+
+
+def _get_id(r_split):
+    _r = r_split
+    _pattern = r'(?<=primary_uid.:.).+?(?=")'
+    _primary_uid = re.findall(_pattern, _r)
+    _r_ID = _primary_uid[0]
+    return _r_ID
+
+
+def _get_name(r_split):
+    _r = r_split
+    _pattern = r'(?<=\b"\},"name":").+?(?=")'
+    _name = re.findall(_pattern, _r)
+    if not _name:
+        _pattern = r'(?<=\b,"name":").+?(?=")'
+        _name = re.findall(_pattern, _r)
+    _r_name = _name[0]
+    return _r_name
+
+
+def _get_alias(r_split):
+    _r = r_split
+    _pattern = r'(?<=alias.:.).+?(?=])'
+    _alias = re.findall(_pattern, _r)
+    if _alias:
+        _r_alias = re.sub(r'"', "", _alias[0])
+    else:
+        _r_alias = "Null"
+    return _r_alias
+
+
+def _get_plate(r_split):
+    _r = r_split
+    _pattern = r'(?<=aoi.:.).+?(?=")'
+    _aoi = re.findall(_pattern, _r)
+    if _aoi:
+        _r_aoi = _aoi[0]
+        _r_aoi = re.sub(r'",', 'Null', _r_aoi)
+    else:
+        _r_aoi = 'Null'
+    return _r_aoi
+
+
+def _get_add1(r_split):
+    _r = r_split
+    _pattern = r'(?<=poi_address.:.).+?(?=")'
+    _address = re.findall(_pattern, _r)
+    _add1 = _address[0]
+    return _add1
+
+
+def _get_add2(r_split):
+    _r = r_split
+    _pattern = r'(?<="address_norm.:.).+?(?=",)'
+    adr = re.findall(_pattern, _r)
+    if adr:
+        _pattern = r'\(.+?\['
+        _address = re.sub(_pattern, '', adr[0])
+        _pattern = r'\(.+?\]'
+        _address = re.sub(_pattern, '', _address)
+        _pattern = r'\['
+        _add2 = re.sub(_pattern, '', _address)
+    else:
+        _add2 = 'Null'
+    return _add2
+
+
+def _get_dev(r_split):
+    _r = r_split
+    _pattern = r'(?<=developers.:.).+?(?=")'
+    _developer = re.findall(_pattern, _r)
+    if _developer:
+        _r_dev = _developer[0]
+    else:
+        _r_dev = "Null"
+    return _r_dev
+
+
+def _get_type(r_split):
+    _r = r_split
+    _pattern = r'(?<=std_tag.:.).+?(?=")'
+    _std_tag = re.findall(_pattern, _r)
+    if _std_tag:
+        _r_tag = _std_tag[0]
+    else:
+        _r_tag = "Null"
+    return _r_tag
+
+
+def _get_prop_company(r_split):
+    _r = r_split
+    _pattern = r'(?<=property_company.:.).+?(?=")'
+    _property_company = re.findall(_pattern, _r)
+    # _property_company = re.sub(r'",', "", _property_company)
+    if _property_company:
+        _r_prop_compy = _property_company[0]
+        _r_prop_compy = re.sub(r'",', 'Null', _r_prop_compy)
+    else:
+        _r_prop_compy = "Null"
+    return _r_prop_compy
+
+
+def _get_prop_fee(r_split):
+    _r = r_split
+    _pattern = r'(?<=property_management_fee.:.).+?(?=")'
+    _property_management_fee = re.findall(_pattern, _r)
+    # _property_management_fee = re.sub(r'",', "", _property_management_fee)
+    if _property_management_fee:
+        _r_prop_fee = _property_management_fee[0]
+        _r_prop_fee = re.sub(r'",', 'Null', _r_prop_fee)
+    else:
+        _r_prop_fee = "0"
+    return _r_prop_fee
+
+
+def _get_phone(r_split):
+    _r = r_split
+    _pattern = r'(?<="phone":").+?(?=")'
+    _phone = re.findall(_pattern, _r)
+    if _phone:
+        _r_phone = _phone[0]
+        _r_phone = re.sub(r'",', 'null', _r_phone)
+    else:
+        _r_phone = "Null"
+    return _r_phone
+
+
+def _get_navi_x(r_split):
+    _r = r_split
+    _pattern = r'(?<=navi_x.:.).+?(?=")'
+    _navi_x = re.findall(_pattern, _r)
+    if _navi_x:
+        if float(_navi_x[0]) > 0:
+            _r_x = _navi_x[0]
+        else:
+            _pattern = r'(?<=x.:).+?(?=,)'
+            _navi_x = re.findall(_pattern, _r)
+            if float(_navi_x[0]) > 0:
+                _r_x = _navi_x[0]
+            else:
+                _r_x = 0.0
+    else:
+        _r_x = 0.0
+    return _r_x
+
+
+def _get_navi_y(r_split):
+    _r = r_split
+    _pattern = r'(?<=navi_y.:.).+?(?=")'
+    _navi_y = re.findall(_pattern, _r)
+    if _navi_y:
+        if float(_navi_y[0]) > 0:
+            _r_y = _navi_y[0]
+        else:
+            _pattern = r'(?<=y.:).+?(?=})'
+            _navi_y = re.findall(_pattern, _r)
+            if float(_navi_y[0]) > 0:
+                _r_y = _navi_y[0]
+            else:
+                _r_y = 0.0
+    else:
+        _r_y = 0.0
+    return _r_y
+
+"""
+# test code : 成都市鼓楼小学: 11586260.2779   3568139.31197
+_school = school_info('fid', 'name', 'alias', 'aoi', 'add1', 'add2', 'type')
 _school.mct_x = 11586260.2779
 _school.mct_y = 3568139.31197
 print(_school.mct_x, _school.mct_y)
 print(_school.pix_area_x, _school.pix_area_y)
+"""
