@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-import re
+import re, xlrd, xlwt, os
+from datetime import datetime
 
 r = ['[四川省(32)|PROV|0|NONE][成都市(75)|CITY|0|NONE][青羊区(631)|AREA|1|NONE][金阳路()|ROAD|1|NONE]390号",'
      '"alias":["成都印象金沙","印象金沙小区"],"area":631,"area_name":"成都市青羊区",'
@@ -104,3 +105,17 @@ r'(?<="phone":").+?(?=")'
 "alias":["成都印象金沙","印象金沙小区"],
 "name":"印象金沙小区",
 '''
+
+str1 = re.sub(':', '', str(datetime.now()))
+print("1 %s" % str1)
+str1 = re.sub('-', '', str1)
+print("2 %s" % str1)
+str1 = re.split('\.', str1)
+print("3 %s" % str1[0])
+str1 = re.sub(' ', '_', str1[0])
+print("4 %s" % str1)
+file_name = 'test_%s.xls' % str1
+print("\n file_name: %s" % file_name)
+file_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'dic', file_name)
+print("\n file_dir: %s" % file_dir)
+xls_file = xlwt.open_workbook(file_dir)

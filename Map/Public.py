@@ -11,12 +11,49 @@ Description:
 
 """
 
-import re
+import re, xlwt
+
+''' === define the globe param ===='''
+
+
+def parameter_search():
+    _parameter = {
+        """
+            if the value of param is zero that means it's not used
+        """
+        "newmap": "1",  # don't know the usage
+        "reqflag": "pcmap",  # don't know the usage
+        "biz": "1",  # don't know the usage
+        "from": "webmap",  # don't know the usage
+        "da_par": "direct",  # don't know the usage
+        "pcevaname": "pc4.1",  # don't know the usage
+        "qt": "con",  # don't know the usage
+        "c": "",  # the city code which defined by the baidu, 城市代码
+        "wd": "",  # the keyword 搜索关键词
+        "wd2": "",  # the keyword 搜索关键词
+        "pn": "",  # the page's No 页数
+        "nn": "",  # the total number of page
+        "db": "0",  # don't know the usage
+        "sug": "0",  # don't know the usage
+        "addr": "0",  # the address
+        # "da_src": "pcmappg.poi.page",
+        # "on_gel": "1",
+        # "src": "7",
+        # "gr": "3",
+        # "l": "12",
+        # "tn": "B_NORMAL_MAP",
+        # "u_loc": "12621219.536556,2630747.285024", # maybe the point of POI
+        "ie": "utf-8",
+        # "b": "(11845157.18,3047692.2;11922085.18,3073932.2)",  #这个应该是地理位置坐标，可以忽略
+        # "t": "1468896652886" # time
+    }
+    return _parameter
 
 
 class mct_point():
     """
-    -   usage: format mct_point and the area code in the Baidu Map, this is the public class used for the all object
+    -   usage: format mct_point and the area code in the Baidu Map,
+        this is the public class used for the all object
     -   attribute: mct_x(lon), mct_y(lat), area_code_x, area_code_y
     """
 
@@ -98,6 +135,7 @@ class proj_base():
     -   usage: format the base info of community
     -   attribute: ID, pj_name, alias, aoi, _add1, _add2, dev, tag, prop_company, prop_fee
     """
+
     def __index__(self, r_split):
         self.r_split = r_split
 
@@ -157,6 +195,11 @@ class proj_info(proj_base, mct_point):
 
 
 def _get_id(r_split):
+    """
+    :usage: it's used for find the object's id
+    :param r_split: the input is a list
+    :return: ID, the object's id in the spider results
+    """
     _r = r_split
     _pattern = r'(?<=primary_uid.:.).+?(?=")'
     _primary_uid = re.findall(_pattern, _r)
@@ -165,6 +208,12 @@ def _get_id(r_split):
 
 
 def _get_name(r_split):
+    """
+    it's used for find the object's name,just like project_name, school_name,maybe different object has
+    different rules
+    :param r_split: the input is a list
+    :return: Name, the object's name in the spider results
+    """
     _r = r_split
     _pattern = r'(?<=\b"\},"name":").+?(?=")'
     _name = re.findall(_pattern, _r)
@@ -176,6 +225,11 @@ def _get_name(r_split):
 
 
 def _get_alias(r_split):
+    """
+    it's used for find the object's even used name,It's a string.
+    :param r_split: the input is a list
+    :return: Name, the object's alias in the spider results
+    """
     _r = r_split
     _pattern = r'(?<=alias.:.).+?(?=])'
     _alias = re.findall(_pattern, _r)
@@ -187,6 +241,11 @@ def _get_alias(r_split):
 
 
 def _get_plate(r_split):
+    """
+    it's used for find the object's plate, It's a user defined area, not in the map.
+    :param r_split: the input is a list
+    :return: Name, the object's plate in the spider results, its tag is aoi
+    """
     _r = r_split
     _pattern = r'(?<=aoi.:.).+?(?=")'
     _aoi = re.findall(_pattern, _r)
@@ -199,6 +258,11 @@ def _get_plate(r_split):
 
 
 def _get_add1(r_split):
+    """
+    it's used for find the object's address,the add1 is a string that describe the current address of object
+    :param r_split: the input is a list
+    :return: Name, the object's add1 in the spider results
+    """
     _r = r_split
     _pattern = r'(?<=poi_address.:.).+?(?=")'
     _address = re.findall(_pattern, _r)
@@ -207,6 +271,11 @@ def _get_add1(r_split):
 
 
 def _get_add2(r_split):
+    """
+    it's used for find the object's address,the add1 is a string that describe the current address of object
+    :param r_split: the input is a list
+    :return: Name, the object's add1 in the spider results
+    """
     _r = r_split
     _pattern = r'(?<="address_norm.:.).+?(?=",)'
     adr = re.findall(_pattern, _r)
@@ -223,6 +292,11 @@ def _get_add2(r_split):
 
 
 def _get_dev(r_split):
+    """
+    it's used for find the project's developer,maybe it's only used for the real estate
+    :param r_split: the input is a list
+    :return: Name, the object's developer in the spider results
+    """
     _r = r_split
     _pattern = r'(?<=developers.:.).+?(?=")'
     _developer = re.findall(_pattern, _r)
@@ -234,6 +308,11 @@ def _get_dev(r_split):
 
 
 def _get_type(r_split):
+    """
+    it's used for find the project's type, actually, it's the different level
+    :param r_split: the input is a list
+    :return: Name, the object's type in the spider results
+    """
     _r = r_split
     _pattern = r'(?<=std_tag.:.).+?(?=")'
     _std_tag = re.findall(_pattern, _r)
@@ -245,6 +324,11 @@ def _get_type(r_split):
 
 
 def _get_prop_company(r_split):
+    """
+    it's used for find the project's prosperity company, it's also used for the real estate
+    :param r_split: the input is a list
+    :return: Name, the object's prosperity company in the spider results
+    """
     _r = r_split
     _pattern = r'(?<=property_company.:.).+?(?=")'
     _property_company = re.findall(_pattern, _r)
@@ -258,6 +342,11 @@ def _get_prop_company(r_split):
 
 
 def _get_prop_fee(r_split):
+    """
+    it's used for find the project's prosperity fee, it's also used for the real estate
+    :param r_split: the input is a list
+    :return: Name, the object's prosperity fee in the spider results
+    """
     _r = r_split
     _pattern = r'(?<=property_management_fee.:.).+?(?=")'
     _property_management_fee = re.findall(_pattern, _r)
@@ -271,6 +360,12 @@ def _get_prop_fee(r_split):
 
 
 def _get_phone(r_split):
+    """
+    it's used for find the object's phone, if you are interesting, you can define the rule to check weather the
+    result is a real phone
+    :param r_split: the input is a list
+    :return: Name, the object's phone company in the spider results
+    """
     _r = r_split
     _pattern = r'(?<="phone":").+?(?=")'
     _phone = re.findall(_pattern, _r)
@@ -283,6 +378,11 @@ def _get_phone(r_split):
 
 
 def _get_navi_x(r_split):
+    """
+    it's used for find the object's pix coordinate, it's means the x site of point on the map
+    :param r_split: the input is a list
+    :return: Name, the object's pix_x in the spider results
+    """
     _r = r_split
     _pattern = r'(?<=navi_x.:.).+?(?=")'
     _navi_x = re.findall(_pattern, _r)
@@ -302,6 +402,11 @@ def _get_navi_x(r_split):
 
 
 def _get_navi_y(r_split):
+    """
+    it's used for find the object's pix coordinate, it's means the y site of point on the map
+    :param r_split: the input is a list
+    :return: Name, the object's pix_x in the spider results
+    """
     _r = r_split
     _pattern = r'(?<=navi_y.:.).+?(?=")'
     _navi_y = re.findall(_pattern, _r)
@@ -319,11 +424,72 @@ def _get_navi_y(r_split):
         _r_y = 0.0
     return _r_y
 
+
 """
-# test code : 成都市鼓楼小学: 11586260.2779   3568139.31197
+# I'm test code : 成都市鼓楼小学: 11586260.2779   3568139.31197
 _school = school_info('fid', 'name', 'alias', 'aoi', 'add1', 'add2', 'type')
 _school.mct_x = 11586260.2779
 _school.mct_y = 3568139.31197
 print(_school.mct_x, _school.mct_y)
 print(_school.pix_area_x, _school.pix_area_y)
 """
+
+''' ====== format the unit in the xls.file ======='''
+
+
+def _set_style(name, height, bold=False):
+    """
+
+    :param name:
+    :param height:
+    :param bold:
+    :return:
+    """
+    _style = xlwt.XFStyle()  # 初始化样式
+
+    _font = xlwt.Font()  # 为样式创建字体
+    _font.name = name  # 'Times New Roman'
+    _font.bold = bold
+    _font.color_index = 4
+    _font.height = height
+
+    # borders= xlwt.Borders()
+    # borders.left= 6
+    # borders.right= 6
+    # borders.top= 6
+    # borders.bottom= 6
+
+    _style.font = _font
+    # style.borders = borders
+
+    return _style
+
+
+''' ======= define the xls file write function ============='''
+
+
+# school: ID, Name, Alias, plate, Add1, Add2, Type(Tag)，mct_x(lon), mct_y(lat), area_code_x, area_code_y
+_school_row = [u'ID', u'学校名称', u'曾用名', u'版块', u'地址1', u'地址2', u'类别', u'像素X', u'像素y',
+               u'地图区域码x', '地图区域码y']
+_project_row = []
+
+
+def school_write_excel(row0):
+    """
+
+    :return:
+    """
+    _f = xlwt.Workbook()  # 创建工作簿
+
+    # create the first sheet : sheet1
+    _sheet1 = _f.add_sheet(u'sheet1', cell_overwrite_ok=True)
+
+    _row0 = row0
+    #  column0 = [u'机票', u'船票', u'火车票', u'汽车票', u'其它']
+    #  status = [u'预订', u'出票', u'退票', u'业务小计']
+
+    # 生成第一行
+    for i in range(0, len(row0)):
+        _sheet1.write(0, i, row0[i], _set_style('Times New Roman', 220, True))
+
+    _f.save('demo1.xlsx')  # 保存文件

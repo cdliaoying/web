@@ -17,38 +17,12 @@ Description:
 """
 
 import requests, re, time
-from Map.Public import school_info
+from Map.Public import school_info, parameter_search
 
 
 def _get_school_list(region, kw, pn=10):
     # define parameter
-    _parameter = {
-        "newmap": "1",
-        "reqflag": "pcmap",
-        "biz": "1",
-        "from": "webmap",
-        "da_par": "direct",
-        "pcevaname": "pc4.1",
-        "qt": "con",
-        "c": "",  # 城市代码
-        "wd": "",  # 搜索关键词
-        "wd2": "",
-        "pn": "",  # 页数
-        "nn": "",
-        "db": "0",
-        "sug": "0",
-        "addr": "0",
-        # "da_src": "pcmappg.poi.page",
-        # "on_gel": "1",
-        # "src": "7",
-        # "gr": "3",
-        # "l": "12",
-        # "tn": "B_NORMAL_MAP",
-        # "u_loc": "12621219.536556,2630747.285024",
-        "ie": "utf-8",
-        # "b": "(11845157.18,3047692.2;11922085.18,3073932.2)",  #这个应该是地理位置坐标，可以忽略
-        # "t": "1468896652886"
-    }
+    _parameter = parameter_search()
 
     # define the url and others
     _url = 'http://map.baidu.com/'
@@ -66,7 +40,7 @@ def _get_school_list(region, kw, pn=10):
         _n = 0
         '''
         # 将输出结果写入文件，帮助正则式分析
-        f = open('/Users/liaoying/Desktop/Python Project/Baidu/dic/school', 'w')
+        f = open('/Users/liaoying/Desktop/PythonProject/Baidu/dic/school', 'w')
         f.write(_r_list[0])
         f.close()
         '''

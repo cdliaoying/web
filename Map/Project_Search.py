@@ -16,47 +16,30 @@ Description:
 
 
 import requests
-import re, csv, time
-from Map.Public import proj_info
+import re, time
+from Map.Public import proj_info, parameter_search
 
 
 # define function that to get the list of the project
 def _get_project_list(region, kw, pn=10):
+    """
+
+    :param region: the city code where the objects inside, you can input code or name
+    :param kw: the objects which you want to search
+    :param pn: the page No.
+    :return: the projects' attribute in the list
+    """
     # define parameter
-    _parameter = {
-        "newmap": "1",
-        "reqflag": "pcmap",
-        "biz": "1",
-        "from": "webmap",
-        "da_par": "direct",
-        "pcevaname": "pc4.1",
-        "qt": "con",
-        "c": "",  # 城市代码
-        "wd": "",  # 搜索关键词
-        "wd2": "",
-        "pn": "",  # 页数
-        "nn": "",
-        "db": "0",
-        "sug": "0",
-        "addr": "0",
-        "da_src": "pcmappg.poi.page",
-        "on_gel": "1",
-        "src": "7",
-        "gr": "3",
-        "l": "12",
-        "tn": "B_NORMAL_MAP",
-        # "u_loc": "12621219.536556,2630747.285024",
-        "ie": "utf-8",
-        # "b": "(11845157.18,3047692.2;11922085.18,3073932.2)",  #这个应该是地理位置坐标，可以忽略
-        # "t": "1468896652886"
-    }
+    _parameter = parameter_search()
 
     # define then csv file
+    '''
     _csvFile = open(r'/Users/liaoying/Desktop/Python Project/Baidu/dic/%s.csv' % 'CityData', 'a+',
                     newline='', encoding='utf-8')
     _writer = csv.writer(_csvFile)
     _writer.writerow(('ID', 'project_name', 'alias', 'plate', 'p_x', 'p_y', 'add1', 'add2', 'developer', 'type',
                       'property', 'fee', 'phone'))
+    '''
 
     # define the url and others
     _url = 'http://map.baidu.com/'
