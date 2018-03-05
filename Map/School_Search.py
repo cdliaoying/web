@@ -21,6 +21,13 @@ from Map.Public import school_info, parameter_search
 
 
 def _get_school_list(region, kw, pn=10):
+    """
+
+    :param region:
+    :param kw:
+    :param pn:
+    :return:
+    """
     # define parameter
     _parameter = parameter_search()
 
@@ -51,6 +58,9 @@ def _get_school_list(region, kw, pn=10):
             print(_school.id, ', ', _school.name, ', ', _school.alias, ', ', _school.plate, ', ', _school.mct_x, ', ',
                   _school.mct_y, ', ', _school.add1, ', ', _school.add2, ', ', _school.type, ', ',
                   _school.pix_area_x, ', ', _school.pix_area_y)
+
+            # add sql for insert database
+
         _m = _n
         return _m
     except ValueError as e:
@@ -60,6 +70,13 @@ def _get_school_list(region, kw, pn=10):
 
 
 def school_search(region, kw, n):
+    """
+
+    :param region:
+    :param kw:
+    :param n:
+    :return:
+    """
     _region = region
     _kw = kw
     _n = int(n)

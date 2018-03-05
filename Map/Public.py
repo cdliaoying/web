@@ -11,7 +11,7 @@ Description:
 
 """
 
-import re, xlwt
+import re, xlwt, sqlite3
 
 ''' === define the globe param ===='''
 
@@ -474,6 +474,7 @@ _school_row = [u'ID', u'学校名称', u'曾用名', u'版块', u'地址1', u'�
 _project_row = []
 
 
+'''
 def school_write_excel(row0):
     """
 
@@ -493,3 +494,8 @@ def school_write_excel(row0):
         _sheet1.write(0, i, row0[i], _set_style('Times New Roman', 220, True))
 
     _f.save('demo1.xlsx')  # 保存文件
+'''
+
+
+def school_write_sql(school_info):
+    pass
