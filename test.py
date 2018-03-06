@@ -116,6 +116,9 @@ str1 = re.sub(' ', '_', str1[0])
 print("4 %s" % str1)
 file_name = 'test_%s.xls' % str1
 print("\n file_name: %s" % file_name)
-file_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'dic', file_name)
-print("\n file_dir: %s" % file_dir)
-xls_file = xlwt.open_workbook(file_dir)
+# file_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'dic', file_name)
+# print("\n file_dir: %s" % file_dir)
+# xls_file = xlwt.open_workbook(file_dir)
+
+_str = os.path.join(os.getcwd(), "dic", "baidu_result")
+print("_con:", _str)

@@ -11,7 +11,18 @@ Description:
 
 """
 
-import re, xlwt, sqlite3
+import re, xlwt, sqlite3, os
+
+
+''' === define the sqlite list to tuple ==='''
+
+
+def _dict_factory(cursor, row):
+    d = {}
+    for idx, col in enumerate(cursor.description):
+        d[col[0]] = row[idx]
+    return d
+
 
 ''' === define the globe param ===='''
 
@@ -266,7 +277,10 @@ def _get_add1(r_split):
     _r = r_split
     _pattern = r'(?<=poi_address.:.).+?(?=")'
     _address = re.findall(_pattern, _r)
-    _add1 = _address[0]
+    if _address:
+        _add1 = _address[0]
+    else:
+        _add1 = 'Null'
     return _add1
 
 
@@ -392,8 +406,9 @@ def _get_navi_x(r_split):
         else:
             _pattern = r'(?<=x.:).+?(?=,)'
             _navi_x = re.findall(_pattern, _r)
-            if float(_navi_x[0]) > 0:
-                _r_x = _navi_x[0]
+            _navi_x = _navi_x[0].replace('\"', '')
+            if float(_navi_x) > 0:
+                _r_x = _navi_x
             else:
                 _r_x = 0.0
     else:
@@ -498,4 +513,32 @@ def school_write_excel(row0):
 
 
 def school_write_sql(school_info):
-    pass
+    """
+    the function is used for insert the school info into the db
+    :param school_info: is class from the school_info
+    :return: No return
+    """
+    _school = school_info
+    _dir = os.path.join(os.path.abspath('..'), "dic", "baidu_result")
+    _con = sqlite3.connect(_dir)
+    _con.row_factory = _dict_factory
+    _cur = _con.cursor()
+    try:
+        _cur.execute("select count(Id) as num FROM school_info WHERE Id = ?", (_school.id, ))
+        _r = _cur.fetchall()
+        if _r[0]["num"] == 0:
+            _cur.execute("INSERT INTO school_info "
+                         # "(Id, Name, Alias, Plate, Address, Address2, Type, Pix_X, Pix_Y, Area_X, Area_Y) "
+                         "VALUES(?, ? , ?, ?, ?, ?, ?, ?, ?, ?, ?) ",
+                         (_school.id, _school.name, _school.alias, _school.plate, _school.add1,
+                         _school.add2, _school.type, _school.mct_x, _school.mct_y, _school.pix_area_x,
+                         _school.pix_area_y))
+            _con.commit()
+        else:
+            print("%s, %s 已存在!" % (_school.id, _school.name))
+        _con.close()
+    except ValueError as e:
+        raise e
+    finally:
+        pass
+
