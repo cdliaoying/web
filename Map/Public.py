@@ -410,7 +410,10 @@ def _get_navi_x(r_split):
             if float(_navi_x) > 0:
                 _r_x = _navi_x
             else:
-                _r_x = 0.0
+                _r = _r.replace("|", "")
+                _pattern = r'(?<="geo":"1).+?(?=,)'
+                _navi_x = re.findall(_pattern, _r)
+                _r_x = _navi_x[0]
     else:
         _r_x = 0.0
     return _r_x
@@ -429,12 +432,19 @@ def _get_navi_y(r_split):
         if float(_navi_y[0]) > 0:
             _r_y = _navi_y[0]
         else:
-            _pattern = r'(?<=y.:).+?(?=})'
+            _pattern = r'(?<=y.:).+?(?=,)'
             _navi_y = re.findall(_pattern, _r)
+            print("\n navi_y: %s " % _navi_y[0])
+            _navi_y = _navi_y[0].replace('\"', '')
+
             if float(_navi_y[0]) > 0:
                 _r_y = _navi_y[0]
             else:
-                _r_y = 0.0
+                _r = _r.replace("|", "")
+                _pattern = r'(?<="geo":"1).+?(?=,)'
+                _navi_y = re.findall(_pattern, _r)
+                _navi_y = re.split(r',', _navi_y[0])
+                _r_y = _navi_y[1]
     else:
         _r_y = 0.0
     return _r_y

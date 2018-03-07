@@ -122,3 +122,60 @@ print("\n file_name: %s" % file_name)
 
 _str = os.path.join(os.getcwd(), "dic", "baidu_result")
 print("_con:", _str)
+
+
+r1 = '0,"addr":"蜀鑫路8号海亮樾金沙5号楼","area":631,"area_name":"成都市青羊区","biz_type":0,"brand_id":null,' \
+     '"catalogID":0,"cla":[],"click_flag":0,"detail":0,"diPointX":1157728399,"diPointY":357120427,' \
+     '"di_tag":"幼儿园 学校 教育","dis":-1,"dist2route":0,"dist2start":0,"ext":"",' \
+     '"ext_display":{"display_info":{"catalog_fields":[],"impression_tag":{"hotel":"","life":""},' \
+     '"redu":"494","source_map":{"catalog":{"field_name":"poi_bank","priority":"0",' \
+     '"uid":"7163384712694397029","update_time":"1506001629.7351"}},"src_name":' \
+     '"display_info","uids":["7163384712694397029:redu","7163384712694397029"]}},' \
+     '"ext_type":0,"f_flag":9,"father_son":0,"flag_type":"256",' \
+     '"geo":"1|11577283.99,3571204.27;11577283.99,3571204.27|11577283.99,3571204.27;",' \
+     '"geo_type":2,"name":"金沙蒙特梭利幼儿园","navi_update_time":1517790944,"navi_x":"0","navi_y":"0",' \
+     '"new_catalog_id":"0d0101","poiType":0,"poi_click_num":0,"poi_profile":0,' \
+     '"primary_uid":"7163384712694397029","prio_flag":32,"route_flag":0,"show_tag":[],' \
+     '"status":1,"std_tag":"教育培训;幼儿园","std_tag_id":"1805","storage_src":"api","tag":' \
+     '"<font color="#c60a00">幼儿园<\/font> 学校 教育",'
+
+
+def _get_navi_x(r_split):
+    """
+    it's used for find the object's pix coordinate, it's means the x site of point on the map
+    :param r_split: the input is a list
+    :return: Name, the object's pix_x in the spider results
+    """
+    _r = r_split
+    _pattern = r'(?<=navi_x.:.).+?(?=")'
+    _navi_x = re.findall(_pattern, _r)
+    print("1st: %s" % _navi_x)
+    if _navi_x:
+        if float(_navi_x[0]) > 0:
+            _r_x = _navi_x[0]
+            print("2st: %s" % _navi_x)
+        else:
+            _pattern = r'(?<=x.:).+?(?=,)'
+            _navi_x = re.findall(_pattern, _r)
+            print("3st: %s" % _navi_x)
+            _navi_x = _navi_x[0].replace('\"', '')
+            print("4st: %s" % _navi_x)
+            if float(_navi_x) > 0:
+                _r_x = _navi_x
+                print("5st: %s" % _navi_x)
+            else:
+                _r = _r.replace("|", "")
+                _pattern = r'(?<="geo":"1).+?(?=;)'
+                _navi_x = re.findall(_pattern, _r)
+                print("6st: %s" % _navi_x)
+                # _navi_x = _navi_x[0].split(',', 1)
+                _navi_x = re.split(r',', _navi_x[0])
+                print("7st: %s" % _navi_x)
+                _r_x = _navi_x[1]
+                print("8st: %s" % _r_x)
+    else:
+        _r_x = 0.0
+    return _r_x
+
+
+re = _get_navi_x(r1)
