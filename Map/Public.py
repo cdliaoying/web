@@ -398,22 +398,26 @@ def _get_navi_x(r_split):
     :return: Name, the object's pix_x in the spider results
     """
     _r = r_split
-    _pattern = r'(?<=navi_x.:.).+?(?=")'
-    _navi_x = re.findall(_pattern, _r)
-    if _navi_x:
-        if float(_navi_x[0]) > 0:
-            _r_x = _navi_x[0]
+    _p1 = r'(?<=navi_x.:.).+?(?=")'
+    _x1 = re.findall(_p1, _r)
+    _p2 = r'(?<=x.:).+?(?=,)'
+    _x2 = re.findall(_p2, _r)
+    _x2 = _x2[0].replace('\"', '')
+    _p3 = r'(?<="geo":"1).+?(?=,)'
+    _x3 = re.findall(_p3, _r)
+    _x3 = _x3[0].replace("|", "")
+
+    if _x1:
+        if float(_x1[0]) > 0:
+            _r_x = _x1[0]
         else:
-            _pattern = r'(?<=x.:).+?(?=,)'
-            _navi_x = re.findall(_pattern, _r)
-            _navi_x = _navi_x[0].replace('\"', '')
-            if float(_navi_x) > 0:
-                _r_x = _navi_x
+            if float(_x2) > 0:
+                _r_x = _x2
             else:
-                _r = _r.replace("|", "")
-                _pattern = r'(?<="geo":"1).+?(?=,)'
-                _navi_x = re.findall(_pattern, _r)
-                _r_x = _navi_x[0]
+                if float(_x3) > 0:
+                    _r_x = _x3
+                else:
+                    _r_x = 0.0
     else:
         _r_x = 0.0
     return _r_x
