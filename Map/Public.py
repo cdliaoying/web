@@ -136,6 +136,16 @@ class school_base():
         _type = _get_type(self.r_split)
         return _type
 
+    @property
+    def area_name(self):
+        _area_name = _get_area_name(self.r_split)
+        return _area_name
+
+    @property
+    def area_code(self):
+        _area_code = _get_area_code(self.r_split)
+        return _area_code
+
 
 class school_info(school_base, mct_point):
     pass
@@ -400,24 +410,22 @@ def _get_navi_x(r_split):
     _r = r_split
     _p1 = r'(?<=navi_x.:.).+?(?=")'
     _x1 = re.findall(_p1, _r)
-    _p2 = r'(?<=x.:).+?(?=,)'
+    if len(_x1) == 0:
+        _x1 = ['0']
+    _p2 = r'(?<="x":).+?(?=,)'
     _x2 = re.findall(_p2, _r)
-    _x2 = _x2[0].replace('\"', '')
-    _p3 = r'(?<="geo":"1).+?(?=,)'
+    _x2 = ['0' if x == '"0"' else x for x in _x2]
+    if len(_x2) == 0:
+        _x2 = ['0']
+    _p3 = r'(?<="geo":"1\|).+?(?=,)'
     _x3 = re.findall(_p3, _r)
-    _x3 = _x3[0].replace("|", "")
 
-    if _x1:
-        if float(_x1[0]) > 0:
-            _r_x = _x1[0]
-        else:
-            if float(_x2) > 0:
-                _r_x = _x2
-            else:
-                if float(_x3) > 0:
-                    _r_x = _x3
-                else:
-                    _r_x = 0.0
+    if float(_x1[0]) > 0:
+        _r_x = _x1[0]
+    elif float(_x2[0]) > 0:
+        _r_x = _x2[0]
+    elif _x3[0] and float(_x3[0]) > 0:
+        _r_x = _x3[0]
     else:
         _r_x = 0.0
     return _r_x
@@ -430,25 +438,25 @@ def _get_navi_y(r_split):
     :return: Name, the object's pix_x in the spider results
     """
     _r = r_split
-    _pattern = r'(?<=navi_y.:.).+?(?=")'
-    _navi_y = re.findall(_pattern, _r)
-    if _navi_y:
-        if float(_navi_y[0]) > 0:
-            _r_y = _navi_y[0]
-        else:
-            _pattern = r'(?<=y.:).+?(?=,)'
-            _navi_y = re.findall(_pattern, _r)
-            print("\n navi_y: %s " % _navi_y[0])
-            _navi_y = _navi_y[0].replace('\"', '')
+    _p1 = r'(?<=navi_y.:.).+?(?=")'
+    _y1 = re.findall(_p1, _r)
+    if len(_y1) == 0:
+        _y1 = ['0']
+    _p2 = r'(?<="y":).+?(?=})'
+    _y2 = re.findall(_p2, _r)
+    _y2 = ['0' if _y == '"0"' else _y for _y in _y2]
+    if len(_y2) == 0:
+        _y2 = ['0']
+    _p3 = r'(?<="geo":"1\|).+?(?=;)'
+    _y3 = re.findall(_p3, _r)
+    _y3 = re.split(r',', _y3[0])
 
-            if float(_navi_y[0]) > 0:
-                _r_y = _navi_y[0]
-            else:
-                _r = _r.replace("|", "")
-                _pattern = r'(?<="geo":"1).+?(?=,)'
-                _navi_y = re.findall(_pattern, _r)
-                _navi_y = re.split(r',', _navi_y[0])
-                _r_y = _navi_y[1]
+    if float(_y1[0]) > 0:
+        _r_y = _y1[0]
+    elif float(_y2[0]) > 0:
+        _r_y = _y2[0]
+    elif _y3[1] and float(_y3[1]) > 0:
+        _r_y = _y3[1]
     else:
         _r_y = 0.0
     return _r_y
@@ -543,10 +551,10 @@ def school_write_sql(school_info):
         if _r[0]["num"] == 0:
             _cur.execute("INSERT INTO school_info "
                          # "(Id, Name, Alias, Plate, Address, Address2, Type, Pix_X, Pix_Y, Area_X, Area_Y) "
-                         "VALUES(?, ? , ?, ?, ?, ?, ?, ?, ?, ?, ?) ",
+                         "VALUES(?, ? , ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ",
                          (_school.id, _school.name, _school.alias, _school.plate, _school.add1,
                          _school.add2, _school.type, _school.mct_x, _school.mct_y, _school.pix_area_x,
-                         _school.pix_area_y))
+                         _school.pix_area_y, _school.area_code, _school.area_name))
             _con.commit()
         else:
             print("%s, %s 已存在!" % (_school.id, _school.name))
@@ -555,4 +563,29 @@ def school_write_sql(school_info):
         raise e
     finally:
         pass
+
+
+def _get_area_name(r_split):
+    """
+
+    :param r_split:
+    :return:
+    """
+    _r = r_split
+    _pattern = r'(?<=area_name.:.).+?(?=.,)'
+    _area_name = re.findall(_pattern, _r)
+    return _area_name[0]
+
+
+def _get_area_code(r_split):
+    """
+
+    :param r_split:
+    :return:
+    """
+    _r = r_split
+    _pattern = r'(?<=area":).+?(?=,)'
+    _area_code = re.findall(_pattern, _r)
+    return _area_code[0]
+
 

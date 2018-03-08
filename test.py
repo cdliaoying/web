@@ -137,7 +137,8 @@ r1 = '0,"addr":"蜀鑫路8号海亮樾金沙5号楼","area":631,"area_name":"成
      '"new_catalog_id":"0d0101","poiType":0,"poi_click_num":0,"poi_profile":0,' \
      '"primary_uid":"7163384712694397029","prio_flag":32,"route_flag":0,"show_tag":[],' \
      '"status":1,"std_tag":"教育培训;幼儿园","std_tag_id":"1805","storage_src":"api","tag":' \
-     '"<font color="#c60a00">幼儿园<\/font> 学校 教育",'
+     '"<font color="#c60a00">幼儿园<\/font> 学校 教育",' \
+     ''
 
 
 def _get_navi_x(r_split):
@@ -147,27 +148,37 @@ def _get_navi_x(r_split):
     :return: Name, the object's pix_x in the spider results
     """
     _r = r_split
-    _p1 = r'(?<=navi_x.:.).+?(?=")'
+    _p1 = r'(?<=navi_y.:.).+?(?=")'
     _x1 = re.findall(_p1, _r)
-    _p2 = r'(?<=x.:).+?(?=,)'
+    print("x1:", _x1)
+    _p2 = r'(?<="y":).+?(?=})'
     _x2 = re.findall(_p2, _r)
-    _x2 = _x2[0].replace('\"', '')
-    _p3 = r'(?<="geo":"1).+?(?=,)'
+    _x2 = ['0' if _x == '"0"' else _x for _x in _x2]
+    if len(_x2) == 0:
+        _x2 = ['0']
+    print("x2:", _x2)
+    _p3 = r'(?<="geo":"1\|).+?(?=;)'
     _x3 = re.findall(_p3, _r)
-    _x3 = _x3[0].replace("|", "")
+    _x3 = re.split(r',', _x3[0])
+    print("x3:", _x3)
 
-    if _x1:
-        if float(_x1[0]) > 0:
-            _r_x = _x1[0]
-        else:
-            if float(_x2) > 0:
-                _r_x = _x2
-            else:
-                _r_x = _x3
+    if _x1[0] and float(_x1[0]) > 0:
+        _r_x = _x1[0]
+    elif _x2[0] and float(_x2[0]) > 0:
+        # _x2 = _x2[0].replace('\"', '')
+        _r_x = _x2[0]
+    elif _x3[1] and float(_x3[1]) > 0:
+        _r_x = _x3[1]
     else:
         _r_x = 0.0
     return _r_x
 
 
-re = _get_navi_x(r1)
-print("re: %s" % re)
+_re = _get_navi_x(r1)
+print("re: %s" % _re)
+
+_r = '"area":631,"area_name":"成都市青羊区"'
+_p1 = r'(?<=area_name.:.).+?(?=")'
+_x1 = re.findall(_p1, _r)
+print("x1: %s" % _x1)
+

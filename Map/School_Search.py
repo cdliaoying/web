@@ -55,11 +55,11 @@ def _get_school_list(region, kw, pn=10):
         for _r in _r_list:
             _school = school_info(_r)
             # add sql for insert database
-            # school_write_sql(_school)
+            school_write_sql(_school)
             _n += 1
             print(_school.id, ', ', _school.name, ', ', _school.alias, ', ', _school.plate, ', ', _school.mct_x, ', ',
                   _school.mct_y, ', ', _school.add1, ', ', _school.add2, ', ', _school.type, ', ',
-                  _school.pix_area_x, ', ', _school.pix_area_y)
+                  _school.pix_area_x, ', ', _school.pix_area_y, ', ', _school.area_code, ', ', _school.area_name)
         _m = _n
         return _m
     except ValueError as e:
@@ -104,6 +104,6 @@ def school_search(region, kw, bn, en):
 
 
 # test code:
-_get_school_list("631", "幼儿园", 4)
-# school_search("\n 631", "幼儿园", 4, 4)
+# _get_school_list("631", "幼儿园", 4)
+school_search("631", "幼儿园", 0, 4)
 
