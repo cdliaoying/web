@@ -80,6 +80,13 @@ def _get_project_list(region, kw, pn=10):
 
 
 def proj_search(region, kw, n):
+    """
+
+    :param region: the city code where the objects inside, you can input code or name
+    :param kw: he objects which you want to search
+    :param n: the page No.
+    :return: no return
+    """
     _region = region
     _kw = kw
     _n = int(n)

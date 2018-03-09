@@ -26,7 +26,7 @@ def _get_school_list(region, kw, pn=10):
     :param region:
     :param kw:
     :param pn:
-    :return:
+    :return _m:
     """
     # define parameter
     _parameter = parameter_search()
@@ -51,17 +51,17 @@ def _get_school_list(region, kw, pn=10):
         f.write(_r_list[3])
         f.close()
         '''
+        if len(_r_list) > 0:
+            for _r in _r_list:
+                _school = school_info(_r)
+                # add sql for insert database
+                school_write_sql(_school)
+                _n += 1
+                print(_school.id, ', ', _school.name, ', ', _school.alias, ', ', _school.plate, ', ', _school.mct_x, ', ',
+                      _school.mct_y, ', ', _school.add1, ', ', _school.add2, ', ', _school.type, ', ',
+                      _school.pix_area_x, ', ', _school.pix_area_y, ', ', _school.area_code, ', ', _school.area_name)
 
-        for _r in _r_list:
-            _school = school_info(_r)
-            # add sql for insert database
-            school_write_sql(_school)
-            _n += 1
-            print(_school.id, ', ', _school.name, ', ', _school.alias, ', ', _school.plate, ', ', _school.mct_x, ', ',
-                  _school.mct_y, ', ', _school.add1, ', ', _school.add2, ', ', _school.type, ', ',
-                  _school.pix_area_x, ', ', _school.pix_area_y, ', ', _school.area_code, ', ', _school.area_name)
-        _m = _n
-        return _m
+        return _n
     except ValueError as e:
         raise e
     finally:
@@ -87,16 +87,20 @@ def school_search(region, kw, bn, en):
 
     while _page <= _en:
         _m = _get_school_list(_region, _kw, _page)  # 防止访问频率太高，避免被百度公司封
-        time.sleep(2)
-        if _num % 20 == 0:
-            time.sleep(4)
-        if _num % 100 == 0:
-            time.sleep(6)
-        if _num % 200 == 0:
-            time.sleep(8)
-        _num = _num + 1
-        _s = _s + _m
-        _page = _page + 1
+
+        if _m / 10 > 0:
+            time.sleep(2)
+            if _num % 20 == 0:
+                time.sleep(4)
+            if _num % 100 == 0:
+                time.sleep(6)
+            if _num % 200 == 0:
+                time.sleep(8)
+            _num = _num + 1
+            _s = _s + _m
+            _page = _page + 1
+        else:
+            _page = _en + 1
 
     _end = time.time()
     _last_time = int((_end-_start))
@@ -105,5 +109,5 @@ def school_search(region, kw, bn, en):
 
 # test code:
 # _get_school_list("631", "幼儿园", 4)
-school_search("631", "幼儿园", 0, 4)
+school_search("631", "幼儿园", 0, 20)
 
