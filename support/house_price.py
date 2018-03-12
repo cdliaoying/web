@@ -107,8 +107,8 @@ def price_decrypt(str_price):
     return _price1
 
 
-fid, price1 = price_encr(18100)
-print('fid: %s' % fid)
+fid, price1 = price_encr(3800)
+print('\n fid: %s' % fid)
 print('the adjust price is %s' % price1)
 price2 = price_decrypt(fid)
 print('the value of price is %s' % price2)

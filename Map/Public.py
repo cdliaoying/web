@@ -11,8 +11,7 @@ Description:
 
 """
 
-import re, xlwt, sqlite3, os
-
+import re, xlwt, sqlite3, os, datetime
 
 ''' === define the sqlite list to tuple ==='''
 
@@ -471,6 +470,62 @@ print(_school.mct_x, _school.mct_y)
 print(_school.pix_area_x, _school.pix_area_y)
 """
 
+
+def school_write_sql(school_info):
+    """
+    the function is used for insert the school info into the db
+    :param school_info: is class from the school_info
+    :return: No return
+    """
+    _school = school_info
+    _dir = os.path.join(os.path.abspath('..'), "dic", "baidu_result")
+    _con = sqlite3.connect(_dir)
+    _con.row_factory = _dict_factory
+    _cur = _con.cursor()
+    try:
+        _cur.execute("SELECT count(Id) AS num FROM school_info WHERE Id = ?", (_school.id,))
+        _r = _cur.fetchall()
+        if _r[0]["num"] == 0:
+            _cur.execute("INSERT INTO school_info "
+                         # "(Id, Name, Alias, Plate, Address, Address2, Type, Pix_X, Pix_Y, Area_X, Area_Y) "
+                         "VALUES(?, ? , ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ",
+                         (_school.id, _school.name, _school.alias, _school.plate, _school.add1,
+                          _school.add2, _school.type, _school.mct_x, _school.mct_y, _school.pix_area_x,
+                          _school.pix_area_y, _school.area_code, _school.area_name))
+            _con.commit()
+        else:
+            print("%s, %s 已存在!" % (_school.id, _school.name))
+        _con.close()
+    except ValueError as e:
+        raise e
+    finally:
+        pass
+
+
+def _get_area_name(r_split):
+    """
+
+    :param r_split:
+    :return:
+    """
+    _r = r_split
+    _pattern = r'(?<=area_name.:.).+?(?=.,)'
+    _area_name = re.findall(_pattern, _r)
+    return _area_name[0]
+
+
+def _get_area_code(r_split):
+    """
+
+    :param r_split:
+    :return:
+    """
+    _r = r_split
+    _pattern = r'(?<=area":).+?(?=,)'
+    _area_code = re.findall(_pattern, _r)
+    return _area_code[0]
+
+
 ''' ====== format the unit in the xls.file ======='''
 
 
@@ -506,86 +561,43 @@ def _set_style(name, height, bold=False):
 
 
 # school: ID, Name, Alias, plate, Add1, Add2, Type(Tag)，mct_x(lon), mct_y(lat), area_code_x, area_code_y
-_school_row = [u'ID', u'学校名称', u'曾用名', u'版块', u'地址1', u'地址2', u'类别', u'像素X', u'像素y',
-               u'地图区域码x', '地图区域码y']
-_project_row = []
-
-
-'''
-def school_write_excel(row0):
+def school_write_excel():
     """
 
     :return:
     """
-    _f = xlwt.Workbook()  # 创建工作簿
+    __sheet_time = datetime.datetime.now()
+    __book_mark = __sheet_time.strftime('%Y%m%d')
+    _file_name = "school_info_" + __book_mark + ".xls"
+    __xls = xlwt.Workbook()  # create file
+    _sheet1 = __xls.add_sheet(u'学校清单', cell_overwrite_ok=True)  # create first sheet : sheet1
 
-    # create the first sheet : sheet1
-    _sheet1 = _f.add_sheet(u'sheet1', cell_overwrite_ok=True)
+    _row0 = [u'ID', u'学校名称', u'曾用名', u'版块', u'地址1', u'地址2', u'类别', u'像素X', u'像素y',
+             u'地图区域码x', '地图区域码y']
 
-    _row0 = row0
-    #  column0 = [u'机票', u'船票', u'火车票', u'汽车票', u'其它']
-    #  status = [u'预订', u'出票', u'退票', u'业务小计']
-
-    # 生成第一行
-    for i in range(0, len(row0)):
-        _sheet1.write(0, i, row0[i], _set_style('Times New Roman', 220, True))
-
-    _f.save('demo1.xlsx')  # 保存文件
-'''
-
-
-def school_write_sql(school_info):
+    """ 
+    get info from sqlite
     """
-    the function is used for insert the school info into the db
-    :param school_info: is class from the school_info
-    :return: No return
-    """
-    _school = school_info
     _dir = os.path.join(os.path.abspath('..'), "dic", "baidu_result")
+    _path = os.path.join(os.path.abspath('..'), "dic", _file_name)
     _con = sqlite3.connect(_dir)
-    _con.row_factory = _dict_factory
     _cur = _con.cursor()
-    try:
-        _cur.execute("select count(Id) as num FROM school_info WHERE Id = ?", (_school.id, ))
-        _r = _cur.fetchall()
-        if _r[0]["num"] == 0:
-            _cur.execute("INSERT INTO school_info "
-                         # "(Id, Name, Alias, Plate, Address, Address2, Type, Pix_X, Pix_Y, Area_X, Area_Y) "
-                         "VALUES(?, ? , ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ",
-                         (_school.id, _school.name, _school.alias, _school.plate, _school.add1,
-                         _school.add2, _school.type, _school.mct_x, _school.mct_y, _school.pix_area_x,
-                         _school.pix_area_y, _school.area_code, _school.area_name))
-            _con.commit()
-        else:
-            print("%s, %s 已存在!" % (_school.id, _school.name))
-        _con.close()
-    except ValueError as e:
-        raise e
-    finally:
-        pass
+    _cur.execute("SELECT * FROM school_info")
+    _r = _cur.fetchall()
+    print("_r: %s" % len(_r))
+    print("_row0: %s" % len(_row0))
+    print("_r[0][0]: %s" % _r[0][0])
 
-
-def _get_area_name(r_split):
+    """ 
+    write the data into file
     """
+    for _i in range(0, len(_row0)):
+        _sheet1.write(0, _i, _row0[_i], _set_style('Times New Roman', 220, True))
 
-    :param r_split:
-    :return:
-    """
-    _r = r_split
-    _pattern = r'(?<=area_name.:.).+?(?=.,)'
-    _area_name = re.findall(_pattern, _r)
-    return _area_name[0]
+    for _row in range(1, len(_r) + 1):
+        for _col in range(0, len(_row0)):
+            _sheet1.write(_row, _col, u'%s' % _r[_row - 1][_col])
 
-
-def _get_area_code(r_split):
-    """
-
-    :param r_split:
-    :return:
-    """
-    _r = r_split
-    _pattern = r'(?<=area":).+?(?=,)'
-    _area_code = re.findall(_pattern, _r)
-    return _area_code[0]
-
-
+    _cur.close()
+    _con.close()
+    __xls.save(_path)  # 保存文件
