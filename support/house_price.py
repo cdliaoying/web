@@ -1,5 +1,16 @@
 # -*- coding: utf-8 -*-
 
+"""
+
+Author: Wayne
+Ver: v1.0
+Date: 2018.03.11
+Description:
+- this file include two parts of the procedures of encrypt and decrypt
+- it's a simple function of encrypt and decrypt
+
+"""
+
 import math, random
 from random import Random
 

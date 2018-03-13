@@ -67,39 +67,47 @@
       <Position>13</Position>
       <DataType>TEXT|0</DataType>
     </column>
-    <index id="21" parent="6" name="school_info_Id_uindex">
+    <column id="21" parent="6" name="Base_Update_time">
+      <Position>14</Position>
+      <DataType>TIME|0</DataType>
+    </column>
+    <column id="22" parent="6" name="Point_Update_time">
+      <Position>15</Position>
+      <DataType>TIME|0</DataType>
+    </column>
+    <index id="23" parent="6" name="school_info_Id_uindex">
       <ColNames>Id</ColNames>
       <ColumnCollations></ColumnCollations>
       <Unique>1</Unique>
     </index>
-    <index id="22" parent="6" name="sqlite_autoindex_school_info_1">
+    <index id="24" parent="6" name="sqlite_autoindex_school_info_1">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>Id</ColNames>
       <ColumnCollations></ColumnCollations>
       <Unique>1</Unique>
     </index>
-    <key id="23" parent="6">
+    <key id="25" parent="6">
       <ColNames>Id</ColNames>
       <Primary>1</Primary>
       <UnderlyingIndexName>sqlite_autoindex_school_info_1</UnderlyingIndexName>
     </key>
-    <column id="24" parent="7" name="type">
+    <column id="26" parent="7" name="type">
       <Position>1</Position>
       <DataType>text|0</DataType>
     </column>
-    <column id="25" parent="7" name="name">
+    <column id="27" parent="7" name="name">
       <Position>2</Position>
       <DataType>text|0</DataType>
     </column>
-    <column id="26" parent="7" name="tbl_name">
+    <column id="28" parent="7" name="tbl_name">
       <Position>3</Position>
       <DataType>text|0</DataType>
     </column>
-    <column id="27" parent="7" name="rootpage">
+    <column id="29" parent="7" name="rootpage">
       <Position>4</Position>
       <DataType>integer|0</DataType>
     </column>
-    <column id="28" parent="7" name="sql">
+    <column id="30" parent="7" name="sql">
       <Position>5</Position>
       <DataType>text|0</DataType>
     </column>

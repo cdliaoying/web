@@ -11,8 +11,7 @@ Description:
 
 """
 
-import re, xlwt, sqlite3, os
-
+import re, xlwt, sqlite3, os, time
 
 ''' === define the sqlite list to tuple ==='''
 
@@ -61,158 +60,28 @@ def parameter_search():
     return _parameter
 
 
-class mct_point():
-    """
-    -   usage: format mct_point and the area code in the Baidu Map,
-        this is the public class used for the all object
-    -   attribute: mct_x(lon), mct_y(lat), area_code_x, area_code_y
+def _get_area_name(r_split):
     """
 
-    def __init__(self, r_split):
-        self.r_split = r_split
-
-    @property
-    def mct_x(self):
-        _mct_x = float(_get_navi_x(self.r_split))
-        return _mct_x
-
-    @property
-    def mct_y(self):
-        _mct_y = float(_get_navi_y(self.r_split))
-        return _mct_y
-
-    @property
-    def pix_area_x(self):
-        _pix_area_x = int(self.mct_x / 250)
-        return _pix_area_x
-
-    @property
-    def pix_area_y(self):
-        _pix_area_y = int(self.mct_y / 250)
-        return _pix_area_y
-
-
-class school_base():
+    :param r_split:
+    :return:
     """
-    -   usage: format the the base info of school
-    -   attribute: ID, Name, Alias, plate, Add1, Add2, Type(Tag)
+    _r = r_split
+    _pattern = r'(?<=area_name.:.).+?(?=.,)'
+    _area_name = re.findall(_pattern, _r)
+    return _area_name[0]
+
+
+def _get_area_code(r_split):
     """
 
-    def __init__(self, r_split):
-        self.r_split = r_split
-
-    @property
-    def id(self):
-        _id = _get_id(self.r_split)
-        return _id
-
-    @property
-    def name(self):
-        _name = _get_name(self.r_split)
-        return _name
-
-    @property
-    def alias(self):
-        _alias = _get_alias(self.r_split)
-        return _alias
-
-    @property
-    def plate(self):
-        _plate = _get_plate(self.r_split)
-        return _plate
-
-    @property
-    def add1(self):
-        _add1 = _get_add1(self.r_split)
-        return _add1
-
-    @property
-    def add2(self):
-        _add2 = _get_add2(self.r_split)
-        return _add2
-
-    @property
-    def type(self):
-        _type = _get_type(self.r_split)
-        return _type
-
-    @property
-    def area_name(self):
-        _area_name = _get_area_name(self.r_split)
-        return _area_name
-
-    @property
-    def area_code(self):
-        _area_code = _get_area_code(self.r_split)
-        return _area_code
-
-
-class school_info(school_base, mct_point):
-    pass
-
-
-class proj_base():
+    :param r_split:
+    :return:
     """
-    -   usage: format the base info of community
-    -   attribute: ID, pj_name, alias, aoi, _add1, _add2, dev, tag, prop_company, prop_fee
-    """
-
-    def __index__(self, r_split):
-        self.r_split = r_split
-
-    @property
-    def id(self):
-        _id = _get_id(self.r_split)
-        return _id
-
-    @property
-    def name(self):
-        _name = _get_name(self.r_split)
-        return _name
-
-    @property
-    def alias(self):
-        _alias = _get_alias(self.r_split)
-        return _alias
-
-    @property
-    def plate(self):
-        _plate = _get_plate(self.r_split)
-        return _plate
-
-    @property
-    def add1(self):
-        _add1 = _get_add1(self.r_split)
-        return _add1
-
-    @property
-    def add2(self):
-        _add2 = _get_add2(self.r_split)
-        return _add2
-
-    @property
-    def type(self):
-        _type = _get_type(self.r_split)
-        return _type
-
-    @property
-    def developer(self):
-        _dev = _get_dev(self.r_split)
-        return _dev
-
-    @property
-    def prop_company(self):
-        _prop_name = _get_prop_company(self.r_split)
-        return _prop_name
-
-    @property
-    def prop_fee(self):
-        _fee = _get_prop_fee(self.r_split)
-        return _fee
-
-
-class proj_info(proj_base, mct_point):
-    pass
+    _r = r_split
+    _pattern = r'(?<=area":).+?(?=,)'
+    _area_code = re.findall(_pattern, _r)
+    return _area_code[0]
 
 
 def _get_id(r_split):
@@ -462,6 +331,44 @@ def _get_navi_y(r_split):
     return _r_y
 
 
+def _get_base_updatetime(r_split):
+    """
+
+    :param r_split:
+    :return:
+    """
+    __r = r_split
+    __p = r'(?<="update_time.:.).+?(?=")'
+    __time = re.findall(__p, __r)
+    if __time:
+        __time = re.split(r'\.', __time[-1])
+        __time = __time[0]
+        __time = time.localtime(int(__time))
+        __time = time.strftime("%Y-%m-%d %H:%M:%S", __time)
+    else:
+        __time = '1900-00-00 00:00:00'
+    return __time
+
+
+def _get_point_updatetime(r_split: str):
+    """
+
+    :param r_split:
+    :return:
+    """
+    __r = r_split
+    __p = r'(?<="navi_update_time.:).+?(?=,)'
+    __time = re.findall(__p, __r)
+    if __time:
+        __time = re.split(r'\.', __time[-1])
+        __time = __time[0]
+        __time = time.localtime(int(__time))
+        __time = time.strftime("%Y-%m-%d %H:%M:%S", __time)
+    else:
+        __time = '1900-00-00 00:00:00'
+    return __time
+
+
 """
 # I'm test code : 成都市鼓楼小学: 11586260.2779   3568139.31197
 _school = school_info('fid', 'name', 'alias', 'aoi', 'add1', 'add2', 'type')
@@ -504,12 +411,10 @@ def _set_style(name, height, bold=False):
 
 ''' ======= define the xls file write function ============='''
 
-
 # school: ID, Name, Alias, plate, Add1, Add2, Type(Tag)，mct_x(lon), mct_y(lat), area_code_x, area_code_y
 _school_row = [u'ID', u'学校名称', u'曾用名', u'版块', u'地址1', u'地址2', u'类别', u'像素X', u'像素y',
                u'地图区域码x', '地图区域码y']
 _project_row = []
-
 
 '''
 def school_write_excel(row0):
@@ -546,15 +451,16 @@ def school_write_sql(school_info):
     _con.row_factory = _dict_factory
     _cur = _con.cursor()
     try:
-        _cur.execute("select count(Id) as num FROM school_info WHERE Id = ?", (_school.id, ))
+        _cur.execute("SELECT count(Id) AS num FROM school_info WHERE Id = ?", (_school.id,))
         _r = _cur.fetchall()
         if _r[0]["num"] == 0:
             _cur.execute("INSERT INTO school_info "
                          # "(Id, Name, Alias, Plate, Address, Address2, Type, Pix_X, Pix_Y, Area_X, Area_Y) "
-                         "VALUES(?, ? , ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ",
+                         "VALUES(?, ? , ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ",
                          (_school.id, _school.name, _school.alias, _school.plate, _school.add1,
-                         _school.add2, _school.type, _school.mct_x, _school.mct_y, _school.pix_area_x,
-                         _school.pix_area_y, _school.area_code, _school.area_name))
+                          _school.add2, _school.type, _school.mct_x, _school.mct_y, _school.pix_area_x,
+                          _school.pix_area_y, _school.area_code, _school.area_name, _school.base_update_time,
+                          _school.point_update_time))
             _con.commit()
         else:
             print("%s, %s 已存在!" % (_school.id, _school.name))
@@ -565,27 +471,242 @@ def school_write_sql(school_info):
         pass
 
 
-def _get_area_name(r_split):
+''' ================= define the class of mct_point ================='''
+
+
+class mct_point():
+    """
+    -   usage: format mct_point and the area code in the Baidu Map,
+        this is the public class used for the all object
+    -   attribute: mct_x(lon), mct_y(lat), area_code_x, area_code_y
     """
 
-    :param r_split:
-    :return:
+    def __init__(self, r_split):
+        self.r_split = r_split
+
+    @property
+    def mct_x(self):
+        _mct_x = float(_get_navi_x(self.r_split))
+        return _mct_x
+
+    @property
+    def mct_y(self):
+        _mct_y = float(_get_navi_y(self.r_split))
+        return _mct_y
+
+    @property
+    def pix_area_x(self):
+        _pix_area_x = int(self.mct_x / 250)
+        return _pix_area_x
+
+    @property
+    def pix_area_y(self):
+        _pix_area_y = int(self.mct_y / 250)
+        return _pix_area_y
+
+
+''' ================== define the class of school_base() ==================='''
+
+
+class school_base():
     """
-    _r = r_split
-    _pattern = r'(?<=area_name.:.).+?(?=.,)'
-    _area_name = re.findall(_pattern, _r)
-    return _area_name[0]
-
-
-def _get_area_code(r_split):
+    -   usage: format the the base info of school
+    -   attribute: ID, Name, Alias, plate, Add1, Add2, Type(Tag)
     """
 
-    :param r_split:
-    :return:
+    def __init__(self, r_split):
+        self.r_split = r_split
+
+    @property
+    def id(self):
+        _id = _get_id(self.r_split)
+        return _id
+
+    @property
+    def name(self):
+        _name = _get_name(self.r_split)
+        return _name
+
+    @property
+    def alias(self):
+        _alias = _get_alias(self.r_split)
+        return _alias
+
+    @property
+    def plate(self):
+        _plate = _get_plate(self.r_split)
+        return _plate
+
+    @property
+    def add1(self):
+        _add1 = _get_add1(self.r_split)
+        return _add1
+
+    @property
+    def add2(self):
+        _add2 = _get_add2(self.r_split)
+        return _add2
+
+    @property
+    def type(self):
+        _type = _get_type(self.r_split)
+        return _type
+
+    @property
+    def area_name(self):
+        _area_name = _get_area_name(self.r_split)
+        return _area_name
+
+    @property
+    def area_code(self):
+        _area_code = _get_area_code(self.r_split)
+        return _area_code
+
+    @property
+    def base_update_time(self):
+        _base_update_time = _get_base_updatetime(self.r_split)
+        return _base_update_time
+
+    @property
+    def point_update_time(self):
+        _point_update_time = _get_point_updatetime(self.r_split)
+        return _point_update_time
+
+
+class school_info(school_base, mct_point):
+    pass
+
+
+''' ======================== define the class of project_base ==========================='''
+
+
+class proj_base():
     """
-    _r = r_split
-    _pattern = r'(?<=area":).+?(?=,)'
-    _area_code = re.findall(_pattern, _r)
-    return _area_code[0]
+    -   usage: format the base info of community
+    -   attribute: ID, pj_name, alias, aoi, _add1, _add2, dev, tag, prop_company, prop_fee
+    """
+
+    def __index__(self, r_split):
+        self.r_split = r_split
+
+    @property
+    def id(self):
+        _id = _get_id(self.r_split)
+        return _id
+
+    @property
+    def name(self):
+        _name = _get_name(self.r_split)
+        return _name
+
+    @property
+    def alias(self):
+        _alias = _get_alias(self.r_split)
+        return _alias
+
+    @property
+    def plate(self):
+        _plate = _get_plate(self.r_split)
+        return _plate
+
+    @property
+    def add1(self):
+        _add1 = _get_add1(self.r_split)
+        return _add1
+
+    @property
+    def add2(self):
+        _add2 = _get_add2(self.r_split)
+        return _add2
+
+    @property
+    def type(self):
+        _type = _get_type(self.r_split)
+        return _type
+
+    @property
+    def developer(self):
+        _dev = _get_dev(self.r_split)
+        return _dev
+
+    @property
+    def prop_company(self):
+        _prop_name = _get_prop_company(self.r_split)
+        return _prop_name
+
+    @property
+    def prop_fee(self):
+        _fee = _get_prop_fee(self.r_split)
+        return _fee
 
 
+
+class proj_info(proj_base, mct_point):
+    pass
+
+
+''' ================== define the class of hospital ==================='''
+
+
+class hosptial_base():
+    """
+    -   usage: format the the base info of hospital
+    -   attribute: ID, Name, plate, Add1, Add2, Type(Tag), Area_Name, Area_Code, base_update_time, point_update_time
+    """
+
+    def __init__(self, r_split):
+        self.r_split = r_split
+
+    @property
+    def id(self):
+        _id = _get_id(self.r_split)
+        return _id
+
+    @property
+    def name(self):
+        _name = _get_name(self.r_split)
+        return _name
+
+    @property
+    def plate(self):
+        _plate = _get_plate(self.r_split)
+        return _plate
+
+    @property
+    def add1(self):
+        _add1 = _get_add1(self.r_split)
+        return _add1
+
+    @property
+    def add2(self):
+        _add2 = _get_add2(self.r_split)
+        return _add2
+
+    @property
+    def type(self):
+        _type = _get_type(self.r_split)
+        return _type
+
+    @property
+    def area_name(self):
+        _area_name = _get_area_name(self.r_split)
+        return _area_name
+
+    @property
+    def area_code(self):
+        _area_code = _get_area_code(self.r_split)
+        return _area_code
+
+    @property
+    def base_update_time(self):
+        _base_update_time = _get_base_updatetime(self.r_split)
+        return _base_update_time
+
+    @property
+    def point_update_time(self):
+        _point_update_time = _get_point_updatetime(self.r_split)
+        return _point_update_time
+
+
+class hospital_info(hosptial_base, mct_point):
+    pass

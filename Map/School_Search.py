@@ -6,7 +6,7 @@ Ver: v0.1
 Date: 2018.02.24
 Support: 邓旭东HIT
 Description:
-- this procedure is helping find the project in the city by the key word.
+- this procedure is helping find the school in the city by the key word.
 - input : region_code in the BaiDu Map (any level, just like city, village and so on );
 - input : key word (just like project, store), if you want find some other type , may be you need change the
           function - _get_project_list()
@@ -57,9 +57,12 @@ def _get_school_list(region, kw, pn=10):
                 # add sql for insert database
                 school_write_sql(_school)
                 _n += 1
-                print(_school.id, ', ', _school.name, ', ', _school.alias, ', ', _school.plate, ', ', _school.mct_x, ', ',
-                      _school.mct_y, ', ', _school.add1, ', ', _school.add2, ', ', _school.type, ', ',
-                      _school.pix_area_x, ', ', _school.pix_area_y, ', ', _school.area_code, ', ', _school.area_name)
+                print("\n")
+                print(_school.id, ', ', _school.name, ', ', _school.alias, ', ', _school.plate, ', ',
+                      _school.mct_x, ', ', _school.mct_y, ', ', _school.add1, ', ', _school.add2, ', ',
+                      _school.type, ', ', _school.pix_area_x, ', ', _school.pix_area_y, ', ',
+                      _school.area_code, ', ', _school.area_name, ', ',
+                      _school.base_update_time, ', ', _school.point_update_time)
 
         return _n
     except ValueError as e:
