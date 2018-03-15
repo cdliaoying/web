@@ -29,7 +29,7 @@ def _dict_factory(cursor, row):
 def parameter_search():
     _parameter = {
         """
-            if the value of param is zero that means it's not used
+        if the value of param is zero that means it's not used
         """
         "newmap": "1",  # don't know the usage
         "reqflag": "pcmap",  # don't know the usage
@@ -60,7 +60,7 @@ def parameter_search():
     return _parameter
 
 
-def _get_area_name(r_split):
+def _get_area_name(r_split: str):
     """
 
     :param r_split:
@@ -72,7 +72,7 @@ def _get_area_name(r_split):
     return _area_name[0]
 
 
-def _get_area_code(r_split):
+def _get_area_code(r_split: str):
     """
 
     :param r_split:
@@ -97,7 +97,7 @@ def _get_id(r_split):
     return _r_ID
 
 
-def _get_name(r_split):
+def _get_name(r_split: str):
     """
     it's used for find the object's name,just like project_name, school_name,maybe different object has
     different rules
@@ -114,7 +114,7 @@ def _get_name(r_split):
     return _r_name
 
 
-def _get_alias(r_split):
+def _get_alias(r_split: str):
     """
     it's used for find the object's even used name,It's a string.
     :param r_split: the input is a list
@@ -130,7 +130,7 @@ def _get_alias(r_split):
     return _r_alias
 
 
-def _get_plate(r_split):
+def _get_plate(r_split: str):
     """
     it's used for find the object's plate, It's a user defined area, not in the map.
     :param r_split: the input is a list
@@ -147,7 +147,7 @@ def _get_plate(r_split):
     return _r_aoi
 
 
-def _get_add1(r_split):
+def _get_add1(r_split: str):
     """
     it's used for find the object's address,the add1 is a string that describe the current address of object
     :param r_split: the input is a list
@@ -163,7 +163,7 @@ def _get_add1(r_split):
     return _add1
 
 
-def _get_add2(r_split):
+def _get_add2(r_split: str):
     """
     it's used for find the object's address,the add1 is a string that describe the current address of object
     :param r_split: the input is a list
@@ -184,7 +184,7 @@ def _get_add2(r_split):
     return _add2
 
 
-def _get_dev(r_split):
+def _get_dev(r_split: str):
     """
     it's used for find the project's developer,maybe it's only used for the real estate
     :param r_split: the input is a list
@@ -200,7 +200,7 @@ def _get_dev(r_split):
     return _r_dev
 
 
-def _get_type(r_split):
+def _get_type(r_split: str):
     """
     it's used for find the project's type, actually, it's the different level
     :param r_split: the input is a list
@@ -216,7 +216,7 @@ def _get_type(r_split):
     return _r_tag
 
 
-def _get_prop_company(r_split):
+def _get_prop_company(r_split: str):
     """
     it's used for find the project's prosperity company, it's also used for the real estate
     :param r_split: the input is a list
@@ -234,7 +234,7 @@ def _get_prop_company(r_split):
     return _r_prop_compy
 
 
-def _get_prop_fee(r_split):
+def _get_prop_fee(r_split: str):
     """
     it's used for find the project's prosperity fee, it's also used for the real estate
     :param r_split: the input is a list
@@ -252,7 +252,7 @@ def _get_prop_fee(r_split):
     return _r_prop_fee
 
 
-def _get_phone(r_split):
+def _get_phone(r_split: str):
     """
     it's used for find the object's phone, if you are interesting, you can define the rule to check weather the
     result is a real phone
@@ -270,7 +270,7 @@ def _get_phone(r_split):
     return _r_phone
 
 
-def _get_navi_x(r_split):
+def _get_navi_x(r_split: str):
     """
     it's used for find the object's pix coordinate, it's means the x site of point on the map
     :param r_split: the input is a list
@@ -300,7 +300,7 @@ def _get_navi_x(r_split):
     return _r_x
 
 
-def _get_navi_y(r_split):
+def _get_navi_y(r_split: str):
     """
     it's used for find the object's pix coordinate, it's means the y site of point on the map
     :param r_split: the input is a list
@@ -331,7 +331,7 @@ def _get_navi_y(r_split):
     return _r_y
 
 
-def _get_base_updatetime(r_split):
+def _get_base_updatetime(r_split: str):
     """
 
     :param r_split:
@@ -416,34 +416,13 @@ _school_row = [u'ID', u'学校名称', u'曾用名', u'版块', u'地址1', u'�
                u'地图区域码x', '地图区域码y']
 _project_row = []
 
-'''
-def school_write_excel(row0):
-    """
-
-    :return:
-    """
-    _f = xlwt.Workbook()  # 创建工作簿
-
-    # create the first sheet : sheet1
-    _sheet1 = _f.add_sheet(u'sheet1', cell_overwrite_ok=True)
-
-    _row0 = row0
-    #  column0 = [u'机票', u'船票', u'火车票', u'汽车票', u'其它']
-    #  status = [u'预订', u'出票', u'退票', u'业务小计']
-
-    # 生成第一行
-    for i in range(0, len(row0)):
-        _sheet1.write(0, i, row0[i], _set_style('Times New Roman', 220, True))
-
-    _f.save('demo1.xlsx')  # 保存文件
-'''
-
 
 def school_write_sql(school_info):
     """
     the function is used for insert the school info into the db
     :param school_info: is class from the school_info
     :return: No return
+    @:type school_info: class
     """
     _school = school_info
     _dir = os.path.join(os.path.abspath('..'), "dic", "baidu_result")
@@ -638,7 +617,6 @@ class proj_base():
     def prop_fee(self):
         _fee = _get_prop_fee(self.r_split)
         return _fee
-
 
 
 class proj_info(proj_base, mct_point):

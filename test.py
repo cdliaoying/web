@@ -182,3 +182,6 @@ _p1 = r'(?<=area_name.:.).+?(?=")'
 _x1 = re.findall(_p1, _r)
 print("x1: %s" % _x1)
 
+local_url = os.path.join(os.path.abspath('..'), "dic", "mct2bd09.html")
+print("local_url: %s" % local_url)
+
