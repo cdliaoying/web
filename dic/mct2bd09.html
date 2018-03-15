@@ -1,0 +1,85 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>摩卡托坐标的反地址解析</title>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=1.2"></script>
+</head>
+<body>
+<div style="width:400px;height:650px;border:1px solid gray;float:left;" id="container"></div>
+<div style="width:500px;height:270px;float:left;margin:0 0 0 10px;">
+    <p>摩卡托坐标x:<input type="text" value="12059034.69" id="mctX" /></p>
+    <p>摩卡托坐标y:<input type="text" value="2590880.82" id="mctY" /></p>
+    <p id="pointX"></p>
+    <p id="pointY"></p>
+    <p id="entertaiment"></p>
+    <p><input style="width:240px;height:130px;font-size:30px;"
+              type="button" value="MCT反地址解析" onclick="mctGeo();" /></p>
+    <div id="panel"></div>
+</div>
+</body>
+</html>
+<script type="text/javascript">
+//以下两句话为创建地图
+var map = new BMap.Map("container");
+map.centerAndZoom(new BMap.Point(108.318421,22.800617), 15);
+//鱼骨控件
+map.addControl(new BMap.NavigationControl());
+
+//点击地图进行地址解析
+var gc = new BMap.Geocoder();
+map.addEventListener("click", function(e){
+    var pt = e.point;
+    document.getElementById("pointX").innerHTML = "经纬度lng: " + pt.lng;
+    document.getElementById("pointY").innerHTML = "经纬度lat: " + pt.lat;
+
+    var projection1 = this.getMapType().getProjection();
+    var worldCoordinate = projection1.lngLatToPoint(pt);
+    document.getElementById("mctX").value = worldCoordinate.x;
+    document.getElementById("mctY").value = worldCoordinate.y;
+
+    map.clearOverlays();
+    document.getElementById("panel").innerHTML = "";
+
+    gc.getLocation(pt, function(rs){
+        var addComp = rs.addressComponents;
+        document.getElementById("entertaiment").innerHTML = addComp.province + ", " + addComp.city + ", " + addComp.district + ", " + addComp.street + ", " + addComp.streetNumber;
+
+        var allPois = rs.surroundingPois;       //获取全部POI（该点半径为100米内有6个POI点）
+for(i=0;i<allPois.length;++i){
+            document.getElementById("panel").innerHTML += "<p style='font-size:12px;'>" + (i+1) + "、" + allPois[i].title + ",地址:" + allPois[i].address + "</p>";
+            map.addOverlay(new BMap.Marker(allPois[i].point));
+        }
+    },mOption);
+});
+
+//摩卡托反地址解析
+var mOption = {
+    poiRadius : 500,           //半径为1000米内的POI,默认100米
+    numPois : 12//列举出50个POI,默认10个
+}
+function mctGeo(){
+    map.clearOverlays();
+    document.getElementById("panel").innerHTML = "";
+
+    var mctXX = document.getElementById("mctX").value;
+    var mctYY = document.getElementById("mctY").value;
+    var mctXY = new BMap.Pixel(mctXX,mctYY);
+
+    var projection2 = map.getMapType().getProjection();
+    var LngLat = projection2.pointToLngLat(mctXY);
+
+    document.getElementById("pointX").innerHTML = "经纬度lng: " + LngLat.lng;
+    document.getElementById("pointY").innerHTML = "经纬度lat: " + LngLat.lat;
+
+    gc.getLocation(LngLat, function(rs){
+        var addComp = rs.addressComponents;
+        document.getElementById("entertaiment").innerHTML = addComp.province + ", " + addComp.city + ", " + addComp.district + ", " + addComp.street + ", " + addComp.streetNumber;
+
+        var allPois = rs.surroundingPois;       //获取全部POI（该点半径为100米内有6个POI点）
+for(i=0;i<allPois.length;++i){
+            document.getElementById("panel").innerHTML += "<p style='font-size:12px;'>" + (i+1) + "、" + allPois[i].title + ",地址:" + allPois[i].address + "</p>";
+            map.addOverlay(new BMap.Marker(allPois[i].point));
+        }
+    },mOption);
+}
+</script>
