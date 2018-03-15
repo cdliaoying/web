@@ -262,3 +262,98 @@ See /usr/include/servers/bootstrap_defs.h for the error codes.
 JavaScript warning: http://api.map.baidu.com/getscript?v=1.2&ak=&services=&t=20130716024057, line 1: unreachable code after return statement
 *** UTM:SVC TimerManager:registerTimer called after profile-before-change notification. Ignoring timer registration for id: telemetry_modules_ping
 1521107693837	geckodriver::marionette	ERROR	Failed to stop browser process
+1521116755924	geckodriver	INFO	geckodriver 0.20.0
+1521116755945	geckodriver	INFO	Listening on 127.0.0.1:49719
+1521116756979	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-headless" "-profile" "/var/folders/07/m9w1b6154dqfrndrprzhpdyr0000gn/T/rust_mozprofile.dFDGiD1u299Q"
+*** You are running in headless mode.
+1521116757742	Marionette	INFO	Enabled via --marionette
+2018-03-15 20:25:58.858 plugin-container[879:21636] *** CFMessagePort: bootstrap_register(): failed 1100 (0x44c) 'Permission denied', port = 0x853f, name = 'com.apple.tsm.portname'
+See /usr/include/servers/bootstrap_defs.h for the error codes.
+1521116759465	Marionette	INFO	Listening on port 49730
+1521116759501	Marionette	WARN	TLS certificate errors will be ignored for this session
+2018-03-15 20:26:00.081 plugin-container[880:21710] *** CFMessagePort: bootstrap_register(): failed 1100 (0x44c) 'Permission denied', port = 0x813f, name = 'com.apple.tsm.portname'
+See /usr/include/servers/bootstrap_defs.h for the error codes.
+JavaScript warning: http://api.map.baidu.com/getscript?v=1.2&ak=&services=&t=20130716024057, line 1: unreachable code after return statement
+*** UTM:SVC TimerManager:registerTimer called after profile-before-change notification. Ignoring timer registration for id: telemetry_modules_ping
+1521116771523	geckodriver::marionette	ERROR	Failed to stop browser process
+1521116802224	geckodriver	INFO	geckodriver 0.20.0
+1521116802234	geckodriver	INFO	Listening on 127.0.0.1:49819
+1521116802252	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-profile" "/var/folders/07/m9w1b6154dqfrndrprzhpdyr0000gn/T/rust_mozprofile.u7fboTHzRP0z"
+1521116802944	Marionette	INFO	Enabled via --marionette
+2018-03-15 20:26:44.066 plugin-container[892:22388] *** CFMessagePort: bootstrap_register(): failed 1100 (0x44c) 'Permission denied', port = 0x863f, name = 'com.apple.tsm.portname'
+See /usr/include/servers/bootstrap_defs.h for the error codes.
+1521116804669	Marionette	INFO	Listening on port 49828
+1521116804769	Marionette	WARN	TLS certificate errors will be ignored for this session
+2018-03-15 20:26:45.426 plugin-container[896:22493] *** CFMessagePort: bootstrap_register(): failed 1100 (0x44c) 'Permission denied', port = 0x7803, name = 'com.apple.tsm.portname'
+See /usr/include/servers/bootstrap_defs.h for the error codes.
+JavaScript warning: http://api.map.baidu.com/getscript?v=1.2&ak=&services=&t=20130716024057, line 1: unreachable code after return statement
+*** UTM:SVC TimerManager:registerTimer called after profile-before-change notification. Ignoring timer registration for id: telemetry_modules_ping
+1521116817137	geckodriver::marionette	ERROR	Failed to stop browser process
+1521116854711	geckodriver	INFO	geckodriver 0.20.0
+1521116854733	geckodriver	INFO	Listening on 127.0.0.1:49915
+1521116855775	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-profile" "/var/folders/07/m9w1b6154dqfrndrprzhpdyr0000gn/T/rust_mozprofile.8wOwS2yIECpI"
+1521116856506	Marionette	INFO	Enabled via --marionette
+2018-03-15 20:27:37.489 plugin-container[915:23617] *** CFMessagePort: bootstrap_register(): failed 1100 (0x44c) 'Permission denied', port = 0x7d3f, name = 'com.apple.tsm.portname'
+See /usr/include/servers/bootstrap_defs.h for the error codes.
+1521116857895	Marionette	INFO	Listening on port 49926
+1521116858025	Marionette	WARN	TLS certificate errors will be ignored for this session
+2018-03-15 20:27:38.531 plugin-container[916:23689] *** CFMessagePort: bootstrap_register(): failed 1100 (0x44c) 'Permission denied', port = 0x853f, name = 'com.apple.tsm.portname'
+See /usr/include/servers/bootstrap_defs.h for the error codes.
+2018-03-15 20:27:38.781 plugin-container[917:23697] *** CFMessagePort: bootstrap_register(): failed 1100 (0x44c) 'Permission denied', port = 0x860b, name = 'com.apple.tsm.portname'
+See /usr/include/servers/bootstrap_defs.h for the error codes.
+JavaScript warning: http://api.map.baidu.com/getscript?v=1.2&ak=&services=&t=20130716024057, line 1: unreachable code after return statement
+*** UTM:SVC TimerManager:registerTimer called after profile-before-change notification. Ignoring timer registration for id: telemetry_modules_ping
+1521116893735	geckodriver	INFO	geckodriver 0.20.0
+1521116893764	geckodriver	INFO	Listening on 127.0.0.1:50008
+1521116894754	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-headless" "-profile" "/var/folders/07/m9w1b6154dqfrndrprzhpdyr0000gn/T/rust_mozprofile.14IUKIPRMSai"
+*** You are running in headless mode.
+1521116896104	Marionette	INFO	Enabled via --marionette
+2018-03-15 20:28:17.616 plugin-container[933:24359] *** CFMessagePort: bootstrap_register(): failed 1100 (0x44c) 'Permission denied', port = 0x7803, name = 'com.apple.tsm.portname'
+See /usr/include/servers/bootstrap_defs.h for the error codes.
+1521116898183	Marionette	INFO	Listening on port 50019
+1521116898299	Marionette	WARN	TLS certificate errors will be ignored for this session
+2018-03-15 20:28:18.880 plugin-container[934:24437] *** CFMessagePort: bootstrap_register(): failed 1100 (0x44c) 'Permission denied', port = 0x813f, name = 'com.apple.tsm.portname'
+See /usr/include/servers/bootstrap_defs.h for the error codes.
+JavaScript warning: http://api.map.baidu.com/getscript?v=1.2&ak=&services=&t=20130716024057, line 1: unreachable code after return statement
+*** UTM:SVC TimerManager:registerTimer called after profile-before-change notification. Ignoring timer registration for id: telemetry_modules_ping
+1521116910463	geckodriver::marionette	ERROR	Failed to stop browser process
+1521117046011	geckodriver	INFO	geckodriver 0.20.0
+1521117046021	geckodriver	INFO	Listening on 127.0.0.1:50315
+1521117047047	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-headless" "-profile" "/var/folders/07/m9w1b6154dqfrndrprzhpdyr0000gn/T/rust_mozprofile.Jwo7ArKimKUI"
+*** You are running in headless mode.
+1521117047558	Marionette	INFO	Enabled via --marionette
+2018-03-15 20:30:48.440 plugin-container[979:26829] *** CFMessagePort: bootstrap_register(): failed 1100 (0x44c) 'Permission denied', port = 0x7e03, name = 'com.apple.tsm.portname'
+See /usr/include/servers/bootstrap_defs.h for the error codes.
+1521117048793	Marionette	INFO	Listening on port 50326
+1521117048828	Marionette	WARN	TLS certificate errors will be ignored for this session
+2018-03-15 20:30:49.386 plugin-container[980:26889] *** CFMessagePort: bootstrap_register(): failed 1100 (0x44c) 'Permission denied', port = 0x883f, name = 'com.apple.tsm.portname'
+See /usr/include/servers/bootstrap_defs.h for the error codes.
+JavaScript warning: http://api.map.baidu.com/getscript?v=1.2&ak=&services=&t=20130716024057, line 1: unreachable code after return statement
+1521117066205	geckodriver	INFO	geckodriver 0.20.0
+1521117066216	geckodriver	INFO	Listening on 127.0.0.1:50397
+1521117067246	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-headless" "-profile" "/var/folders/07/m9w1b6154dqfrndrprzhpdyr0000gn/T/rust_mozprofile.DpVCsKBhpmg1"
+*** You are running in headless mode.
+1521117067758	Marionette	INFO	Enabled via --marionette
+2018-03-15 20:31:08.657 plugin-container[990:27357] *** CFMessagePort: bootstrap_register(): failed 1100 (0x44c) 'Permission denied', port = 0x843f, name = 'com.apple.tsm.portname'
+See /usr/include/servers/bootstrap_defs.h for the error codes.
+1521117069061	Marionette	INFO	Listening on port 50408
+1521117069133	Marionette	WARN	TLS certificate errors will be ignored for this session
+2018-03-15 20:31:09.726 plugin-container[991:27424] *** CFMessagePort: bootstrap_register(): failed 1100 (0x44c) 'Permission denied', port = 0x713f, name = 'com.apple.tsm.portname'
+See /usr/include/servers/bootstrap_defs.h for the error codes.
+JavaScript warning: http://api.map.baidu.com/getscript?v=1.2&ak=&services=&t=20130716024057, line 1: unreachable code after return statement
+*** UTM:SVC TimerManager:registerTimer called after profile-before-change notification. Ignoring timer registration for id: telemetry_modules_ping
+1521117081297	geckodriver::marionette	ERROR	Failed to stop browser process
+1521117134304	geckodriver	INFO	geckodriver 0.20.0
+1521117134313	geckodriver	INFO	Listening on 127.0.0.1:50510
+1521117134339	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-headless" "-profile" "/var/folders/07/m9w1b6154dqfrndrprzhpdyr0000gn/T/rust_mozprofile.152ygmVsLBpq"
+*** You are running in headless mode.
+1521117135197	Marionette	INFO	Enabled via --marionette
+2018-03-15 20:32:16.146 plugin-container[1010:28661] *** CFMessagePort: bootstrap_register(): failed 1100 (0x44c) 'Permission denied', port = 0x7c3f, name = 'com.apple.tsm.portname'
+See /usr/include/servers/bootstrap_defs.h for the error codes.
+1521117136605	Marionette	INFO	Listening on port 50515
+1521117136648	Marionette	WARN	TLS certificate errors will be ignored for this session
+2018-03-15 20:32:17.226 plugin-container[1012:28733] *** CFMessagePort: bootstrap_register(): failed 1100 (0x44c) 'Permission denied', port = 0x803f, name = 'com.apple.tsm.portname'
+See /usr/include/servers/bootstrap_defs.h for the error codes.
+JavaScript warning: http://api.map.baidu.com/getscript?v=1.2&ak=&services=&t=20130716024057, line 1: unreachable code after return statement
+*** UTM:SVC TimerManager:registerTimer called after profile-before-change notification. Ignoring timer registration for id: telemetry_modules_ping
+1521117148776	geckodriver::marionette	ERROR	Failed to stop browser process

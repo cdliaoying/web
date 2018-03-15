@@ -112,5 +112,5 @@ def school_search(region, kw, bn, en):
 
 # test code:
 # _get_school_list("631", "幼儿园", 4)
-school_search("631", "幼儿园", 0, 20)
+school_search("631", "小学", 0, 2)
 

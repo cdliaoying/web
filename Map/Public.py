@@ -289,12 +289,12 @@ def _get_navi_x(r_split: str):
     _p3 = r'(?<="geo":"1\|).+?(?=,)'
     _x3 = re.findall(_p3, _r)
 
-    if float(_x1[0]) > 0:
-        _r_x = _x1[0]
-    elif float(_x2[0]) > 0:
+    if float(_x2[0]) > 0:
         _r_x = _x2[0]
     elif _x3[0] and float(_x3[0]) > 0:
         _r_x = _x3[0]
+    elif float(_x1[0]) > 0:
+        _r_x = _x1[0]
     else:
         _r_x = 0.0
     return _r_x
@@ -320,12 +320,12 @@ def _get_navi_y(r_split: str):
     _y3 = re.findall(_p3, _r)
     _y3 = re.split(r',', _y3[0])
 
-    if float(_y1[0]) > 0:
-        _r_y = _y1[0]
-    elif float(_y2[0]) > 0:
+    if float(_y2[0]) > 0:
         _r_y = _y2[0]
     elif _y3[1] and float(_y3[1]) > 0:
         _r_y = _y3[1]
+    elif float(_y1[0]) > 0:
+        _r_y = _y1[0]
     else:
         _r_y = 0.0
     return _r_y

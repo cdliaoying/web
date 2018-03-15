@@ -37,15 +37,18 @@ local_url = "file://" + os.path.join(os.path.abspath('..'), "dic", "mct2bd09.htm
 driver.get(local_url)
 print(driver.title)
 time.sleep(5)
-driver.find_element_by_id('mctX').send_keys('12059034.69')
-driver.find_element_by_id('mctY').send_keys('2590880.82')
+driver.find_element_by_id('mctX').clear()
+driver.find_element_by_id('mctY').clear()
+driver.find_element_by_id('mctX').send_keys('11584146.4677')
+driver.find_element_by_id('mctY').send_keys('3568775.09694')
 driver.find_element_by_xpath("//div[2]/p[6]/input[1]").click()
 time.sleep(5)
-# ?
-db09_x = driver.find_element_by_xpath("//p[@id=\"pointX\"]")
-db09_y = driver.find_element_by_xpath("//p[@id=\"pointY\"]")
+db09_x = driver.find_element_by_xpath("//p[@id=\"pointX\"]").text
+db09_y = driver.find_element_by_xpath("//p[@id=\"pointY\"]").text
+entertaiment = driver.find_element_by_xpath("//p[@id=\"entertaiment\"]").text
 print("db09_x: %s" % db09_x)
 print("db09_y: %s" % db09_y)
+print("entertaiment: %s" % entertaiment)
 driver.quit()
 
 
