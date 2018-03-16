@@ -87,7 +87,7 @@ def get_object_bd09():
     __pix_c = _get_objects_id(__object_name)
     print("共有 %s 条数据需要转换BD09坐标" % len(__pix_c))
     if __pix_c:
-        __i = __pix_2_bd09(__object_name, __pix_c[0:4])
+        __i = __pix_2_bd09(__object_name, __pix_c[0:11])
         print("\n共转换 %s 条数据" % __i)
     pass
 

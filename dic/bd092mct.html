@@ -1,36 +1,36 @@
-ï»¿<html>
+<html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
-<title>mct_2_bd09</title>
+<title>Bd09_2_mct</title>
 <script type="text/javascript" src="http://api.map.baidu.com/api?v=1.2"></script>
 </head>
 <body>
 <div style="width:400px;height:650px;border:1px solid gray;float:left;" id="container"></div>
 <div style="width:500px;height:270px;float:left;margin:0 0 0 10px;">
-    <p>æ‘©å¡æ‰˜åæ ‡x:<input type="text" value="12059034.69" id="mctX" /></p>
-    <p>æ‘©å¡æ‰˜åæ ‡y:<input type="text" value="2590880.82" id="mctY" /></p>
-    <p id="pointX"></p>
-    <p id="pointY"></p>
+    <p>bd09µÄlat:<input type="text" value="" id="lat" /></p>
+    <p>bd09µÄlng:<input type="text" value="" id="lng" /></p>
+    <p id="mctX"></p>
+    <p id="mctY"></p>
     <p id="entertaiment"></p>
     <p><input style="width:240px;height:130px;font-size:30px;"
-              type="button" value="MCTååœ°å€è§£æ" onclick="mctGeo();" /></p>
+              type="button" value="¾­Î³¶ÈµØÖ·½âÎö" onclick="mctGeo();" /></p>
     <div id="panel"></div>
 </div>
 </body>
 </html>
 <script type="text/javascript">
-//ä»¥ä¸‹ä¸¤å¥è¯ä¸ºåˆ›å»ºåœ°å›¾
+//ÒÔÏÂÁ½¾ä»°Îª´´½¨µØÍ¼
 var map = new BMap.Map("container");
 map.centerAndZoom(new BMap.Point(108.318421,22.800617), 15);
-//é±¼éª¨æ§ä»¶
+//Óã¹Ç¿Ø¼ş
 map.addControl(new BMap.NavigationControl());
 
-//ç‚¹å‡»åœ°å›¾è¿›è¡Œåœ°å€è§£æ
+//µã»÷µØÍ¼½øĞĞµØÖ·½âÎö
 var gc = new BMap.Geocoder();
 map.addEventListener("click", function(e){
     var pt = e.point;
-    document.getElementById("pointX").innerHTML = "ç»åº¦lat: " + pt.lat;
-    document.getElementById("pointY").innerHTML = "çº¬åº¦lng: " + pt.lng;
+    document.getElementById("pointX").innerHTML = "¾­¶Èlat: " + pt.lat;
+    document.getElementById("pointY").innerHTML = "Î³¶Èlng: " + pt.lng;
 
     var projection1 = this.getMapType().getProjection();
     var worldCoordinate = projection1.lngLatToPoint(pt);
@@ -42,20 +42,22 @@ map.addEventListener("click", function(e){
 
     gc.getLocation(pt, function(rs){
         var addComp = rs.addressComponents;
-        document.getElementById("entertaiment").innerHTML = addComp.province + ", " + addComp.city + ", " + addComp.district + ", " + addComp.street + ", " + addComp.streetNumber;
+        document.getElementById("entertaiment").innerHTML = addComp.province + ", " + addComp.city
+            + ", " + addComp.district + ", " + addComp.street + ", " + addComp.streetNumber;
 
-        var allPois = rs.surroundingPois;       //è·å–å…¨éƒ¨POIï¼ˆè¯¥ç‚¹åŠå¾„ä¸º100ç±³å†…æœ‰6ä¸ªPOIç‚¹ï¼‰
+        var allPois = rs.surroundingPois;       //»ñÈ¡È«²¿POI£¨¸Ãµã°ë¾¶Îª100Ã×ÄÚÓĞ6¸öPOIµã£©
 for(i=0;i<allPois.length;++i){
-            document.getElementById("panel").innerHTML += "<p style='font-size:12px;'>" + (i+1) + "ã€" + allPois[i].title + ",åœ°å€:" + allPois[i].address + "</p>";
+            document.getElementById("panel").innerHTML += "<p style='font-size:12px;'>" + (i+1)
+                + "¡¢" + allPois[i].title + ",µØÖ·:" + allPois[i].address + "</p>";
             map.addOverlay(new BMap.Marker(allPois[i].point));
         }
     },mOption);
 });
 
-//æ‘©å¡æ‰˜ååœ°å€è§£æ
+//Ä¦¿¨ÍĞ·´µØÖ·½âÎö
 var mOption = {
-    poiRadius : 500,           //åŠå¾„ä¸º1000ç±³å†…çš„POI,é»˜è®¤100ç±³
-    numPois : 12//åˆ—ä¸¾å‡º50ä¸ªPOI,é»˜è®¤10ä¸ª
+    poiRadius : 500,           //°ë¾¶Îª1000Ã×ÄÚµÄPOI,Ä¬ÈÏ100Ã×
+    numPois : 12//ÁĞ¾Ù³ö50¸öPOI,Ä¬ÈÏ10¸ö
 }
 function mctGeo(){
     map.clearOverlays();
@@ -68,16 +70,16 @@ function mctGeo(){
     var projection2 = map.getMapType().getProjection();
     var LngLat = projection2.pointToLngLat(mctXY);
 
-    document.getElementById("pointX").innerHTML = "çº¬åº¦lat:" + LngLat.lat + ";";
-    document.getElementById("pointY").innerHTML = "ç»åº¦lng:" + LngLat.lng + ";";
+    document.getElementById("pointX").innerHTML = "Î³¶Èlat:" + LngLat.lat + ";";
+    document.getElementById("pointY").innerHTML = "¾­¶Èlng:" + LngLat.lng + ";";
 
     gc.getLocation(LngLat, function(rs){
         var addComp = rs.addressComponents;
         document.getElementById("entertaiment").innerHTML = addComp.province + ", " + addComp.city + ", " + addComp.district + ", " + addComp.street + ", " + addComp.streetNumber;
 
-        var allPois = rs.surroundingPois;       //è·å–å…¨éƒ¨POIï¼ˆè¯¥ç‚¹åŠå¾„ä¸º100ç±³å†…æœ‰6ä¸ªPOIç‚¹ï¼‰
+        var allPois = rs.surroundingPois;       //»ñÈ¡È«²¿POI£¨¸Ãµã°ë¾¶Îª100Ã×ÄÚÓĞ6¸öPOIµã£©
 for(i=0;i<allPois.length;++i){
-            document.getElementById("panel").innerHTML += "<p style='font-size:12px;'>" + (i+1) + "ã€" + allPois[i].title + ",åœ°å€:" + allPois[i].address + "</p>";
+            document.getElementById("panel").innerHTML += "<p style='font-size:12px;'>" + (i+1) + "¡¢" + allPois[i].title + ",µØÖ·:" + allPois[i].address + "</p>";
             map.addOverlay(new BMap.Marker(allPois[i].point));
         }
     },mOption);
