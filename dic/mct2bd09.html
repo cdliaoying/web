@@ -29,8 +29,8 @@ map.addControl(new BMap.NavigationControl());
 var gc = new BMap.Geocoder();
 map.addEventListener("click", function(e){
     var pt = e.point;
-    document.getElementById("pointX").innerHTML = "经纬度lng: " + pt.lng;
-    document.getElementById("pointY").innerHTML = "经纬度lat: " + pt.lat;
+    document.getElementById("pointX").innerHTML = "经度lat: " + pt.lat;
+    document.getElementById("pointY").innerHTML = "纬度lng: " + pt.lng;
 
     var projection1 = this.getMapType().getProjection();
     var worldCoordinate = projection1.lngLatToPoint(pt);
@@ -68,8 +68,8 @@ function mctGeo(){
     var projection2 = map.getMapType().getProjection();
     var LngLat = projection2.pointToLngLat(mctXY);
 
-    document.getElementById("pointX").innerHTML = "经纬度lng: " + LngLat.lng;
-    document.getElementById("pointY").innerHTML = "经纬度lat: " + LngLat.lat;
+    document.getElementById("pointX").innerHTML = "纬度lat:" + LngLat.lat + ";";
+    document.getElementById("pointY").innerHTML = "经度lng:" + LngLat.lng + ";";
 
     gc.getLocation(LngLat, function(rs){
         var addComp = rs.addressComponents;

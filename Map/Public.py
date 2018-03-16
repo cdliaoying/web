@@ -450,6 +450,52 @@ def school_write_sql(school_info):
         pass
 
 
+def _get_objects_id(t_name: str):
+    """
+
+    :param t_name: the object's name in the db
+    :return: a list inclued objects' value of attribute
+    """
+    __t_name = t_name
+    __dir = os.path.join(os.path.abspath('..'), "dic", "baidu_result")
+    __con = sqlite3.connect(__dir)
+    __con.row_factory = _dict_factory
+    __cur = __con.cursor()
+    __sql = ('select Id, Pix_X, Pix_Y FROM %s WHERE BD_lat IS NULL OR BD_lng IS NULL' % __t_name)
+    try:
+        __cur.execute(__sql)
+        __r = __cur.fetchall()
+        __coordinate = []
+        if __r:
+            for __mct in __r:
+                __pix = pix_coordinate_object(__mct)
+                __coordinate.append(__pix)
+        __cur.close()
+        return __coordinate
+    except ValueError as e:
+        raise e
+    finally:
+        pass
+
+
+def _write_bd09_sql(t_name: str, bd_coor):
+    __bd_coor = bd_coor
+    __t_name = t_name
+    __search = "UPDATE %s SET BD_lat = ?, BD_lng = ? WHERE Id = ?" % __t_name
+    if __bd_coor.id:
+        __dir = os.path.join(os.path.abspath('..'), "dic", "baidu_result")
+        __con = sqlite3.connect(__dir)
+        __con.row_factory = _dict_factory
+        __cur = __con.cursor()
+        __cur.execute(__search, (__bd_coor.lat, __bd_coor.lng, __bd_coor.id))
+        __con.commit()
+        __con.close()
+        print("\n%s 修改成功" % __bd_coor.id)
+    else:
+        print("\npublic._write_bd09_sql：无百度坐标数据修改！")
+
+
+
 ''' ================= define the class of mct_point ================='''
 
 
@@ -687,4 +733,42 @@ class hosptial_base():
 
 
 class hospital_info(hosptial_base, mct_point):
+    pass
+
+
+class pix_coordinate_object():
+    """
+    It's used for the pix coordinate's instantiation
+    """
+
+    def __init__(self, pix_c: dict):
+        self.__pix_coordinate = pix_c
+
+    @property
+    def id(self):
+        id = self.__pix_coordinate["Id"]
+        return id
+
+    @property
+    def pix_x(self):
+        pix_x = str(self.__pix_coordinate["Pix_X"])
+        return pix_x
+
+    @property
+    def pix_y(self):
+        pix_y = str(self.__pix_coordinate["Pix_Y"])
+        return pix_y
+
+
+class bd09_coordinate_object():
+    """
+    It's used for the bd09 coordinate's instantiation
+    """
+
+    def __init__(self, id, lat, lng, address):
+        self.id = id
+        self.lat = float(lat)  # get 纬度
+        self.lng = float(lng)  # get 经度
+        self.address = address
+
     pass

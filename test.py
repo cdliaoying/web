@@ -185,3 +185,10 @@ print("x1: %s" % _x1)
 local_url = os.path.join(os.path.abspath('..'), "dic", "mct2bd09.html")
 print("local_url: %s" % local_url)
 
+__t_name = 'School_info'
+__sql = ('select Id, Pix_X, Pix_Y FROM %s WHERE BD_lat IS NULL OR BD_lng IS NULL' % __t_name)
+print("__sql: %s" % __sql)
+
+lat = '经度lat:30.670394;'
+lat = re.findall(r'(?<=:).+?(?=;)', lat)
+print("lat: %s" % lat)
