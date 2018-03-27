@@ -495,6 +495,49 @@ def _write_bd09_sql(t_name: str, bd_coor):
         print("\npublic._write_bd09_sql：无百度坐标数据修改！")
 
 
+def _mall_hours(r_split: str):
+    """
+
+    :param r_split:
+    :return:
+    """
+    __r = r_split
+    __p = r'(?<=shop_hours":").+?(?=",)'
+    __hour = re.findall(__p, __r)
+    if __hour:
+        __h = __hour[0]
+    else:
+        __h = 'Null'
+    return __h
+
+
+def _mall_floor(r_split: str):
+    """
+
+    :param r_split:
+    :return:
+    """
+    __r = r_split
+    __p = r'(?<="bigdata":{).+?(?="})'
+    __r = re.findall(__p, __r)
+    __str1 = ''
+    __str2 = ''
+    if __r:
+        __p = r'(?<=floor.:....).+?(?=.],)'
+        __floor = re.findall(__p, __r[0])
+        if __floor:
+            __r = re.split(r'\|', __floor[0])
+            if __r[0][0] == 'B':
+                __str1 = '地下 %s 层 ' % __r[0][1]
+            if __r[-1][0] == 'F':
+                __str2 = '地上 %s 层' % __r[-1][1]
+            __f = __str1 + __str2
+        else:
+            __f = 'Null'
+    else:
+        __f = 'Null'
+    return __f
+
 
 ''' ================= define the class of mct_point ================='''
 
@@ -736,6 +779,9 @@ class hospital_info(hosptial_base, mct_point):
     pass
 
 
+''' ================== define the class of coordinate ==================='''
+
+
 class pix_coordinate_object():
     """
     It's used for the pix coordinate's instantiation
@@ -765,10 +811,88 @@ class bd09_coordinate_object():
     It's used for the bd09 coordinate's instantiation
     """
 
-    def __init__(self, id, lat, lng, address):
-        self.id = id
+    def __init__(self, Id, lat, lng, address):
+        self.id = Id
         self.lat = float(lat)  # get 纬度
         self.lng = float(lng)  # get 经度
         self.address = address
 
+    pass
+
+
+''' ================== define the class of mall ==================='''
+
+
+class mall_base():
+    """
+    -   usage: format the the base info of Mall
+    -   attribute: ID, Name, plate, Add1, Add2, Type(Tag), Area_Name, Area_Code, Shop_Hours, Floor
+        base_update_time, point_update_time,
+    """
+
+    def __init__(self, r_split):
+        self.r_split = r_split
+
+    @property
+    def id(self):
+        __id = _get_id(self.r_split)
+        return __id
+
+    @property
+    def name(self):
+        __name = _get_name(self.r_split)
+        return __name
+
+    @property
+    def plate(self):
+        _plate = _get_plate(self.r_split)
+        return _plate
+
+    @property
+    def add1(self):
+        __add1 = _get_add1(self.r_split)
+        return __add1
+
+    @property
+    def add2(self):
+        __add2 = _get_add2(self.r_split)
+        return __add2
+
+    @property
+    def type(self):
+        __type = _get_type(self.r_split)
+        return __type
+
+    @property
+    def area_name(self):
+        __area_name = _get_area_name(self.r_split)
+        return __area_name
+
+    @property
+    def area_code(self):
+        __area_code = _get_area_code(self.r_split)
+        return __area_code
+
+    @property
+    def base_update_time(self):
+        __base_update_time = _get_base_updatetime(self.r_split)
+        return __base_update_time
+
+    @property
+    def point_update_time(self):
+        __point_update_time = _get_point_updatetime(self.r_split)
+        return __point_update_time
+
+    @property
+    def mall_hours(self):
+        __shop_hours = _mall_hours(self.r_split)
+        return __shop_hours
+
+    @property
+    def mall_floor(self):
+        __mall_floor = _mall_floor(self.r_split)
+        return __mall_floor
+
+
+class mall_info(mall_base, mct_point):
     pass

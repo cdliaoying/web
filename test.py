@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import re, xlrd, xlwt, os
+import re, os
 from datetime import datetime
 
 r = ['[四川省(32)|PROV|0|NONE][成都市(75)|CITY|0|NONE][青羊区(631)|AREA|1|NONE][金阳路()|ROAD|1|NONE]390号",'
@@ -137,7 +137,7 @@ r1 = '0,"addr":"蜀鑫路8号海亮樾金沙5号楼","area":631,"area_name":"成
      '"new_catalog_id":"0d0101","poiType":0,"poi_click_num":0,"poi_profile":0,' \
      '"primary_uid":"7163384712694397029","prio_flag":32,"route_flag":0,"show_tag":[],' \
      '"status":1,"std_tag":"教育培训;幼儿园","std_tag_id":"1805","storage_src":"api","tag":' \
-     '"<font color="#c60a00">幼儿园<\/font> 学校 教育",' \
+     '"<font color="#c60a00">幼儿园<\/font> 学校 教育","floor":"[["B3|B2|B1|F1|F2|F3"], ["23"], "", 0, ""]",' \
      ''
 
 
@@ -192,3 +192,10 @@ print("__sql: %s" % __sql)
 lat = '经度lat:30.670394;'
 lat = re.findall(r'(?<=:).+?(?=;)', lat)
 print("lat: %s" % lat)
+
+__r = '"floor":"[["B3|B2|B1|F1|F2|F3"], ["23"], "", 0, ""]",'
+__p = r'(?<=floor.:....).+?(?=.],)'
+__floor = re.findall(__p, __r)
+print("floor is %s" % __floor[0])
+__f = re.split(r'\|', __floor[0])
+print("floor is %s, %s" % (__f[0][0], __f[-1][0]))

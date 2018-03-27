@@ -11,7 +11,6 @@ Description:
 """
 
 import requests, re
-from Map.Public import mct_point
 
 
 def _get_project_list(region, kw, pn=10):
@@ -60,7 +59,7 @@ def _get_project_list(region, kw, pn=10):
         _r_list = re.findall(_pattern, _htm_code)  # 按段落匹配
 
         # 将输出结果写入文件，帮助正则式分析
-        f = open('/Users/liaoying/Desktop/Python Project/Baidu/dic/test', 'w')
+        f = open('/Users/liaoying/Desktop/PythonProject/Baidu/dic/gaode', 'w')
         f.write(_htm_code)
         f.close()
 
@@ -70,4 +69,4 @@ def _get_project_list(region, kw, pn=10):
         pass
 
 
-_get_project_list("青羊区", "幼儿园", 0)
+_get_project_list("青羊区", "购物中心", 0)

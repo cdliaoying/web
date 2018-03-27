@@ -31,8 +31,9 @@ print(driver.name)
 def __pix_2_bd09(object_name: str, pix_coord: list):
     """
 
-    :param Coordinate:
-    :return:
+    :param object_name: the table's name in the database
+    :param pix_coord: the record list in the table
+    :return: the number of updated record
     """
 
     # initialize the firefox page in headless model
@@ -83,6 +84,10 @@ def __pix_2_bd09(object_name: str, pix_coord: list):
 
 
 def get_object_bd09():
+    """
+
+    :return:
+    """
     __object_name = 'school_info' # object_name is the talbe name in the sqlite
     __pix_c = _get_objects_id(__object_name)
     print("共有 %s 条数据需要转换BD09坐标" % len(__pix_c))

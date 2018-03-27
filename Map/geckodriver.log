@@ -612,16 +612,3 @@ See /usr/include/servers/bootstrap_defs.h for the error codes.
 JavaScript warning: http://api.map.baidu.com/getscript?v=1.2&ak=&services=&t=20130716024057, line 1: unreachable code after return statement
 *** UTM:SVC TimerManager:registerTimer called after profile-before-change notification. Ignoring timer registration for id: telemetry_modules_ping
 1521188689006	geckodriver::marionette	ERROR	Failed to stop browser process
-1521205414802	geckodriver	INFO	geckodriver 0.20.0
-1521205414813	geckodriver	INFO	Listening on 127.0.0.1:49603
-1521205415844	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-headless" "-profile" "/var/folders/07/m9w1b6154dqfrndrprzhpdyr0000gn/T/rust_mozprofile.85QRjpdvz0kC"
-*** You are running in headless mode.
-1521205416725	Marionette	INFO	Enabled via --marionette
-2018-03-16 21:03:37.905 plugin-container[1293:16299] *** CFMessagePort: bootstrap_register(): failed 1100 (0x44c) 'Permission denied', port = 0x7d3f, name = 'com.apple.tsm.portname'
-See /usr/include/servers/bootstrap_defs.h for the error codes.
-1521205418502	Marionette	INFO	Listening on port 49614
-1521205418559	Marionette	WARN	TLS certificate errors will be ignored for this session
-2018-03-16 21:03:39.116 plugin-container[1294:16373] *** CFMessagePort: bootstrap_register(): failed 1100 (0x44c) 'Permission denied', port = 0x8303, name = 'com.apple.tsm.portname'
-See /usr/include/servers/bootstrap_defs.h for the error codes.
-JavaScript warning: http://api.map.baidu.com/getscript?v=1.2&ak=&services=&t=20130716024057, line 1: unreachable code after return statement
-1521205534066	geckodriver::marionette	ERROR	Failed to stop browser process
