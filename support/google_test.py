@@ -13,42 +13,18 @@ Description:
 import requests, re
 
 
-def _get_project_list(region, kw, pn=10):
+def _get_project_list():
     # define parameter
     _parameter = {
+        "c": "75",
         "newmap": "1",
-        "reqflag": "pcmap",
-        "biz": "1",
-        "from": "webmap",
-        "da_par": "direct",
-        "pcevaname": "pc4.1",
-        "qt": "con",
-        "c": "",  # 城市代码
-        "wd": "",  # 搜索关键词
-        "wd2": "",
-        "pn": "",  # 页数
-        "nn": "",
-        "db": "0",
-        "sug": "0",
-        "addr": "0",
-        # "da_src": "pcmappg.poi.page",
-        # "on_gel": "1",
-        # "src": "7",
-        # "gr": "3",
-        # "l": "12",
-        # "tn": "B_NORMAL_MAP",
-        # "u_loc": "12621219.536556,2630747.285024",
-        "ie": "utf-8",
-        # "b": "(11845157.18,3047692.2;11922085.18,3073932.2)",  #这个应该是地理位置坐标，可以忽略
-        # "t": "1468896652886"
+        "qt": "bsl",
+        "tps": "",
+        "uid": "d4d33fd4eab8d63de215f9b0", # 1号线id
     }
 
     # define the url and others
     _url = 'https://map.baidu.com/'
-    _parameter["c"] = region
-    _parameter["wd"] = kw
-    _parameter["pn"] = pn
-    _parameter["nn"] = _parameter["pn"] * 10
 
     try:
         _htm_get = requests.get(_url, params=_parameter, timeout=6)
@@ -59,7 +35,7 @@ def _get_project_list(region, kw, pn=10):
         _r_list = re.findall(_pattern, _htm_code)  # 按段落匹配
 
         # 将输出结果写入文件，帮助正则式分析
-        f = open('/Users/liaoying/Desktop/PythonProject/Baidu/dic/gaode', 'w')
+        f = open('/Users/liaoying/Desktop/PythonProject/Baidu/dic/metro', 'w')
         f.write(_htm_code)
         f.close()
 
@@ -69,4 +45,4 @@ def _get_project_list(region, kw, pn=10):
         pass
 
 
-_get_project_list("青羊区", "购物中心", 0)
+_get_project_list()

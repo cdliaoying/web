@@ -479,6 +479,12 @@ def _get_objects_id(t_name: str):
 
 
 def _write_bd09_sql(t_name: str, bd_coor):
+    """
+
+    :param t_name:
+    :param bd_coor:
+    :return:
+    """
     __bd_coor = bd_coor
     __t_name = t_name
     __search = "UPDATE %s SET BD_lat = ?, BD_lng = ? WHERE Id = ?" % __t_name
@@ -537,6 +543,201 @@ def _mall_floor(r_split: str):
     else:
         __f = 'Null'
     return __f
+
+
+def _get_line_name(r_split: str):
+    """
+    It's used for getting line name
+    :param r_split:
+    :return __line_name:
+    """
+    __r = r_split
+    __p = r'(?<="line_direction.:.).+?(?="nearest_station_idx)'
+    __r = re.findall(__p, __r)
+    __p = r'(?<=name.:.).+?(?=",)'
+    __line = re.findall(__p, __r[0])
+    if __line:
+        __line_name = __line[0]
+    else:
+        __line_name = ''
+    return __line_name
+
+
+def _get_line_price(r_split: str):
+    """
+
+    :param r_split:
+    :return:
+    """
+    __r = r_split
+    __p = r'(?<="maxPrice":).+?(?=,)'
+    __r = re.findall(__p, __r)
+    if __r:
+        __max_price = __r[0]
+    else:
+        __max_price = 0
+    return __max_price
+
+
+def _get_line_time(r_split: str):
+    """
+
+    :param r_split:
+    :return:
+    """
+    __r = r_split
+    __p = r'(?<="timetable":.).+?(?=",)'
+    __r = re.findall(__p, __r)
+    if __r:
+        __line_time = __r[0]
+        __line_time = __line_time.strip()
+    else:
+        __line_time = 'Null'
+    return __line_time
+
+
+def _get_line_id(r_split: str):
+    __r = r_split
+    __p = r'(?<="timetable":.).+?(?="workTime")'
+    __r = re.findall(__p, __r)
+    __p = r'(?<="uid":.).+?(?=",)'
+    __id = re.findall(__p, __r[0])
+    if __r:
+        __line_id = __id[0]
+    else:
+        __line_id = 'Null'
+    return __line_id
+
+
+def _get_line_color(r_split: str):
+    __r = r_split
+    __p = r'(?<="lineColor":.).+?(?="\})'
+    __color = re.findall(__p, __r)
+    if __color:
+        __line_color = __color[0]
+    else:
+        __line_color = 'Null'
+    return __line_color
+
+
+def _get_station_pixx(r_split: str):
+    """
+    :param r_split:
+    :return:
+    """
+    __r = r_split
+    __p = r'(?<="1\|).+?(?=,)'
+    __coor = re.findall(__p, __r)
+    if __coor:
+        __pix_x = __coor[0]
+    else:
+        __pix_x = 'Null'
+    return __pix_x
+
+
+def _get_station_pixy(r_split: str):
+    """
+
+    :param r_split:
+    :return:
+    """
+    __r = r_split
+    __p = r'(?<="1).+?(?=;")'
+    __coor = re.findall(__p, __r)
+    if __coor:
+        __p = r'(?<=,).+?(?=;)'
+        __y = re.findall(__p, __coor[0])
+        __pix_y = __y[0]
+    else:
+        __pix_y = 'Null'
+    return __pix_y
+
+
+def _get_station_name(r_split: str):
+    """
+
+    :param r_split:
+    :return:
+    """
+    __r = r_split
+    __p = r'(?<="name":.).+?(?=.,"operation_times)'
+    __name = re.findall(__p, __r)
+    __st_name = __name[0]
+    return __st_name
+
+
+def _get_station_endtime(r_split: str):
+    """
+
+    :param r_split:
+    :return:
+    """
+    __r = r_split
+    __p = r'(?<="end_time":.).+?(?=",)'
+    __time = re.findall(__p, __r)
+    __end_time = __time[0]
+    return __end_time
+
+
+def _get_station_starttime(r_split: str):
+    """
+
+    :param r_split:
+    :return:
+    """
+    __r = r_split
+    __p = r'(?<="start_time":.).+?(?="})'
+    __time = re.findall(__p, __r)
+    __start_time = __time[0]
+    return __start_time
+
+
+def _get_station_subway(r_split: str):
+    """
+
+    :param r_split:
+    :return:
+    """
+    __r = r_split
+    __p = r'(?<=fff">).+?(?=<)'
+    __st_sub = re.findall(__p, __r)
+    if __st_sub:
+        __subway = __st_sub[0]
+    else:
+        __subway = 'Null'
+    return __subway
+
+
+def _get_station_transfer(r_split: str):
+    """
+
+    :param r_split:
+    :return:
+    """
+    __r = r_split
+    __p = r'(?<="transfer":\[\[).+?(?=\]\],)'
+    __st_tran = re.findall(__p, __r)
+    if __st_tran:
+        __transfer = __st_tran[0]
+    else:
+        __transfer = 'Null'
+    return __transfer
+
+
+def _get_station_id(r_split: str):
+    """
+
+    :param r_split:
+    :return:
+    """
+    __r = r_split
+    __p = r'(?<="uid":").+?(?=")'
+    __st_id = re.findall(__p, __r)
+    if __st_id:
+        __Id = __st_id[-1]
+    else:
+        __Id = 'Null'
+    return __Id
 
 
 ''' ================= define the class of mct_point ================='''
@@ -896,3 +1097,86 @@ class mall_base():
 
 class mall_info(mall_base, mct_point):
     pass
+
+
+''' === define the class of metro line information ===='''
+
+
+class matro_line_info():
+
+    def __init__(self, r_split):
+        self.__r_split = r_split
+
+    @property
+    def line_id(self):
+        __line_id = _get_line_id(self.__r_split)
+        return __line_id
+
+    @property
+    def line_name(self):
+        __line_name = _get_line_name(self.__r_split)
+        return __line_name
+
+    @property
+    def line_time(self):
+        __line_time = _get_line_time(self.__r_split)
+        return __line_time
+
+    @property
+    def max_price(self):
+        __max_price = _get_line_price(self.__r_split)
+        return __max_price
+
+    @property
+    def line_color(self):
+        __line_color = _get_line_color(self.__r_split)
+        return __line_color
+
+
+''' === define the class of station information ===='''
+
+
+class station_info():
+
+    def __init__(self, r_split):
+        self.__r_split = r_split
+
+    @property
+    def st_id(self):
+        __Id = _get_station_id(self.__r_split)
+        return __Id
+
+    @property
+    def st_name(self):
+        __st_name = _get_station_name(self.__r_split)
+        return __st_name
+
+    @property
+    def st_start_time(self):
+        __start_time = _get_station_starttime(self.__r_split)
+        return __start_time
+
+    @property
+    def st_end_time(self):
+        __end_time = _get_station_endtime(self.__r_split)
+        return __end_time
+
+    @property
+    def st_subway(self):
+        __subway = _get_station_subway(self.__r_split)
+        return __subway
+
+    @property
+    def st_transfer(self):
+        __transfer = _get_station_transfer(self.__r_split)
+        return __transfer
+
+    @property
+    def st_pix_x(self):
+        __pix_x = _get_station_pixx(self.__r_split)
+        return __pix_x
+
+    @property
+    def st_pix_y(self):
+        __pix_y = _get_station_pixy(self.__r_split)
+        return __pix_y
