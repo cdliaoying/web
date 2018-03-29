@@ -1132,14 +1132,20 @@ class matro_line_info():
         __line_color = _get_line_color(self.__r_split)
         return __line_color
 
+    @property
+    def creat_date(self):
+        __creat_date = time.strftime("%Y-%m-%d")
+        return __creat_date
+
 
 ''' === define the class of station information ===='''
 
 
 class station_info():
 
-    def __init__(self, r_split):
+    def __init__(self, r_split, line_id):
         self.__r_split = r_split
+        self.line_id = line_id
 
     @property
     def st_id(self):
@@ -1180,3 +1186,8 @@ class station_info():
     def st_pix_y(self):
         __pix_y = _get_station_pixy(self.__r_split)
         return __pix_y
+
+    @property
+    def creat_date(self):
+        __creat_date = time.strftime("%Y-%m-%d")
+        return __creat_date

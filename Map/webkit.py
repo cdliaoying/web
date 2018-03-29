@@ -83,19 +83,19 @@ def __pix_2_bd09(object_name: str, pix_coord: list):
     return __i
 
 
-def get_object_bd09():
+def get_object_bd09(table_name):
     """
 
     :return:
     """
-    __object_name = 'school_info' # object_name is the talbe name in the sqlite
+    __object_name = table_name # object_name is the talbe name in the sqlite
     __pix_c = _get_objects_id(__object_name)
     print("共有 %s 条数据需要转换BD09坐标" % len(__pix_c))
     if __pix_c:
-        __i = __pix_2_bd09(__object_name, __pix_c[0:11])
+        __i = __pix_2_bd09(__object_name, __pix_c)
         print("\n共转换 %s 条数据" % __i)
     pass
 
 
 #  test code
-get_object_bd09()
+#  get_object_bd09('school_info')

@@ -9,113 +9,220 @@
     <collation id="3" parent="1" name="BINARY"/>
     <collation id="4" parent="1" name="NOCASE"/>
     <collation id="5" parent="1" name="RTRIM"/>
-    <table id="6" parent="2" name="school_info"/>
-    <table id="7" parent="2" name="sqlite_master">
+    <table id="6" parent="2" name="metro_line_info"/>
+    <table id="7" parent="2" name="metro_station_info"/>
+    <table id="8" parent="2" name="school_info"/>
+    <table id="9" parent="2" name="sqlite_master">
       <System>1</System>
     </table>
-    <column id="8" parent="6" name="Id">
+    <column id="10" parent="6" name="line_id">
       <Position>1</Position>
       <DataType>TEXT|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="9" parent="6" name="Name">
+    <column id="11" parent="6" name="line_name">
       <Position>2</Position>
       <DataType>TEXT|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="10" parent="6" name="Alias">
+    <column id="12" parent="6" name="max_price">
       <Position>3</Position>
       <DataType>TEXT|0</DataType>
     </column>
-    <column id="11" parent="6" name="Plate">
+    <column id="13" parent="6" name="line_time">
       <Position>4</Position>
       <DataType>TEXT|0</DataType>
     </column>
-    <column id="12" parent="6" name="Address">
+    <column id="14" parent="6" name="line_color">
       <Position>5</Position>
       <DataType>TEXT|0</DataType>
     </column>
-    <column id="13" parent="6" name="Address2">
+    <column id="15" parent="6" name="creat_date">
+      <Position>6</Position>
+      <DataType>TEXT|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="16" parent="6" name="sqlite_autoindex_metro_line_info_1">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>line_id</ColNames>
+      <ColumnCollations></ColumnCollations>
+      <Unique>1</Unique>
+    </index>
+    <key id="17" parent="6">
+      <ColNames>line_id</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>sqlite_autoindex_metro_line_info_1</UnderlyingIndexName>
+    </key>
+    <column id="18" parent="7" name="Id">
+      <Position>1</Position>
+      <DataType>TEXT|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="19" parent="7" name="line_id">
+      <Position>2</Position>
+      <DataType>INT|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="20" parent="7" name="st_name">
+      <Position>3</Position>
+      <DataType>TEXT|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="21" parent="7" name="start_time">
+      <Position>4</Position>
+      <DataType>TEXT|0</DataType>
+    </column>
+    <column id="22" parent="7" name="end_time">
+      <Position>5</Position>
+      <DataType>TEXT|0</DataType>
+    </column>
+    <column id="23" parent="7" name="subway">
       <Position>6</Position>
       <DataType>TEXT|0</DataType>
     </column>
-    <column id="14" parent="6" name="Type">
+    <column id="24" parent="7" name="transfer">
       <Position>7</Position>
       <DataType>TEXT|0</DataType>
     </column>
-    <column id="15" parent="6" name="Pix_X">
+    <column id="25" parent="7" name="Pix_X">
       <Position>8</Position>
-      <DataType>FLOAT|0</DataType>
+      <DataType>TEXT|0</DataType>
     </column>
-    <column id="16" parent="6" name="Pix_Y">
+    <column id="26" parent="7" name="Pix_Y">
       <Position>9</Position>
-      <DataType>FLOAT|0</DataType>
+      <DataType>TEXT|0</DataType>
     </column>
-    <column id="17" parent="6" name="Area_X">
+    <column id="27" parent="7" name="BD_lng">
       <Position>10</Position>
-      <DataType>FLOAT|0</DataType>
+      <DataType>TEXT|0</DataType>
     </column>
-    <column id="18" parent="6" name="Area_Y">
+    <column id="28" parent="7" name="BD_lat">
       <Position>11</Position>
-      <DataType>FLOAT|0</DataType>
+      <DataType>TEXT|0</DataType>
     </column>
-    <column id="19" parent="6" name="Area_Code">
+    <column id="29" parent="7" name="creat_date">
       <Position>12</Position>
       <DataType>TEXT|0</DataType>
     </column>
-    <column id="20" parent="6" name="Area_Name">
-      <Position>13</Position>
-      <DataType>TEXT|0</DataType>
-    </column>
-    <column id="21" parent="6" name="Base_Update_time">
-      <Position>14</Position>
-      <DataType>TIME|0</DataType>
-    </column>
-    <column id="22" parent="6" name="Point_Update_time">
-      <Position>15</Position>
-      <DataType>TIME|0</DataType>
-    </column>
-    <column id="23" parent="6" name="BD_lat">
-      <Position>16</Position>
-      <DataType>FLOAT|0</DataType>
-    </column>
-    <column id="24" parent="6" name="BD_lng">
-      <Position>17</Position>
-      <DataType>FLOAT|0</DataType>
-    </column>
-    <index id="25" parent="6" name="school_info_Id_uindex">
+    <index id="30" parent="7" name="metro_station_info_Id_uindex">
       <ColNames>Id</ColNames>
       <ColumnCollations></ColumnCollations>
       <Unique>1</Unique>
     </index>
-    <index id="26" parent="6" name="sqlite_autoindex_school_info_1">
+    <index id="31" parent="7" name="sqlite_autoindex_metro_station_info_1">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>Id</ColNames>
       <ColumnCollations></ColumnCollations>
       <Unique>1</Unique>
     </index>
-    <key id="27" parent="6">
+    <key id="32" parent="7">
+      <ColNames>Id</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>sqlite_autoindex_metro_station_info_1</UnderlyingIndexName>
+    </key>
+    <column id="33" parent="8" name="Id">
+      <Position>1</Position>
+      <DataType>TEXT|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="34" parent="8" name="Name">
+      <Position>2</Position>
+      <DataType>TEXT|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="35" parent="8" name="Alias">
+      <Position>3</Position>
+      <DataType>TEXT|0</DataType>
+    </column>
+    <column id="36" parent="8" name="Plate">
+      <Position>4</Position>
+      <DataType>TEXT|0</DataType>
+    </column>
+    <column id="37" parent="8" name="Address">
+      <Position>5</Position>
+      <DataType>TEXT|0</DataType>
+    </column>
+    <column id="38" parent="8" name="Address2">
+      <Position>6</Position>
+      <DataType>TEXT|0</DataType>
+    </column>
+    <column id="39" parent="8" name="Type">
+      <Position>7</Position>
+      <DataType>TEXT|0</DataType>
+    </column>
+    <column id="40" parent="8" name="Pix_X">
+      <Position>8</Position>
+      <DataType>FLOAT|0</DataType>
+    </column>
+    <column id="41" parent="8" name="Pix_Y">
+      <Position>9</Position>
+      <DataType>FLOAT|0</DataType>
+    </column>
+    <column id="42" parent="8" name="Area_X">
+      <Position>10</Position>
+      <DataType>FLOAT|0</DataType>
+    </column>
+    <column id="43" parent="8" name="Area_Y">
+      <Position>11</Position>
+      <DataType>FLOAT|0</DataType>
+    </column>
+    <column id="44" parent="8" name="Area_Code">
+      <Position>12</Position>
+      <DataType>TEXT|0</DataType>
+    </column>
+    <column id="45" parent="8" name="Area_Name">
+      <Position>13</Position>
+      <DataType>TEXT|0</DataType>
+    </column>
+    <column id="46" parent="8" name="Base_Update_time">
+      <Position>14</Position>
+      <DataType>TIME|0</DataType>
+    </column>
+    <column id="47" parent="8" name="Point_Update_time">
+      <Position>15</Position>
+      <DataType>TIME|0</DataType>
+    </column>
+    <column id="48" parent="8" name="BD_lat">
+      <Position>16</Position>
+      <DataType>FLOAT|0</DataType>
+    </column>
+    <column id="49" parent="8" name="BD_lng">
+      <Position>17</Position>
+      <DataType>FLOAT|0</DataType>
+    </column>
+    <index id="50" parent="8" name="school_info_Id_uindex">
+      <ColNames>Id</ColNames>
+      <ColumnCollations></ColumnCollations>
+      <Unique>1</Unique>
+    </index>
+    <index id="51" parent="8" name="sqlite_autoindex_school_info_1">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>Id</ColNames>
+      <ColumnCollations></ColumnCollations>
+      <Unique>1</Unique>
+    </index>
+    <key id="52" parent="8">
       <ColNames>Id</ColNames>
       <Primary>1</Primary>
       <UnderlyingIndexName>sqlite_autoindex_school_info_1</UnderlyingIndexName>
     </key>
-    <column id="28" parent="7" name="type">
+    <column id="53" parent="9" name="type">
       <Position>1</Position>
       <DataType>text|0</DataType>
     </column>
-    <column id="29" parent="7" name="name">
+    <column id="54" parent="9" name="name">
       <Position>2</Position>
       <DataType>text|0</DataType>
     </column>
-    <column id="30" parent="7" name="tbl_name">
+    <column id="55" parent="9" name="tbl_name">
       <Position>3</Position>
       <DataType>text|0</DataType>
     </column>
-    <column id="31" parent="7" name="rootpage">
+    <column id="56" parent="9" name="rootpage">
       <Position>4</Position>
       <DataType>integer|0</DataType>
     </column>
-    <column id="32" parent="7" name="sql">
+    <column id="57" parent="9" name="sql">
       <Position>5</Position>
       <DataType>text|0</DataType>
     </column>
