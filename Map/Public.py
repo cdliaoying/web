@@ -126,7 +126,7 @@ def _get_alias(r_split: str):
     if _alias:
         _r_alias = re.sub(r'"', "", _alias[0])
     else:
-        _r_alias = "Null"
+        _r_alias = None
     return _r_alias
 
 
@@ -143,7 +143,7 @@ def _get_plate(r_split: str):
         _r_aoi = _aoi[0]
         _r_aoi = re.sub(r'",', 'Null', _r_aoi)
     else:
-        _r_aoi = 'Null'
+        _r_aoi = None
     return _r_aoi
 
 
@@ -159,7 +159,7 @@ def _get_add1(r_split: str):
     if _address:
         _add1 = _address[0]
     else:
-        _add1 = 'Null'
+        _add1 = None
     return _add1
 
 
@@ -180,7 +180,7 @@ def _get_add2(r_split: str):
         _pattern = r'\['
         _add2 = re.sub(_pattern, '', _address)
     else:
-        _add2 = 'Null'
+        _add2 = None
     return _add2
 
 
@@ -196,7 +196,7 @@ def _get_dev(r_split: str):
     if _developer:
         _r_dev = _developer[0]
     else:
-        _r_dev = "Null"
+        _r_dev = None
     return _r_dev
 
 
@@ -212,7 +212,7 @@ def _get_type(r_split: str):
     if _std_tag:
         _r_tag = _std_tag[0]
     else:
-        _r_tag = "Null"
+        _r_tag = None
     return _r_tag
 
 
@@ -230,7 +230,7 @@ def _get_prop_company(r_split: str):
         _r_prop_compy = _property_company[0]
         _r_prop_compy = re.sub(r'",', 'Null', _r_prop_compy)
     else:
-        _r_prop_compy = "Null"
+        _r_prop_compy = None
     return _r_prop_compy
 
 
@@ -266,7 +266,7 @@ def _get_phone(r_split: str):
         _r_phone = _phone[0]
         _r_phone = re.sub(r'",', 'null', _r_phone)
     else:
-        _r_phone = "Null"
+        _r_phone = None
     return _r_phone
 
 
@@ -435,12 +435,14 @@ def school_write_sql(school_info):
         if _r[0]["num"] == 0:
             _cur.execute("INSERT INTO school_info "
                          # "(Id, Name, Alias, Plate, Address, Address2, Type, Pix_X, Pix_Y, Area_X, Area_Y) "
-                         "VALUES(?, ? , ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ",
+                         "VALUES(?, ? , ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ",
                          (_school.id, _school.name, _school.alias, _school.plate, _school.add1,
-                          _school.add2, _school.type, _school.mct_x, _school.mct_y, _school.pix_area_x,
-                          _school.pix_area_y, _school.area_code, _school.area_name, _school.base_update_time,
-                          _school.point_update_time))
+                          _school.add2, _school.cla, _school.type, _school.std_id,
+                          _school.mct_x, _school.mct_y, _school.pix_area_x,
+                          _school.pix_area_y, _school.area_code, _school.area_name, None, None,
+                          _school.base_update_time, _school.point_update_time))
             _con.commit()
+            print("%s, %s 已保存!" % (_school.id, _school.name))
         else:
             print("%s, %s 已存在!" % (_school.id, _school.name))
         _con.close()
@@ -513,7 +515,7 @@ def _mall_hours(r_split: str):
     if __hour:
         __h = __hour[0]
     else:
-        __h = 'Null'
+        __h = None
     return __h
 
 
@@ -539,9 +541,9 @@ def _mall_floor(r_split: str):
                 __str2 = '地上 %s 层' % __r[-1][1]
             __f = __str1 + __str2
         else:
-            __f = 'Null'
+            __f = None
     else:
-        __f = 'Null'
+        __f = None
     return __f
 
 
@@ -559,7 +561,7 @@ def _get_line_name(r_split: str):
     if __line:
         __line_name = __line[0]
     else:
-        __line_name = ''
+        __line_name = None
     return __line_name
 
 
@@ -592,7 +594,7 @@ def _get_line_time(r_split: str):
         __line_time = __r[0]
         __line_time = __line_time.strip()
     else:
-        __line_time = 'Null'
+        __line_time = None
     return __line_time
 
 
@@ -605,7 +607,7 @@ def _get_line_id(r_split: str):
     if __r:
         __line_id = __id[0]
     else:
-        __line_id = 'Null'
+        __line_id = None
     return __line_id
 
 
@@ -616,7 +618,7 @@ def _get_line_color(r_split: str):
     if __color:
         __line_color = __color[0]
     else:
-        __line_color = 'Null'
+        __line_color = None
     return __line_color
 
 
@@ -631,7 +633,7 @@ def _get_station_pixx(r_split: str):
     if __coor:
         __pix_x = __coor[0]
     else:
-        __pix_x = 'Null'
+        __pix_x = None
     return __pix_x
 
 
@@ -649,7 +651,7 @@ def _get_station_pixy(r_split: str):
         __y = re.findall(__p, __coor[0])
         __pix_y = __y[0]
     else:
-        __pix_y = 'Null'
+        __pix_y = None
     return __pix_y
 
 
@@ -704,7 +706,7 @@ def _get_station_subway(r_split: str):
     if __st_sub:
         __subway = __st_sub[0]
     else:
-        __subway = 'Null'
+        __subway = None
     return __subway
 
 
@@ -720,7 +722,7 @@ def _get_station_transfer(r_split: str):
     if __st_tran:
         __transfer = __st_tran[0]
     else:
-        __transfer = 'Null'
+        __transfer = None
     return __transfer
 
 
@@ -736,8 +738,45 @@ def _get_station_id(r_split: str):
     if __st_id:
         __Id = __st_id[-1]
     else:
-        __Id = 'Null'
+        __Id = None
     return __Id
+
+
+def _get_cla_id(r_split: str):
+    """
+
+    :param r_split:
+    :return:
+    """
+    __r = r_split
+    __p1 = r'(?<="cla":.).+?(?=\],"click_flag")'
+    __c = re.findall(__p1, __r)
+    if __c:
+        __p2 = r'(?<=\],\[).+?(?=\])'
+        __c2 = re.findall(__p2, __c[0])
+        if __c2:
+            __cla = __c2[0]
+        else:
+            __cla = None
+    else:
+        __cla = None
+    return __cla
+
+
+def _get_std_id(r_split: str):
+    """
+
+    :param r_split:
+    :return:
+    """
+    __r = r_split
+    __p1 = r'(?<="std_tag_id.:.).+?(?=",)'
+    __c = re.findall(__p1, __r)
+    if __c:
+        __std_tag_id = __c[0]
+    else:
+        __std_tag_id = None
+    return __std_tag_id
 
 
 ''' ================= define the class of mct_point ================='''
@@ -751,16 +790,16 @@ class mct_point():
     """
 
     def __init__(self, r_split):
-        self.r_split = r_split
+        self._r_split = r_split
 
     @property
     def mct_x(self):
-        _mct_x = float(_get_navi_x(self.r_split))
+        _mct_x = float(_get_navi_x(self._r_split))
         return _mct_x
 
     @property
     def mct_y(self):
-        _mct_y = float(_get_navi_y(self.r_split))
+        _mct_y = float(_get_navi_y(self._r_split))
         return _mct_y
 
     @property
@@ -784,61 +823,71 @@ class school_base():
     """
 
     def __init__(self, r_split):
-        self.r_split = r_split
+        self._r_split = r_split
 
     @property
     def id(self):
-        _id = _get_id(self.r_split)
+        _id = _get_id(self._r_split)
         return _id
 
     @property
     def name(self):
-        _name = _get_name(self.r_split)
+        _name = _get_name(self._r_split)
         return _name
 
     @property
     def alias(self):
-        _alias = _get_alias(self.r_split)
+        _alias = _get_alias(self._r_split)
         return _alias
 
     @property
     def plate(self):
-        _plate = _get_plate(self.r_split)
+        _plate = _get_plate(self._r_split)
         return _plate
 
     @property
     def add1(self):
-        _add1 = _get_add1(self.r_split)
+        _add1 = _get_add1(self._r_split)
         return _add1
 
     @property
     def add2(self):
-        _add2 = _get_add2(self.r_split)
+        _add2 = _get_add2(self._r_split)
         return _add2
 
     @property
+    def cla(self):
+        _cla = _get_cla_id(self._r_split)
+        return _cla
+
+    @property
     def type(self):
-        _type = _get_type(self.r_split)
+        _type = _get_type(self._r_split)
         return _type
 
     @property
+    def std_id(self):
+        _std_id = _get_std_id(self._r_split)
+        return _std_id
+
+    @property
     def area_name(self):
-        _area_name = _get_area_name(self.r_split)
+        _area_name = _get_area_name(self._r_split)
         return _area_name
 
     @property
     def area_code(self):
-        _area_code = _get_area_code(self.r_split)
+        _area_code = _get_area_code(self._r_split)
         return _area_code
 
     @property
     def base_update_time(self):
-        _base_update_time = _get_base_updatetime(self.r_split)
+        _base_update_time = _get_base_updatetime(self._r_split)
         return _base_update_time
 
     @property
     def point_update_time(self):
-        _point_update_time = _get_point_updatetime(self.r_split)
+        _point_update_time = _get_point_updatetime(self._r_split)
         return _point_update_time
 
 
@@ -1191,3 +1240,81 @@ class station_info():
     def creat_date(self):
         __creat_date = time.strftime("%Y-%m-%d")
         return __creat_date
+
+
+''' === define the class of park information ===='''
+
+
+class park_base():
+
+    def __init__(self, r_split):
+        self._r_split = r_split
+
+    @property
+    def park_id(self):
+        __park_id = _get_id(self._r_split)
+        return __park_id
+
+    @property
+    def park_name(self):
+        __park_name = _get_name(self._r_split)
+        return __park_name
+
+    @property
+    def park_alias(self):
+        __park_alias = _get_alias(self._r_split)
+        return __park_alias
+
+    @property
+    def park_add1(self):
+        __park_addr = _get_add1(self._r_split)
+        return __park_addr
+
+    @property
+    def park_add2(self):
+        __park_addr = _get_add2(self._r_split)
+        return __park_addr
+
+    @property
+    def park_area_code(self):
+        __park_area_code = _get_area_code(self._r_split)
+        return __park_area_code
+
+    @property
+    def park_area_name(self):
+        __park_area_name = _get_area_name(self._r_split)
+        return __park_area_name
+
+    @property
+    def park_plate(self):
+        __park_plate = _get_plate(self._r_split)
+        return __park_plate
+
+    @property
+    def park_cla_id(self):
+        __cla_id = _get_cla_id(self._r_split)
+        return __cla_id
+
+    @property
+    def park_std_tag(self):
+        __park_std_tag = _get_type(self._r_split)
+        return __park_std_tag
+
+    @property
+    def park_std_id(self):
+        __park_std_id = _get_std_id(self._r_split)
+        return __park_std_id
+
+    @property
+    def info_update_date(self):
+        __info_update_date = _get_base_updatetime(self._r_split)
+        return __info_update_date
+
+    @property
+    def point_update_date(self):
+        __point_update_date = _get_point_updatetime(self._r_split)
+        return __point_update_date
+
+
+class park_info(park_base, mct_point):
+    pass

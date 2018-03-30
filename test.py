@@ -193,8 +193,7 @@ lat = '经度lat:30.670394;'
 lat = re.findall(r'(?<=:).+?(?=;)', lat)
 print("lat: %s" % lat)
 
-__r = '"transfer":[[{"name":"地铁7号线(内环(崔家店-崔家店))","uid":"a12ee87350613c20c356ac9a"},' \
-      '{"name":"地铁7号线(外环(崔家店-崔家店))","uid":"5762cf9a4fb2440d581093ad"}]],'
-__p = r'(?<="transfer":\[\[).+?(?=\]\],)'
-__floor = re.findall(__p, __r)
-print("subway is %s" % __floor[0])
+__r = '"cla":[[17,"旅游景点"],[158,"<font color="#c60a00">公园<\/font>"]],"click_flag"'
+__p = r'(?<="cla":.).+?(?=\],"click_flag")'
+__cla = re.findall(__p, __r)
+print("cla is %s" % __cla[0])

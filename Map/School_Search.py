@@ -29,42 +29,48 @@ def _get_school_list(region, kw, pn=10):
     :return _m:
     """
     # define parameter
-    _parameter = parameter_search()
+    __parameter = parameter_search()
 
     # define the url and others
-    _url = 'http://map.baidu.com/'
-    _parameter["c"] = region
-    _parameter["wd"] = kw
-    _parameter["pn"] = pn
-    _parameter["nn"] = _parameter["pn"] * 10
+    __url = 'http://map.baidu.com/'
+    __parameter["c"] = region
+    __parameter["wd"] = kw
+    __parameter["pn"] = pn
+    __parameter["nn"] = __parameter["pn"] * 10
+    __headers = {
+        "Host": "map.baidu.com",
+        "Referer": "https://map.baidu.com/",
+        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.12; rv:59.0) Gecko/20100101 Firefox/59.0",
+    }
 
     try:
-        _htm_get = requests.get(_url, params=_parameter, timeout=6)
-        print("\n the requests' status is %s \n" % _htm_get.raise_for_status())
-        _htm_code = _htm_get.text.encode('latin-1').decode('unicode_escape')  # 转码
-        _pattern = r'(?<={"acc_flag.:).+?(?="ty":)'
-        _r_list = re.findall(_pattern, _htm_code)  # 按段落匹配
-        _n = 0
+        __htm_get = requests.get(__url, params=__parameter, headers=__headers, timeout=6)
+        print("\n the requests' status is %s \n" % __htm_get.raise_for_status())
+        __htm_code = __htm_get.text.encode('latin-1').decode('unicode_escape')  # 转码
+        __pattern = r'(?<={"acc_flag.:).+?(?="ty":)'
+        __r_list = re.findall(__pattern, __htm_code)  # 按段落匹配
+        __n = 0
         '''
         # 将输出结果写入文件，帮助正则式分析
         f = open('/Users/liaoying/Desktop/PythonProject/Baidu/dic/school', 'w')
         f.write(_r_list[3])
         f.close()
         '''
-        if len(_r_list) > 0:
-            for _r in _r_list:
-                _school = school_info(_r)
-                # add sql for insert database
-                school_write_sql(_school)
-                _n += 1
+        if len(__r_list) > 0:
+            for __r in __r_list:
+                __school = school_info(__r)
+                __n += 1
                 print("\n")
-                print(_school.id, ', ', _school.name, ', ', _school.alias, ', ', _school.plate, ', ',
-                      _school.mct_x, ', ', _school.mct_y, ', ', _school.add1, ', ', _school.add2, ', ',
-                      _school.type, ', ', _school.pix_area_x, ', ', _school.pix_area_y, ', ',
-                      _school.area_code, ', ', _school.area_name, ', ',
-                      _school.base_update_time, ', ', _school.point_update_time)
+                print(__school.id, ', ', __school.name, ', ', __school.alias, ', ', __school.plate, ', ',
+                      __school.mct_x, ', ', __school.mct_y, ', ', __school.add1, ', ', __school.add2, ', ',
+                      __school.cla, ', ', __school.type, ', ', __school.std_id, ', ',
+                      __school.pix_area_x, ', ', __school.pix_area_y, ', ',
+                      __school.area_code, ', ', __school.area_name, ', ',
+                      __school.base_update_time, ', ', __school.point_update_time)
+                # add sql for insert database
+                school_write_sql(__school)
 
-        return _n
+        return __n
     except ValueError as e:
         raise e
     finally:
@@ -80,37 +86,37 @@ def school_search(region, kw, bn, en):
     :param en:
     :return:
     """
-    _region = region
-    _kw = kw
-    _page = int(bn)
-    _en = int(en)
-    _start = time.time()
-    _num = 1
-    _s = 0
+    __region = region
+    __kw = kw
+    __page = int(bn)
+    __en = int(en)
+    __start = time.time()
+    __num = 1
+    __s = 0
 
-    while _page <= _en:
-        _m = _get_school_list(_region, _kw, _page)  # 防止访问频率太高，避免被百度公司封
+    while __page <= __en:
+        __m = _get_school_list(__region, __kw, __page)  # 防止访问频率太高，避免被百度公司封
 
-        if _m / 10 > 0:
+        if __m / 10 > 0:
             time.sleep(2)
-            if _num % 20 == 0:
+            if __num % 20 == 0:
                 time.sleep(4)
-            if _num % 100 == 0:
+            if __num % 100 == 0:
                 time.sleep(6)
-            if _num % 200 == 0:
+            if __num % 200 == 0:
                 time.sleep(8)
-            _num = _num + 1
-            _s = _s + _m
-            _page = _page + 1
+            __num = __num + 1
+            __s = __s + __m
+            __page = __page + 1
         else:
-            _page = _en + 1
+            __page = __en + 1
 
-    _end = time.time()
-    _last_time = int((_end-_start))
-    print('\n 共耗时 %s s, 获取 %s 页，%s 条数据！' % (str(_last_time), _num-1, _s))
+    __end = time.time()
+    _last_time = int((__end-__start))
+    print('\n 共耗时 %s s, 获取 %s 页，%s 条数据！' % (str(_last_time), __num-1, __s))
 
 
 # test code:
 # _get_school_list("631", "幼儿园", 4)
-school_search("631", "小学", 0, 2)
+# school_search("简阳市", "小学", 0, 20)
 

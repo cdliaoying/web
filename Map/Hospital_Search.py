@@ -12,6 +12,7 @@ Description:
           function - _get_project_list()
 - input: pn, means page number, it control the number in the results
 - it has ngo problem, need translate to BaiDu Map Coordinate System. So need another Function
+- the other info maybe get from the website page, just like level of hospital
 
 
 """
