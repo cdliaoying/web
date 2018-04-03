@@ -66,10 +66,10 @@ def _get_area_name(r_split: str):
     :param r_split:
     :return:
     """
-    _r = r_split
-    _pattern = r'(?<=area_name.:.).+?(?=.,)'
-    _area_name = re.findall(_pattern, _r)
-    return _area_name[0]
+    __r = r_split
+    __pattern = r'(?<=area_name.:.).+?(?=.,)'
+    __area_name = re.findall(__pattern, __r)
+    return __area_name[0]
 
 
 def _get_area_code(r_split: str):
@@ -78,10 +78,10 @@ def _get_area_code(r_split: str):
     :param r_split:
     :return:
     """
-    _r = r_split
-    _pattern = r'(?<=area":).+?(?=,)'
-    _area_code = re.findall(_pattern, _r)
-    return _area_code[0]
+    __r = r_split
+    __pattern = r'(?<=area":).+?(?=,)'
+    __area_code = re.findall(__pattern, __r)
+    return __area_code[0]
 
 
 def _get_id(r_split):
@@ -90,11 +90,11 @@ def _get_id(r_split):
     :param r_split: the input is a list
     :return: ID, the object's id in the spider results
     """
-    _r = r_split
-    _pattern = r'(?<=primary_uid.:.).+?(?=")'
-    _primary_uid = re.findall(_pattern, _r)
-    _r_ID = _primary_uid[0]
-    return _r_ID
+    __r = r_split
+    __pattern = r'(?<=primary_uid.:.).+?(?=")'
+    __primary_uid = re.findall(__pattern, __r)
+    __r_ID = __primary_uid[0]
+    return __r_ID
 
 
 def _get_name(r_split: str):
@@ -104,14 +104,14 @@ def _get_name(r_split: str):
     :param r_split: the input is a list
     :return: Name, the object's name in the spider results
     """
-    _r = r_split
-    _pattern = r'(?<=\b"\},"name":").+?(?=")'
-    _name = re.findall(_pattern, _r)
-    if not _name:
-        _pattern = r'(?<=\b,"name":").+?(?=")'
-        _name = re.findall(_pattern, _r)
-    _r_name = _name[0]
-    return _r_name
+    __r = r_split
+    __pattern = r'(?<=\b"\},"name":").+?(?=")'
+    __name = re.findall(__pattern, __r)
+    if not __name:
+        __pattern = r'(?<=\b,"name":").+?(?=")'
+        __name = re.findall(__pattern, __r)
+    __r_name = __name[0]
+    return __r_name
 
 
 def _get_alias(r_split: str):
@@ -120,14 +120,14 @@ def _get_alias(r_split: str):
     :param r_split: the input is a list
     :return: Name, the object's alias in the spider results
     """
-    _r = r_split
-    _pattern = r'(?<=alias.:.).+?(?=])'
-    _alias = re.findall(_pattern, _r)
-    if _alias:
-        _r_alias = re.sub(r'"', "", _alias[0])
+    __r = r_split
+    __pattern = r'(?<=alias.:.).+?(?=])'
+    __alias = re.findall(__pattern, __r)
+    if __alias:
+        __r_alias = re.sub(r'"', "", __alias[0])
     else:
-        _r_alias = None
-    return _r_alias
+        __r_alias = None
+    return __r_alias
 
 
 def _get_plate(r_split: str):
@@ -136,15 +136,15 @@ def _get_plate(r_split: str):
     :param r_split: the input is a list
     :return: Name, the object's plate in the spider results, its tag is aoi
     """
-    _r = r_split
-    _pattern = r'(?<=aoi.:.).+?(?=")'
-    _aoi = re.findall(_pattern, _r)
-    if _aoi:
-        _r_aoi = _aoi[0]
-        _r_aoi = re.sub(r'",', 'Null', _r_aoi)
+    __r = r_split
+    __pattern = r'(?<=aoi.:.).+?(?=")'
+    __aoi = re.findall(__pattern, __r)
+    if __aoi:
+        __r_aoi = __aoi[0]
+        __r_aoi = re.sub(r'",', 'Null', __r_aoi)
     else:
-        _r_aoi = None
-    return _r_aoi
+        __r_aoi = None
+    return __r_aoi
 
 
 def _get_add1(r_split: str):
@@ -153,14 +153,14 @@ def _get_add1(r_split: str):
     :param r_split: the input is a list
     :return: Name, the object's add1 in the spider results
     """
-    _r = r_split
-    _pattern = r'(?<=poi_address.:.).+?(?=")'
-    _address = re.findall(_pattern, _r)
-    if _address:
-        _add1 = _address[0]
+    __r = r_split
+    __pattern = r'(?<=poi_address.:.).+?(?=")'
+    __address = re.findall(__pattern, __r)
+    if __address:
+        __add1 = __address[0]
     else:
-        _add1 = None
-    return _add1
+        __add1 = None
+    return __add1
 
 
 def _get_add2(r_split: str):
@@ -169,19 +169,19 @@ def _get_add2(r_split: str):
     :param r_split: the input is a list
     :return: Name, the object's add1 in the spider results
     """
-    _r = r_split
-    _pattern = r'(?<="address_norm.:.).+?(?=",)'
-    adr = re.findall(_pattern, _r)
-    if adr:
-        _pattern = r'\(.+?\['
-        _address = re.sub(_pattern, '', adr[0])
-        _pattern = r'\(.+?\]'
-        _address = re.sub(_pattern, '', _address)
-        _pattern = r'\['
-        _add2 = re.sub(_pattern, '', _address)
+    __r = r_split
+    __pattern = r'(?<="address_norm.:.).+?(?=",)'
+    __adr = re.findall(__pattern, __r)
+    if __adr:
+        __pattern = r'\(.+?\['
+        __address = re.sub(__pattern, '', __adr[0])
+        __pattern = r'\(.+?\]'
+        __address = re.sub(__pattern, '', __address)
+        __pattern = r'\['
+        __add2 = re.sub(__pattern, '', __address)
     else:
-        _add2 = None
-    return _add2
+        __add2 = None
+    return __add2
 
 
 def _get_dev(r_split: str):
@@ -190,14 +190,14 @@ def _get_dev(r_split: str):
     :param r_split: the input is a list
     :return: Name, the object's developer in the spider results
     """
-    _r = r_split
-    _pattern = r'(?<=developers.:.).+?(?=")'
-    _developer = re.findall(_pattern, _r)
-    if _developer:
-        _r_dev = _developer[0]
+    __r = r_split
+    __pattern = r'(?<=developers.:.).+?(?=")'
+    __developer = re.findall(__pattern, __r)
+    if __developer:
+        __r_dev = __developer[0]
     else:
-        _r_dev = None
-    return _r_dev
+        __r_dev = None
+    return __r_dev
 
 
 def _get_type(r_split: str):
@@ -206,14 +206,14 @@ def _get_type(r_split: str):
     :param r_split: the input is a list
     :return: Name, the object's type in the spider results
     """
-    _r = r_split
-    _pattern = r'(?<=std_tag.:.).+?(?=")'
-    _std_tag = re.findall(_pattern, _r)
-    if _std_tag:
-        _r_tag = _std_tag[0]
+    __r = r_split
+    __pattern = r'(?<=std_tag.:.).+?(?=")'
+    __std_tag = re.findall(__pattern, __r)
+    if __std_tag:
+        __r_tag = __std_tag[0]
     else:
-        _r_tag = None
-    return _r_tag
+        __r_tag = None
+    return __r_tag
 
 
 def _get_prop_company(r_split: str):
@@ -222,16 +222,16 @@ def _get_prop_company(r_split: str):
     :param r_split: the input is a list
     :return: Name, the object's prosperity company in the spider results
     """
-    _r = r_split
-    _pattern = r'(?<=property_company.:.).+?(?=")'
-    _property_company = re.findall(_pattern, _r)
+    __r = r_split
+    __pattern = r'(?<=property_company.:.).+?(?=")'
+    __property_company = re.findall(__pattern, __r)
     # _property_company = re.sub(r'",', "", _property_company)
-    if _property_company:
-        _r_prop_compy = _property_company[0]
-        _r_prop_compy = re.sub(r'",', 'Null', _r_prop_compy)
+    if __property_company:
+        __r_prop_compy = __property_company[0]
+        __r_prop_compy = re.sub(r'",', 'Null', __r_prop_compy)
     else:
-        _r_prop_compy = None
-    return _r_prop_compy
+        __r_prop_compy = None
+    return __r_prop_compy
 
 
 def _get_prop_fee(r_split: str):
@@ -240,16 +240,16 @@ def _get_prop_fee(r_split: str):
     :param r_split: the input is a list
     :return: Name, the object's prosperity fee in the spider results
     """
-    _r = r_split
-    _pattern = r'(?<=property_management_fee.:.).+?(?=")'
-    _property_management_fee = re.findall(_pattern, _r)
+    __r = r_split
+    __pattern = r'(?<=property_management_fee.:.).+?(?=")'
+    __property_management_fee = re.findall(__pattern, __r)
     # _property_management_fee = re.sub(r'",', "", _property_management_fee)
-    if _property_management_fee:
-        _r_prop_fee = _property_management_fee[0]
-        _r_prop_fee = re.sub(r'",', 'Null', _r_prop_fee)
+    if __property_management_fee:
+        __r_prop_fee = __property_management_fee[0]
+        __r_prop_fee = re.sub(r'",', 'Null', __r_prop_fee)
     else:
-        _r_prop_fee = "0"
-    return _r_prop_fee
+        __r_prop_fee = "0"
+    return __r_prop_fee
 
 
 def _get_phone(r_split: str):
@@ -259,15 +259,15 @@ def _get_phone(r_split: str):
     :param r_split: the input is a list
     :return: Name, the object's phone company in the spider results
     """
-    _r = r_split
-    _pattern = r'(?<="phone":").+?(?=")'
-    _phone = re.findall(_pattern, _r)
-    if _phone:
-        _r_phone = _phone[0]
-        _r_phone = re.sub(r'",', 'null', _r_phone)
+    __r = r_split
+    __pattern = r'(?<="phone":").+?(?=")'
+    __phone = re.findall(__pattern, __r)
+    if __phone:
+        __r_phone = __phone[0]
+        __r_phone = re.sub(r'",', 'null', __r_phone)
     else:
-        _r_phone = None
-    return _r_phone
+        __r_phone = None
+    return __r_phone
 
 
 def _get_navi_x(r_split: str):
@@ -276,28 +276,28 @@ def _get_navi_x(r_split: str):
     :param r_split: the input is a list
     :return: Name, the object's pix_x in the spider results
     """
-    _r = r_split
-    _p1 = r'(?<=navi_x.:.).+?(?=")'
-    _x1 = re.findall(_p1, _r)
-    if len(_x1) == 0:
-        _x1 = ['0']
-    _p2 = r'(?<="x":).+?(?=,)'
-    _x2 = re.findall(_p2, _r)
-    _x2 = ['0' if x == '"0"' else x for x in _x2]
-    if len(_x2) == 0:
-        _x2 = ['0']
-    _p3 = r'(?<="geo":"1\|).+?(?=,)'
-    _x3 = re.findall(_p3, _r)
+    __r = r_split
+    __p1 = r'(?<=navi_x.:.).+?(?=")'
+    __x1 = re.findall(__p1, __r)
+    if len(__x1) == 0:
+        __x1 = ['0']
+    __p2 = r'(?<="x":).+?(?=,)'
+    __x2 = re.findall(__p2, __r)
+    __x2 = ['0' if __x == '"0"' else __x for __x in __x2]
+    if len(__x2) == 0:
+        __x2 = ['0']
+    __p3 = r'(?<="geo":"1\|).+?(?=,)'
+    __x3 = re.findall(__p3, __r)
 
-    if float(_x2[0]) > 0:
-        _r_x = _x2[0]
-    elif _x3[0] and float(_x3[0]) > 0:
-        _r_x = _x3[0]
-    elif float(_x1[0]) > 0:
-        _r_x = _x1[0]
+    if float(__x2[0]) > 0:
+        __r_x = __x2[0]
+    elif __x3[0] and float(__x3[0]) > 0:
+        __r_x = __x3[0]
+    elif float(__x1[0]) > 0:
+        __r_x = __x1[0]
     else:
-        _r_x = 0.0
-    return _r_x
+        __r_x = 0.0
+    return __r_x
 
 
 def _get_navi_y(r_split: str):
@@ -306,29 +306,29 @@ def _get_navi_y(r_split: str):
     :param r_split: the input is a list
     :return: Name, the object's pix_x in the spider results
     """
-    _r = r_split
-    _p1 = r'(?<=navi_y.:.).+?(?=")'
-    _y1 = re.findall(_p1, _r)
-    if len(_y1) == 0:
-        _y1 = ['0']
-    _p2 = r'(?<="y":).+?(?=})'
-    _y2 = re.findall(_p2, _r)
-    _y2 = ['0' if _y == '"0"' else _y for _y in _y2]
-    if len(_y2) == 0:
-        _y2 = ['0']
-    _p3 = r'(?<="geo":"1\|).+?(?=;)'
-    _y3 = re.findall(_p3, _r)
-    _y3 = re.split(r',', _y3[0])
+    __r = r_split
+    __p1 = r'(?<=navi_y.:.).+?(?=")'
+    __y1 = re.findall(__p1, __r)
+    if len(__y1) == 0:
+        __y1 = ['0']
+    __p2 = r'(?<="y":).+?(?=})'
+    __y2 = re.findall(__p2, __r)
+    __y2 = ['0' if __y == '"0"' else __y for __y in __y2]
+    if len(__y2) == 0:
+        __y2 = ['0']
+    __p3 = r'(?<="geo":"1\|).+?(?=;)'
+    __y3 = re.findall(__p3, __r)
+    __y3 = re.split(r',', __y3[0])
 
-    if float(_y2[0]) > 0:
-        _r_y = _y2[0]
-    elif _y3[1] and float(_y3[1]) > 0:
-        _r_y = _y3[1]
-    elif float(_y1[0]) > 0:
-        _r_y = _y1[0]
+    if float(__y2[0]) > 0:
+        __r_y = __y2[0]
+    elif __y3[1] and float(__y3[1]) > 0:
+        __r_y = __y3[1]
+    elif float(__y1[0]) > 0:
+        __r_y = __y1[0]
     else:
-        _r_y = 0.0
-    return _r_y
+        __r_y = 0.0
+    return __r_y
 
 
 def _get_base_updatetime(r_split: str):
@@ -389,13 +389,13 @@ def _set_style(name, height, bold=False):
     :param bold:
     :return:
     """
-    _style = xlwt.XFStyle()  # 初始化样式
+    __style = xlwt.XFStyle()  # 初始化样式
 
-    _font = xlwt.Font()  # 为样式创建字体
-    _font.name = name  # 'Times New Roman'
-    _font.bold = bold
-    _font.color_index = 4
-    _font.height = height
+    __font = xlwt.Font()  # 为样式创建字体
+    __font.name = name  # 'Times New Roman'
+    __font.bold = bold
+    __font.color_index = 4
+    __font.height = height
 
     # borders= xlwt.Borders()
     # borders.left= 6
@@ -403,10 +403,10 @@ def _set_style(name, height, bold=False):
     # borders.top= 6
     # borders.bottom= 6
 
-    _style.font = _font
+    __style.font = __font
     # style.borders = borders
 
-    return _style
+    return __style
 
 
 ''' ======= define the xls file write function ============='''
@@ -779,6 +779,17 @@ def _get_std_id(r_split: str):
     return __std_tag_id
 
 
+def _get_prj_uid(r_split: str):
+    __r = r_split
+    __p1 = r'(?<="street_id.:.).+?(?=",)'
+    __c = re.findall(__p1, __r)
+    if __c:
+        __prj_uid = __c[0]
+    else:
+        __prj_uid = None
+    return __prj_uid
+
+
 ''' ================= define the class of mct_point ================='''
 
 
@@ -905,57 +916,82 @@ class proj_base():
     """
 
     def __index__(self, r_split):
-        self.r_split = r_split
+        self._r_split = r_split
 
     @property
     def id(self):
-        _id = _get_id(self.r_split)
-        return _id
+        __id = _get_id(self._r_split)
+        return __id
 
     @property
     def name(self):
-        _name = _get_name(self.r_split)
-        return _name
+        __name = _get_name(self._r_split)
+        return __name
 
     @property
     def alias(self):
-        _alias = _get_alias(self.r_split)
-        return _alias
+        __alias = _get_alias(self._r_split)
+        return __alias
 
     @property
     def plate(self):
-        _plate = _get_plate(self.r_split)
-        return _plate
+        __plate = _get_plate(self._r_split)
+        return __plate
 
     @property
     def add1(self):
-        _add1 = _get_add1(self.r_split)
-        return _add1
+        __add1 = _get_add1(self._r_split)
+        return __add1
 
     @property
     def add2(self):
-        _add2 = _get_add2(self.r_split)
-        return _add2
+        __add2 = _get_add2(self._r_split)
+        return __add2
 
     @property
     def type(self):
-        _type = _get_type(self.r_split)
-        return _type
+        __type = _get_type(self._r_split)
+        return __type
 
     @property
     def developer(self):
-        _dev = _get_dev(self.r_split)
-        return _dev
+        __dev = _get_dev(self._r_split)
+        return __dev
 
     @property
     def prop_company(self):
-        _prop_name = _get_prop_company(self.r_split)
-        return _prop_name
+        __prop_name = _get_prop_company(self._r_split)
+        return __prop_name
 
     @property
     def prop_fee(self):
-        _fee = _get_prop_fee(self.r_split)
-        return _fee
+        __fee = _get_prop_fee(self._r_split)
+        return __fee
+
+    @property
+    def street_id(self):
+        __st_id = _get_prj_uid(self._r_split)
+        return __st_id
+
+    @property
+    def base_update_time(self):
+        __base_update_time = _get_base_updatetime(self._r_split)
+        return __base_update_time
+
+    @property
+    def point_update_time(self):
+        __point_update_time = _get_point_updatetime(self._r_split)
+        return __point_update_time
+
+    @property
+    def area_name(self):
+        __area_name = _get_area_name(self._r_split)
+        return __area_name
+
+    @property
+    def area_code(self):
+        __area_code = _get_area_code(self._r_split)
+        return __area_code
 
 
 class proj_info(proj_base, mct_point):
@@ -972,56 +1008,56 @@ class hosptial_base():
     """
 
     def __init__(self, r_split):
-        self.r_split = r_split
+        self._r_split = r_split
 
     @property
     def id(self):
-        _id = _get_id(self.r_split)
+        _id = _get_id(self._r_split)
         return _id
 
     @property
     def name(self):
-        _name = _get_name(self.r_split)
+        _name = _get_name(self._r_split)
         return _name
 
     @property
     def plate(self):
-        _plate = _get_plate(self.r_split)
+        _plate = _get_plate(self._r_split)
         return _plate
 
     @property
     def add1(self):
-        _add1 = _get_add1(self.r_split)
+        _add1 = _get_add1(self._r_split)
         return _add1
 
     @property
     def add2(self):
-        _add2 = _get_add2(self.r_split)
+        _add2 = _get_add2(self._r_split)
         return _add2
 
     @property
     def type(self):
-        _type = _get_type(self.r_split)
+        _type = _get_type(self._r_split)
         return _type
 
     @property
     def area_name(self):
-        _area_name = _get_area_name(self.r_split)
+        _area_name = _get_area_name(self._r_split)
         return _area_name
 
     @property
     def area_code(self):
-        _area_code = _get_area_code(self.r_split)
+        _area_code = _get_area_code(self._r_split)
         return _area_code
 
     @property
     def base_update_time(self):
-        _base_update_time = _get_base_updatetime(self.r_split)
+        _base_update_time = _get_base_updatetime(self._r_split)
         return _base_update_time
 
     @property
     def point_update_time(self):
-        _point_update_time = _get_point_updatetime(self.r_split)
+        _point_update_time = _get_point_updatetime(self._r_split)
         return _point_update_time
 
 
@@ -1081,21 +1117,21 @@ class mall_base():
     """
 
     def __init__(self, r_split):
-        self.r_split = r_split
+        self._r_split = r_split
 
     @property
     def id(self):
-        __id = _get_id(self.r_split)
+        __id = _get_id(self._r_split)
         return __id
 
     @property
     def name(self):
-        __name = _get_name(self.r_split)
+        __name = _get_name(self._r_split)
         return __name
 
     @property
     def plate(self):
-        _plate = _get_plate(self.r_split)
+        _plate = _get_plate(self._r_split)
         return _plate
 
     @property
@@ -1105,42 +1141,42 @@ class mall_base():
 
     @property
     def add2(self):
-        __add2 = _get_add2(self.r_split)
+        __add2 = _get_add2(self._r_split)
         return __add2
 
     @property
     def type(self):
-        __type = _get_type(self.r_split)
+        __type = _get_type(self._r_split)
         return __type
 
     @property
     def area_name(self):
-        __area_name = _get_area_name(self.r_split)
+        __area_name = _get_area_name(self._r_split)
         return __area_name
 
     @property
     def area_code(self):
-        __area_code = _get_area_code(self.r_split)
+        __area_code = _get_area_code(self._r_split)
         return __area_code
 
     @property
     def base_update_time(self):
-        __base_update_time = _get_base_updatetime(self.r_split)
+        __base_update_time = _get_base_updatetime(self._r_split)
         return __base_update_time
 
     @property
     def point_update_time(self):
-        __point_update_time = _get_point_updatetime(self.r_split)
+        __point_update_time = _get_point_updatetime(self._r_split)
         return __point_update_time
 
     @property
     def mall_hours(self):
-        __shop_hours = _mall_hours(self.r_split)
+        __shop_hours = _mall_hours(self._r_split)
         return __shop_hours
 
     @property
     def mall_floor(self):
-        __mall_floor = _mall_floor(self.r_split)
+        __mall_floor = _mall_floor(self._r_split)
         return __mall_floor
 
 
@@ -1154,31 +1190,31 @@ class mall_info(mall_base, mct_point):
 class matro_line_info():
 
     def __init__(self, r_split):
-        self.__r_split = r_split
+        self._r_split = r_split
 
     @property
     def line_id(self):
-        __line_id = _get_line_id(self.__r_split)
+        __line_id = _get_line_id(self._r_split)
         return __line_id
 
     @property
     def line_name(self):
-        __line_name = _get_line_name(self.__r_split)
+        __line_name = _get_line_name(self._r_split)
         return __line_name
 
     @property
     def line_time(self):
-        __line_time = _get_line_time(self.__r_split)
+        __line_time = _get_line_time(self._r_split)
         return __line_time
 
     @property
     def max_price(self):
-        __max_price = _get_line_price(self.__r_split)
+        __max_price = _get_line_price(self._r_split)
         return __max_price
 
     @property
     def line_color(self):
-        __line_color = _get_line_color(self.__r_split)
+        __line_color = _get_line_color(self._r_split)
         return __line_color
 
     @property
@@ -1193,47 +1229,47 @@ class matro_line_info():
 class station_info():
 
     def __init__(self, r_split, line_id):
-        self.__r_split = r_split
+        self._r_split = r_split
         self.line_id = line_id
 
     @property
     def st_id(self):
-        __Id = _get_station_id(self.__r_split)
+        __Id = _get_station_id(self._r_split)
         return __Id
 
     @property
     def st_name(self):
-        __st_name = _get_station_name(self.__r_split)
+        __st_name = _get_station_name(self._r_split)
         return __st_name
 
     @property
     def st_start_time(self):
-        __start_time = _get_station_starttime(self.__r_split)
+        __start_time = _get_station_starttime(self._r_split)
         return __start_time
 
     @property
     def st_end_time(self):
-        __end_time = _get_station_endtime(self.__r_split)
+        __end_time = _get_station_endtime(self._r_split)
         return __end_time
 
     @property
     def st_subway(self):
-        __subway = _get_station_subway(self.__r_split)
+        __subway = _get_station_subway(self._r_split)
         return __subway
 
     @property
     def st_transfer(self):
-        __transfer = _get_station_transfer(self.__r_split)
+        __transfer = _get_station_transfer(self._r_split)
         return __transfer
 
     @property
     def st_pix_x(self):
-        __pix_x = _get_station_pixx(self.__r_split)
+        __pix_x = _get_station_pixx(self._r_split)
         return __pix_x
 
     @property
     def st_pix_y(self):
-        __pix_y = _get_station_pixy(self.__r_split)
+        __pix_y = _get_station_pixy(self._r_split)
         return __pix_y
 
     @property
