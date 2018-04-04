@@ -417,41 +417,6 @@ _school_row = [u'ID', u'学校名称', u'曾用名', u'版块', u'地址1', u'�
 _project_row = []
 
 
-def school_write_sql(school_info):
-    """
-    the function is used for insert the school info into the db
-    :param school_info: is class from the school_info
-    :return: No return
-    @:type school_info: class
-    """
-    _school = school_info
-    _dir = os.path.join(os.path.abspath('..'), "dic", "baidu_result")
-    _con = sqlite3.connect(_dir)
-    _con.row_factory = _dict_factory
-    _cur = _con.cursor()
-    try:
-        _cur.execute("SELECT count(Id) AS num FROM school_info WHERE Id = ?", (_school.id,))
-        _r = _cur.fetchall()
-        if _r[0]["num"] == 0:
-            _cur.execute("INSERT INTO school_info "
-                         # "(Id, Name, Alias, Plate, Address, Address2, Type, Pix_X, Pix_Y, Area_X, Area_Y) "
-                         "VALUES(?, ? , ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ",
-                         (_school.id, _school.name, _school.alias, _school.plate, _school.add1,
-                          _school.add2, _school.cla, _school.type, _school.std_id,
-                          _school.mct_x, _school.mct_y, _school.pix_area_x,
-                          _school.pix_area_y, _school.area_code, _school.area_name, None, None,
-                          _school.base_update_time, _school.point_update_time))
-            _con.commit()
-            print("%s, %s 已保存!" % (_school.id, _school.name))
-        else:
-            print("%s, %s 已存在!" % (_school.id, _school.name))
-        _con.close()
-    except ValueError as e:
-        raise e
-    finally:
-        pass
-
-
 def _get_objects_id(t_name: str):
     """
 
@@ -463,7 +428,8 @@ def _get_objects_id(t_name: str):
     __con = sqlite3.connect(__dir)
     __con.row_factory = _dict_factory
     __cur = __con.cursor()
-    __sql = ('select Id, Pix_X, Pix_Y FROM %s WHERE BD_lat IS NULL OR BD_lng IS NULL' % __t_name)
+    # the school_info use Bd_lng, the other use BD_lng
+    __sql = ('select Id, Pix_X, Pix_Y FROM %s WHERE BD_lat IS NULL OR Bd_lng IS NULL' % __t_name)
     try:
         __cur.execute(__sql)
         __r = __cur.fetchall()
@@ -489,7 +455,8 @@ def _write_bd09_sql(t_name: str, bd_coor):
     """
     __bd_coor = bd_coor
     __t_name = t_name
-    __search = "UPDATE %s SET BD_lat = ?, BD_lng = ? WHERE Id = ?" % __t_name
+    # the school_info use Bd_lng, the other use BD_lng
+    __search = "UPDATE %s SET BD_lat = ?, Bd_lng = ? WHERE Id = ?" % __t_name
     if __bd_coor.id:
         __dir = os.path.join(os.path.abspath('..'), "dic", "baidu_result")
         __con = sqlite3.connect(__dir)
