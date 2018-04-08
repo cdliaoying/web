@@ -1,0 +1,192 @@
+
+<!DOCTYPE>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>学校简介 - 成都市中小学（幼儿园）学校信息大全及地图导航平台</title>
+    <link href="/Styles/Site?v=_oMO-Ai8JWFKQxG_6w2dcJwC-IE2Cyki5tRh_qbvYhA1" rel="stylesheet"/>
+
+    <script src="/Scripts/jquery?v=g6PQ_cSbp2sHgXSxLkLbaRxNt2PlgePuGQa-YkdgYPw1"></script>
+
+    <script src="/Scripts/header?v=SVL108y-NyuvERu7vZVb5Z9u7Eb0ZXJXsDdCDNr9JQI1"></script>
+
+    
+    <link href="/Styles/homeindex?v=-JCFETdYXbU5-FOvfIz_CNTYdtf02dMxktq_ePA3O241" rel="stylesheet"/>
+
+
+    
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&amp;ak=fHb01dPjlbnnXhY64UpDbYNdrSiMHGbw"></script>
+    <script src="/Scripts/homeindex?v=QCihdMXHAmxNI8GVdPc-r-qJdx35J8vD7ixFNkMHD8o1"></script>
+
+    <script type="text/javascript">
+schoolInfoList.push({schoolId:'f4b3d2d7-0d5e-4347-8a32-8354d2ef6efd',schoolName:'成都七中',lnglat:'104.081733, 30.642331'});
+schoolInfoList.push({schoolId:'56e6b94b-5a65-4c91-9e36-b2dc88cd0bed',schoolName:'成都树德中学',lnglat:'104.064392, 30.68138'});
+schoolInfoList.push({schoolId:'cfb86678-a252-4cd7-85f3-d951a461d7d5',schoolName:'成都石室中学',lnglat:'104.064517, 30.657829'});
+schoolInfoList.push({schoolId:'1a4b667c-6608-48f3-8276-899e400c5902',schoolName:'成都市第五十二中学',lnglat:'103.982422, 30.8203'});
+schoolInfoList.push({schoolId:'1ba372a5-e3ce-44ce-8c07-19a5eee00563',schoolName:'成都市特殊教育学校',lnglat:'104.05544, 30.690712'});
+schoolInfoList.push({schoolId:'582e964d-2ce3-475a-b5f4-d832f5e6fe61',schoolName:'成都市建筑职业中专校',lnglat:'104.157408, 30.646518'});
+schoolInfoList.push({schoolId:'25cc72ea-981d-4f6e-a635-2495cff6779d',schoolName:'成都武侯外国语学校',lnglat:'103.963601, 30.658269'});
+schoolInfoList.push({schoolId:'db6e6092-4832-4406-b42f-2060463f87f2',schoolName:'成都市解放北路第一小学校',lnglat:'104.092651, 30.69226'});
+schoolInfoList.push({schoolId:'17b423e0-31c5-46b9-b55f-9c89a1f6b131',schoolName:'成都市铁路中学',lnglat:'104.074899, 30.691668'});
+schoolInfoList.push({schoolId:'cf1bf19e-7cd9-4120-a359-fe41c8359176',schoolName:'成都市张家巷小学校',lnglat:'104.088587, 30.684199'});
+
+    </script>
+
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="/Scripts/IE8SupportHTML5?v=yUEcVlM1DvXrI7b9wgY87cFd-ePGgdKbsF5-Gw-OJos1"></script>
+
+    <![endif]-->
+
+    <script type="text/javascript">
+        var root_path = '/';
+
+        $(document).ready(function () {
+            $('#btnSchoolSearch').click(function () { schoolSearch(); })
+        });
+
+        //查询
+        function schoolSearch() {
+            var keyword = $("#keyword").val().replace(MVC_ROUTE_FILTER_REG, "");
+            var para = $.trim(keyword) == "" ? "" : "&key=" + keyword;
+            if (para.substr(0, 1) == "&") para = para.substr(1, para.length - 1)
+
+            var url = root_path + "Home/Maps" + ($.trim(para) == "" ? "" : "?") + para;
+            window.location.href = url;
+        }
+    </script>
+</head>
+<body>
+    <!--头部-->
+    <div class="top_bg">
+        <div class="top_logo">
+            <script type="text/javascript">
+                AC_FL_RunContent('codebase', 'http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,28,0', 'width', '130', 'height', '130', 'src', '/images/Pages/top_logo', 'quality', 'high', 'pluginspage', 'http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash', 'wmode', 'transparent', 'movie', '/images/Pages/top_logo'); //end AC code
+            </script>
+            <noscript>
+                <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,28,0" width="600" height="100">
+                    <param name="movie" value="/images/Pages/top_logo.swf" />
+                    <param name="quality" value="high" />
+                    <param name="wmode" value="transparent" />
+                    <embed src="/images/Pages/top_logo.swf" width="130" height="130" quality="high" pluginspage="http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash" wmode="transparent"></embed>
+                </object>
+            </noscript>
+        </div>
+    </div>
+    <div class="nav_bg">
+        <div class="nav">
+            <div class="menu">
+                <a href="http://www.cdedu.gov.cn/">成都教育官网</a>
+                <i></i>
+                <a href="/">学校简介</a>
+                <i></i>
+                <a href="/Home/Maps">学校地图</a>
+                <i></i>
+                <a href="javascript:void(0)">办事服务</a>
+                <i></i>
+            </div>
+            <div class="search">
+                <span>找学校：</span>
+                <input id="keyword" type="text" placeholder="输入关键字查找" class="search_input" />
+                <input id="btnSchoolSearch" type="button" value="搜索" class="btn_search" />
+            </div>
+        </div>
+    </div>
+    <!--头部 结束-->
+    
+
+<div class="index1">
+    <div class="index_listfilter01">
+        <div id="filter" class="le-filter">
+            <dl class="filter-item">
+                <dt class="filter-name">学校学段：</dt>
+                <dd>
+
+                    <a class="on" href="/Home/Index?all=1">不限</a>
+                        <a  href="/Home/Index?all=1&amp;per=e54ed244-8acd-48bc-a9a4-3f977af40de8">幼儿园</a>
+                        <a  href="/Home/Index?all=1&amp;per=b4152536-3c7d-46a6-9738-93e237d985ce">小学</a>
+                        <a  href="/Home/Index?all=1&amp;per=5ed08216-ab4a-4563-8768-5a0bb1b4b755">初中</a>
+                        <a  href="/Home/Index?all=1&amp;per=1fa7aa19-3fbd-4d9e-86ba-f8f0049943b6">高中</a>
+                        <a  href="/Home/Index?all=1&amp;per=89ccb9ed-cb09-4a70-9e68-487000d6648b">高完中</a>
+                        <a  href="/Home/Index?all=1&amp;per=200d9232-17c5-47f5-b2dd-14417d14b1ec">十二年制</a>
+                        <a  href="/Home/Index?all=1&amp;per=dd63d558-6013-4341-87d8-1a2fee7f27b8">中职</a>
+                        <a  href="/Home/Index?all=1&amp;per=05f9524a-3891-4fb3-9841-4ca9fa8979ac">九义校</a>
+                </dd>
+            </dl>
+            <dl class="filter-item">
+                <dt class="filter-name">办学性质：</dt>
+                <dd>
+
+                    <a class="on" href="/Home/Index?all=1">不限</a>
+                        <a  href="/Home/Index?all=1&amp;nat=73b80ebb-74c8-4cc2-89b0-36e6c977b96d">公办</a>
+                        <a  href="/Home/Index?all=1&amp;nat=bf0af357-579e-4bd4-81de-f736bd9ab888">民办</a>
+                </dd>
+            </dl>
+            <dl class="filter-item">
+                <dt class="filter-name">所在区域：</dt>
+                <dd>
+
+                    <a class="on" href="/Home/Index?all=1">不限</a>
+                        <a  href="/Home/Index?all=1&amp;dep=9641f055-08b9-4772-b24b-4a188ff20e78">直属直管</a>
+                        <a  href="/Home/Index?all=1&amp;dep=cba9c6ac-038f-4543-a32a-38d113005b3a">高新区</a>
+                        <a  href="/Home/Index?all=1&amp;dep=b6ef6b30-177e-4363-a8b5-664824f128f0">天府新区</a>
+                        <a  href="/Home/Index?all=1&amp;dep=a4f4af95-dc1b-422d-a130-b6e2d6cf4f0d">锦江区</a>
+                        <a  href="/Home/Index?all=1&amp;dep=6f183794-a033-4de9-a0db-9b6ebbd28ba9">青羊区</a>
+                        <a  href="/Home/Index?all=1&amp;dep=bd14719b-86c9-43c0-9e45-0f41a956bcd9">金牛区</a>
+                        <a  href="/Home/Index?all=1&amp;dep=5dd7f666-fc25-4b53-9b37-e1d3d5f3c430">武侯区</a>
+                        <a  href="/Home/Index?all=1&amp;dep=604d0bd9-16b8-4365-bf03-d89aa9113d19">成华区</a>
+                        <a  href="/Home/Index?all=1&amp;dep=17e966df-ede8-4006-9151-5610bdbfd29e">龙泉驿区</a>
+                        <a  href="/Home/Index?all=1&amp;dep=36e991bd-50d2-4f82-bc68-8a7e2e8492be">青白江区</a>
+                        <a  href="/Home/Index?all=1&amp;dep=12284075-dd04-46a5-899f-b0636dbf182f">新都区</a>
+                        <a  href="/Home/Index?all=1&amp;dep=2b8bae17-5285-4d95-b61e-ec1c17d664f6">温江区</a>
+                        <a  href="/Home/Index?all=1&amp;dep=7430114f-41c6-4a24-8518-a1f35da4241e">双流区</a>
+                        <a  href="/Home/Index?all=1&amp;dep=09c787d1-1cdc-465c-8696-b5d5723a859a">郫都区</a>
+                        <a  href="/Home/Index?all=1&amp;dep=0adcfd08-fadf-436f-bb20-01b7110b2cef">简阳市</a>
+                        <a  href="/Home/Index?all=1&amp;dep=73500c2c-90c9-4672-a235-a66341319197">都江堰市</a>
+                        <a  href="/Home/Index?all=1&amp;dep=8b31487d-a377-4135-a3f3-1f8d4d0eec30">彭州市</a>
+                        <a  href="/Home/Index?all=1&amp;dep=7a4a6448-ceb7-44c5-8bc8-0a99fddd56a7">邛崃市</a>
+                        <a  href="/Home/Index?all=1&amp;dep=cf35f4b3-b3cd-494e-ae68-3de2fb9ecca1">崇州市</a>
+                        <a  href="/Home/Index?all=1&amp;dep=9d183aeb-b115-4f6c-a7f6-8247a01fe9fe">金堂县</a>
+                        <a  href="/Home/Index?all=1&amp;dep=3e230a9d-8780-44eb-8f69-0d89a5efc09c">新津县</a>
+                        <a  href="/Home/Index?all=1&amp;dep=34303d43-0010-4877-a6af-1aebe94771fd">大邑县</a>
+                        <a  href="/Home/Index?all=1&amp;dep=a127f74b-bee5-4f19-9167-2a4715d1d81f">蒲江县</a>
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <div class="index_listfilter02">
+        <div id="container" style="width:100%;height:185px"></div>
+        <a href="/Home/Maps?all=1" target="_blank" class="button01">查看大图</a>
+    </div>
+</div>
+<div class="index1" style="border-top: 3px solid #4291D6">
+<ul class="index_ul01"><li><a href="/Home/School?Id=f4b3d2d7-0d5e-4347-8a32-8354d2ef6efd" target="_blank"><h1>成都七中</h1></a><div class="img_div"><a href= "/Home/School?Id=f4b3d2d7-0d5e-4347-8a32-8354d2ef6efd" target="_blank"><img src="/upload/otherFiles_thumb/2016-10/4d51afa61fad49f98c7bbb6c41b405b0.jpg" onerror="javascript:this.src='/images/Pages/noschool.jpg'" /></a></div><div class="text_div"><p>【学段】高中</p><p>【区域】市直属直管学校</p><p>【性质】公办</p><p>【电话】028-85442231</p><p title="四川省成都市林荫中街1号">【地址】四川省成都市林荫中街1号</p><p>【网站】<a href="http://www.cdqz.net/" target="_blank" title="http://www.cdqz.net/">http://www.cdqz.net/</a></p><p>【信息】<a href="http://www.cdedu.gov.cn/topics/school/cdqz/index.htm" target="_blank" title="http://www.cdedu.gov.cn/topics/school/cdqz/index.htm">http://www.cdedu.gov.cn/topics/school/cdqz/index.htm</a></p></div></li><li><a href="/Home/School?Id=56e6b94b-5a65-4c91-9e36-b2dc88cd0bed" target="_blank"><h1>成都树德中学</h1></a><div class="img_div"><a href= "/Home/School?Id=56e6b94b-5a65-4c91-9e36-b2dc88cd0bed" target="_blank"><img src="/upload/otherFiles_thumb/2016-10/af362621b2de42f08f283d26fef1a9e9.jpg" onerror="javascript:this.src='/images/Pages/noschool.jpg'" /></a></div><div class="text_div"><p>【学段】高中</p><p>【区域】市直属直管学校</p><p>【性质】公办</p><p>【电话】028-86630297</p><p title="成都市宁夏街树德里４号">【地址】成都市宁夏街树德里４号</p><p>【网站】<a href="http://www.sdzx.net/" target="_blank" title="http://www.sdzx.net/">http://www.sdzx.net/</a></p><p>【信息】<a href="http://www.cdedu.gov.cn/topics/school/sdzx/index.htm" target="_blank" title="http://www.cdedu.gov.cn/topics/school/sdzx/index.htm">http://www.cdedu.gov.cn/topics/school/sdzx/index.htm</a></p></div></li></ul><ul class="index_ul01"><li><a href="/Home/School?Id=cfb86678-a252-4cd7-85f3-d951a461d7d5" target="_blank"><h1>成都石室中学</h1></a><div class="img_div"><a href= "/Home/School?Id=cfb86678-a252-4cd7-85f3-d951a461d7d5" target="_blank"><img src="/upload/otherFiles_thumb/2017-04/068035adb6d442bcbef7593051450671.jpg" onerror="javascript:this.src='/images/Pages/noschool.jpg'" /></a></div><div class="text_div"><p>【学段】高完中</p><p>【区域】市直属直管学校</p><p>【性质】公办</p><p>【电话】028-86111271</p><p title="成都市文庙前街93号">【地址】成都市文庙前街93号</p><p>【网站】<a href="http://www.cdshishi.net/its/" target="_blank" title="http://www.cdshishi.net/its/">http://www.cdshishi.net/its/</a></p><p>【信息】<a href="http://www.cdedu.gov.cn/topics/school/cdsszx/index.htm" target="_blank" title="http://www.cdedu.gov.cn/topics/school/cdsszx/index.htm">http://www.cdedu.gov.cn/topics/school/cdsszx/index.htm</a></p></div></li><li><a href="/Home/School?Id=1a4b667c-6608-48f3-8276-899e400c5902" target="_blank"><h1>成都市第五十二中学</h1></a><div class="img_div"><a href= "/Home/School?Id=1a4b667c-6608-48f3-8276-899e400c5902" target="_blank"><img src="/upload/otherFiles_thumb/2016-11/4d5d381c96a94ef4a22fb3514d0559b3.jpg" onerror="javascript:this.src='/images/Pages/noschool.jpg'" /></a></div><div class="text_div"><p>【学段】初中</p><p>【区域】市直属直管学校</p><p>【性质】公办</p><p>【电话】028-67518015</p><p title="成都市郫县团结镇靖源上街139号">【地址】成都市郫县团结镇靖源上街139号</p><p>【网站】<a href="http://www.cd52.cn/" target="_blank" title="http://www.cd52.cn/">http://www.cd52.cn/</a></p><p>【信息】<a href="http://www.cdedu.gov.cn/topics/school/52z/index.htm" target="_blank" title="http://www.cdedu.gov.cn/topics/school/52z/index.htm">http://www.cdedu.gov.cn/topics/school/52z/index.htm</a></p></div></li></ul><ul class="index_ul01"><li><a href="/Home/School?Id=1ba372a5-e3ce-44ce-8c07-19a5eee00563" target="_blank"><h1>成都市特殊教育学校</h1></a><div class="img_div"><a href= "/Home/School?Id=1ba372a5-e3ce-44ce-8c07-19a5eee00563" target="_blank"><img src="/upload/otherFiles_thumb/2016-10/4c4d337226b945cfbfdf9c78a97ef0bc.jpg" onerror="javascript:this.src='/images/Pages/noschool.jpg'" /></a></div><div class="text_div"><p>【学段】十二年制</p><p>【区域】市直属直管学校</p><p>【性质】公办</p><p>【电话】028-87681701-306</p><p title="四川省成都市一环路北一段182号">【地址】四川省成都市一环路北一段182号</p><p>【网站】<a href="http://www.cdtx.net.cn" target="_blank" title="http://www.cdtx.net.cn">http://www.cdtx.net.cn</a></p><p>【信息】<a href="http://www.cdedu.gov.cn/topics/school/cdtx/index.htm" target="_blank" title="http://www.cdedu.gov.cn/topics/school/cdtx/index.htm">http://www.cdedu.gov.cn/topics/school/cdtx/index.htm</a></p></div></li><li><a href="/Home/School?Id=582e964d-2ce3-475a-b5f4-d832f5e6fe61" target="_blank"><h1>成都市建筑职业中专校</h1></a><div class="img_div"><a href= "/Home/School?Id=582e964d-2ce3-475a-b5f4-d832f5e6fe61" target="_blank"><img src="/upload/otherFiles_thumb/2016-10/8b9f14ba7e2340e7b4ee1701dfdbbe2c.jpg" onerror="javascript:this.src='/images/Pages/noschool.jpg'" /></a></div><div class="text_div"><p>【学段】中职</p><p>【区域】成华区教育局</p><p>【性质】公办</p><p>【电话】84088750</p><p title="成都市成华区东虹西四路10号">【地址】成都市成华区东虹西四路10号</p><p>【网站】<a href="http://www.cdjzzz.net/" target="_blank" title="http://www.cdjzzz.net/">http://www.cdjzzz.net/</a></p><p>【信息】<a href="http://www.cdchedu.com:8095/School/school103.html" target="_blank" title="http://www.cdchedu.com:8095/School/school103.html">http://www.cdchedu.com:8095/School/school103.html</a></p></div></li></ul><ul class="index_ul01"><li><a href="/Home/School?Id=25cc72ea-981d-4f6e-a635-2495cff6779d" target="_blank"><h1>成都武侯外国语学校</h1></a><div class="img_div"><a href= "/Home/School?Id=25cc72ea-981d-4f6e-a635-2495cff6779d" target="_blank"><img src="/upload/otherFiles_thumb/2016-10/ea6d7f8fac744fe1845f50946ea85e86.jpg" onerror="javascript:this.src='/images/Pages/noschool.jpg'" /></a></div><div class="text_div"><p>【学段】九义校</p><p>【区域】武侯区教育局</p><p>【性质】民办</p><p>【电话】028-85363777</p><p title="四川省成都市武侯区金川路112号">【地址】四川省成都市武侯区金川路112号</p><p>【网站】<a href="http://www.whfls.com/" target="_blank" title="http://www.whfls.com/">http://www.whfls.com/</a></p><p>【信息】<a href="http://www.whjyw.com/SchoolInfo.aspx?id=224&site=1" target="_blank" title="http://www.whjyw.com/SchoolInfo.aspx?id=224&site=1">http://www.whjyw.com/SchoolInfo.aspx?id=224&site=1</a></p></div></li><li><a href="/Home/School?Id=db6e6092-4832-4406-b42f-2060463f87f2" target="_blank"><h1>成都市解放北路第一小学校</h1></a><div class="img_div"><a href= "/Home/School?Id=db6e6092-4832-4406-b42f-2060463f87f2" target="_blank"><img src="/upload/otherFiles_thumb/2016-10/dac8e85160a94848809090c7d65611f1.jpg" onerror="javascript:this.src='/images/Pages/noschool.jpg'" /></a></div><div class="text_div"><p>【学段】小学</p><p>【区域】金牛区教育局</p><p>【性质】公办</p><p>【电话】028-83381808</p><p title="成都市解放北路一段一号">【地址】成都市解放北路一段一号</p><p>【网站】<a href="http://www.cdsjbyx.com" target="_blank" title="http://www.cdsjbyx.com">http://www.cdsjbyx.com</a></p><p>【信息】<a href="http://net.cdjnjy.net/main/unit_info.asp?UID=31" target="_blank" title="http://net.cdjnjy.net/main/unit_info.asp?UID=31">http://net.cdjnjy.net/main/unit_info.asp?UID=31</a></p></div></li></ul><ul class="index_ul01"><li><a href="/Home/School?Id=17b423e0-31c5-46b9-b55f-9c89a1f6b131" target="_blank"><h1>成都市铁路中学</h1></a><div class="img_div"><a href= "/Home/School?Id=17b423e0-31c5-46b9-b55f-9c89a1f6b131" target="_blank"><img src="/upload/otherFiles_thumb/2016-11/937db86c5bf74e699c666b89eca4ac42.jpg" onerror="javascript:this.src='/images/Pages/noschool.jpg'" /></a></div><div class="text_div"><p>【学段】高中</p><p>【区域】金牛区教育局</p><p>【性质】公办</p><p>【电话】028-83180373</p><p title="成都市一环路北二段34号">【地址】成都市一环路北二段34号</p><p>【网站】<a href="http://www.cdtz.net/index.html" target="_blank" title="http://www.cdtz.net/index.html">http://www.cdtz.net/index.html</a></p><p>【信息】<a href="http://net.cdjnjy.net/main/unit_info.asp?UID=16" target="_blank" title="http://net.cdjnjy.net/main/unit_info.asp?UID=16">http://net.cdjnjy.net/main/unit_info.asp?UID=16</a></p></div></li><li><a href="/Home/School?Id=cf1bf19e-7cd9-4120-a359-fe41c8359176" target="_blank"><h1>成都市张家巷小学校</h1></a><div class="img_div"><a href= "/Home/School?Id=cf1bf19e-7cd9-4120-a359-fe41c8359176" target="_blank"><img src="/upload/otherFiles_thumb/2016-10/bb1bd5b02edc429ca3c840dde0e94f62.jpg" onerror="javascript:this.src='/images/Pages/noschool.jpg'" /></a></div><div class="text_div"><p>【学段】小学</p><p>【区域】金牛区教育局</p><p>【性质】公办</p><p>【电话】028-83331079</p><p title="金牛区张家巷40号附11号">【地址】金牛区张家巷40号附11号</p><p>【网站】<a href="http://www.zjxxiaoxue.com/" target="_blank" title="http://www.zjxxiaoxue.com/">http://www.zjxxiaoxue.com/</a></p><p>【信息】<a href="http://net.cdjnjy.net/main/unit_info.asp?UID=61" target="_blank" title="http://net.cdjnjy.net/main/unit_info.asp?UID=61">http://net.cdjnjy.net/main/unit_info.asp?UID=61</a></p></div></li></ul><ul class="index_ul01"><li><a href="/Home/School?Id=d8e779c5-c143-41d3-acf0-48aa80b42aa7" target="_blank"><h1>成都市友谊小学校</h1></a><div class="img_div"><a href= "/Home/School?Id=d8e779c5-c143-41d3-acf0-48aa80b42aa7" target="_blank"><img src="/upload/otherFiles_thumb/2016-10/b28c0c92b77d4cea824232278c779d8e.jpg" onerror="javascript:this.src='/images/Pages/noschool.jpg'" /></a></div><div class="text_div"><p>【学段】小学</p><p>【区域】金牛区教育局</p><p>【性质】公办</p><p>【电话】028-87511637</p><p title="成都市西三环路五段469号">【地址】成都市西三环路五段469号</p><p>【网站】<a href="http://school.aedu.cn/cdyyxx/" target="_blank" title="http://school.aedu.cn/cdyyxx/">http://school.aedu.cn/cdyyxx/</a></p><p>【信息】<a href="http://net.cdjnjy.net/main/unit_info.asp?UID=60" target="_blank" title="http://net.cdjnjy.net/main/unit_info.asp?UID=60">http://net.cdjnjy.net/main/unit_info.asp?UID=60</a></p></div></li><li><a href="/Home/School?Id=902e246e-5faa-42b2-b48d-fcffd870371e" target="_blank"><h1>成都市马鞍小学校</h1></a><div class="img_div"><a href= "/Home/School?Id=902e246e-5faa-42b2-b48d-fcffd870371e" target="_blank"><img src="/upload/otherFiles_thumb/2016-10/a40301133a5d4e43958f71b0f90fd20e.jpg" onerror="javascript:this.src='/images/Pages/noschool.jpg'" /></a></div><div class="text_div"><p>【学段】小学</p><p>【区域】金牛区教育局</p><p>【性质】公办</p><p>【电话】028-83348667</p><p title="成都市马鞍街72号">【地址】成都市马鞍街72号</p><p>【网站】<a href="http://www.cdsmaxx.com" target="_blank" title="http://www.cdsmaxx.com">http://www.cdsmaxx.com</a></p><p>【信息】<a href="http://net.cdjnjy.net/main/unit_info.asp?UID=39" target="_blank" title="http://net.cdjnjy.net/main/unit_info.asp?UID=39">http://net.cdjnjy.net/main/unit_info.asp?UID=39</a></p></div></li></ul><ul class="index_ul01"><li><a href="/Home/School?Id=69da5661-985a-4fef-937c-ddee43de1168" target="_blank"><h1>成都市驷马桥小学校</h1></a><div class="img_div"><a href= "/Home/School?Id=69da5661-985a-4fef-937c-ddee43de1168" target="_blank"><img src="/upload/otherFiles_thumb/2016-10/287c826c194240d7a3ea102e88a73f94.jpg" onerror="javascript:this.src='/images/Pages/noschool.jpg'" /></a></div><div class="text_div"><p>【学段】小学</p><p>【区域】金牛区教育局</p><p>【性质】公办</p><p>【电话】028-83398406</p><p title="成都市金牛区红花北路42号">【地址】成都市金牛区红花北路42号</p><p>【网站】<a href="http://www.smqxx.cn" target="_blank" title="http://www.smqxx.cn">http://www.smqxx.cn</a></p><p>【信息】<a href="http://net.cdjnjy.net/main/unit_info.asp?UID=45" target="_blank" title="http://net.cdjnjy.net/main/unit_info.asp?UID=45">http://net.cdjnjy.net/main/unit_info.asp?UID=45</a></p></div></li><li><a href="/Home/School?Id=c0cb113e-326a-485d-8522-ad77370bd38f" target="_blank"><h1>成都市天回小学校</h1></a><div class="img_div"><a href= "/Home/School?Id=c0cb113e-326a-485d-8522-ad77370bd38f" target="_blank"><img src="/upload/otherFiles_thumb/2016-10/40da28fae6d04bcd90331893c129f05f.jpg" onerror="javascript:this.src='/images/Pages/noschool.jpg'" /></a></div><div class="text_div"><p>【学段】小学</p><p>【区域】金牛区教育局</p><p>【性质】公办</p><p>【电话】028-83570295</p><p title="成都市金牛区天回镇下街53号">【地址】成都市金牛区天回镇下街53号</p><p>【网站】</p><p>【信息】<a href="http://www.jnei.cn/Display/jy/show.aspx?id=254" target="_blank" title="http://www.jnei.cn/Display/jy/show.aspx?id=254">http://www.jnei.cn/Display/jy/show.aspx?id=254</a></p></div></li></ul><ul class="index_ul01"><li><a href="/Home/School?Id=fd75bad2-abc6-45c8-b810-2a071823a538" target="_blank"><h1>成都市王贾桥小学校</h1></a><div class="img_div"><a href= "/Home/School?Id=fd75bad2-abc6-45c8-b810-2a071823a538" target="_blank"><img src="/upload/otherFiles_thumb/2016-10/126d1e2b61434006b661aeafc6e1e929.jpg" onerror="javascript:this.src='/images/Pages/noschool.jpg'" /></a></div><div class="text_div"><p>【学段】小学</p><p>【区域】金牛区教育局</p><p>【性质】公办</p><p>【电话】028-83112795</p><p title="成都市金牛区沙河源街道王贾社区三组">【地址】成都市金牛区沙河源街道王贾社区三组</p><p>【网站】<a href="http://www.cdwjqxx.com/" target="_blank" title="http://www.cdwjqxx.com/">http://www.cdwjqxx.com/</a></p><p>【信息】<a href="http://net.cdjnjy.net/main/unit_info.asp?UID=52" target="_blank" title="http://net.cdjnjy.net/main/unit_info.asp?UID=52">http://net.cdjnjy.net/main/unit_info.asp?UID=52</a></p></div></li><li><a href="/Home/School?Id=651241cf-8c49-4f29-9ecc-c19b5e07b2cd" target="_blank"><h1>成都市西安路小学校</h1></a><div class="img_div"><a href= "/Home/School?Id=651241cf-8c49-4f29-9ecc-c19b5e07b2cd" target="_blank"><img src="/upload/otherFiles_thumb/2016-10/f7489dc0a59e4266aef2d58c920dbe24.jpg" onerror="javascript:this.src='/images/Pages/noschool.jpg'" /></a></div><div class="text_div"><p>【学段】小学</p><p>【区域】金牛区教育局</p><p>【性质】公办</p><p>【电话】028-87773622</p><p title="成都市西安北路一巷30号">【地址】成都市西安北路一巷30号</p><p>【网站】<a href="http://www.xalxx.cn/" target="_blank" title="http://www.xalxx.cn/">http://www.xalxx.cn/</a></p><p>【信息】<a href="http://net.cdjnjy.net/main/unit_info.asp?UID=54" target="_blank" title="http://net.cdjnjy.net/main/unit_info.asp?UID=54">http://net.cdjnjy.net/main/unit_info.asp?UID=54</a></p></div></li></ul><ul class="index_ul01"><li><a href="/Home/School?Id=c05c8940-04f9-4e73-a651-f31edbeac918" target="_blank"><h1>成都市西体路小学校</h1></a><div class="img_div"><a href= "/Home/School?Id=c05c8940-04f9-4e73-a651-f31edbeac918" target="_blank"><img src="/upload/otherFiles_thumb/2016-10/4ae2899ddb934dc0a5d126bb50fb2e5f.jpg" onerror="javascript:this.src='/images/Pages/noschool.jpg'" /></a></div><div class="text_div"><p>【学段】小学</p><p>【区域】金牛区教育局</p><p>【性质】公办</p><p>【电话】028-87661597</p><p title="成都市西体路9号">【地址】成都市西体路9号</p><p>【网站】<a href="http://www.cdxtlxx.com/home/tmain" target="_blank" title="http://www.cdxtlxx.com/home/tmain">http://www.cdxtlxx.com/home/tmain</a></p><p>【信息】<a href="http://net.cdjnjy.net/main/unit_info.asp?UID=55" target="_blank" title="http://net.cdjnjy.net/main/unit_info.asp?UID=55">http://net.cdjnjy.net/main/unit_info.asp?UID=55</a></p></div></li><li><a href="/Home/School?Id=6f21c8be-3a4e-4f30-bba8-92f4ad26a3d3" target="_blank"><h1>成都市西一路小学校</h1></a><div class="img_div"><a href= "/Home/School?Id=6f21c8be-3a4e-4f30-bba8-92f4ad26a3d3" target="_blank"><img src="/upload/otherFiles_thumb/2016-10/5b8d87a0c033451fa69c61fea6c94881.jpg" onerror="javascript:this.src='/images/Pages/noschool.jpg'" /></a></div><div class="text_div"><p>【学段】小学</p><p>【区域】金牛区教育局</p><p>【性质】公办</p><p>【电话】028-83351871</p><p title="成都市北站西一路129号">【地址】成都市北站西一路129号</p><p>【网站】<a href="http://www.cdxylxx.com/home/index" target="_blank" title="http://www.cdxylxx.com/home/index">http://www.cdxylxx.com/home/index</a></p><p>【信息】<a href="http://www.jnei.cn/Display/jy/show.aspx?id=348" target="_blank" title="http://www.jnei.cn/Display/jy/show.aspx?id=348">http://www.jnei.cn/Display/jy/show.aspx?id=348</a></p></div></li></ul><ul class="index_ul01"><li><a href="/Home/School?Id=75a8233a-97df-42f5-b257-d59fcdbdc629" target="_blank"><h1>成都市新桥小学校</h1></a><div class="img_div"><a href= "/Home/School?Id=75a8233a-97df-42f5-b257-d59fcdbdc629" target="_blank"><img src="/upload/otherFiles_thumb/2016-10/5651e62a908f46a1b941141fec96d8cd.jpg" onerror="javascript:this.src='/images/Pages/noschool.jpg'" /></a></div><div class="text_div"><p>【学段】小学</p><p>【区域】金牛区教育局</p><p>【性质】公办</p><p>【电话】028-87617723</p><p title="成都市金牛区长月路1号">【地址】成都市金牛区长月路1号</p><p>【网站】<a href="http://www.cdsxqxx.com" target="_blank" title="http://www.cdsxqxx.com">http://www.cdsxqxx.com</a></p><p>【信息】<a href="http://net.cdjnjy.net/main/unit_info.asp?UID=32" target="_blank" title="http://net.cdjnjy.net/main/unit_info.asp?UID=32">http://net.cdjnjy.net/main/unit_info.asp?UID=32</a></p></div></li><li><a href="/Home/School?Id=653201bf-d5fb-42dd-a9fe-1abbda58dbd7" target="_blank"><h1>成都市兴盛小学校</h1></a><div class="img_div"><a href= "/Home/School?Id=653201bf-d5fb-42dd-a9fe-1abbda58dbd7" target="_blank"><img src="/upload/otherFiles_thumb/2016-10/9352987d374046978e36758fbb342d1a.jpg" onerror="javascript:this.src='/images/Pages/noschool.jpg'" /></a></div><div class="text_div"><p>【学段】小学</p><p>【区域】金牛区教育局</p><p>【性质】公办</p><p>【电话】028-87503550</p><p title="成都市金牛区西华街办兴盛小区盛金路178号">【地址】成都市金牛区西华街办兴盛小区盛金路178号</p><p>【网站】<a href="http://www.cdsxsxx.com/home/index" target="_blank" title="http://www.cdsxsxx.com/home/index">http://www.cdsxsxx.com/home/index</a></p><p>【信息】<a href="http://net.cdjnjy.net/main/unit_info.asp?UID=102" target="_blank" title="http://net.cdjnjy.net/main/unit_info.asp?UID=102">http://net.cdjnjy.net/main/unit_info.asp?UID=102</a></p></div></li></ul>    <div class="pager01">
+<div class="quotes"><p style='display:inline'>共 </p><p style='display:inline;color:red'>2166</p><p style='display:inline'> 条</p><p style='display:inline;margin-left:10px'>第 </p><p style='display:inline;color:red'>1</p><p style='display:inline'>/</p><p style='display:inline;color:red'>109</p><p style='display:inline;margin-right:10px'> 页</p><span class="disabled">首页</span> <span class="disabled">&lt;</span><span class="current">1</span><a href="../Home/Index?all=1&pages=2">2</a><a href="../Home/Index?all=1&pages=3">3</a><a href="../Home/Index?all=1&pages=4">4</a><a href="../Home/Index?all=1&pages=5">5</a><a href="../Home/Index?all=1&pages=6">6</a><a href="../Home/Index?all=1&pages=2" title="下一页">&gt;</a><a href="../Home/Index?all=1&pages=109">末页</a><p style='display:inline;margin-left:10px'>跳至<input type='text' class='text' id='gotopagepager' onKeyUp='if((event.keyCode ? event.keyCode : event.which ? event.which : event.charCode)==13){gotoPage("../Home/Index?all=1",109)}' />页&nbsp;<input type='button' class='button' value='确定' onclick='gotoPage("../Home/Index?all=1",109)' /></p></div>
+</div>
+</div>
+    <!--底部-->
+    <div class="foot_bg">
+        <div class="foot">
+            <div class="content">
+                <span style="margin-right:12px">版权所有：成都市教育局</span>
+                <span style="margin-right:12px">蜀ICP备09003940号</span>
+                <span>审批资质号：川教JG-20120009</span><br />
+                <span style="margin-right:12px">技术支持：<a href="http://www.cdjzs.com/" target="_blank">成都市教育技术装备管理中心</a></span>
+                <span>开发单位：<a href="http://www.cdyzb.net/" target="_blank">成都云智博科技有限公司</a></span><br />
+                <span style="margin-right:12px">地址：成都市锦城大道366号</span>
+                <span>联系电话：962669</span><br />
+                <span style="margin-right:12px">浏览总量：1531124</span>
+                <span>当前在线人数：20 人</span>
+            </div>
+        </div>
+    </div>
+    <!--底部结束-->
+    
+    
+</body>
+</html>

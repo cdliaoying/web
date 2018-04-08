@@ -7,13 +7,13 @@
 <body>
 <div style="width:400px;height:650px;border:1px solid gray;float:left;" id="container"></div>
 <div style="width:500px;height:270px;float:left;margin:0 0 0 10px;">
-    <p>bd09的lat:<input type="text" value="" id="lat" /></p>
-    <p>bd09的lng:<input type="text" value="" id="lng" /></p>
+    <p>bd09的lng:<input type="text" value="" id="pointX" /></p>
+    <p>bd09的lat:<input type="text" value="" id="pointY" /></p>
     <p id="mctX"></p>
     <p id="mctY"></p>
     <p id="entertaiment"></p>
     <p><input style="width:240px;height:130px;font-size:30px;"
-              type="button" value="经纬度地址解析" onclick="mctGeo();" /></p>
+              type="button" value="经纬度地址解析" onclick="WorldGeo();" /></p>
     <div id="panel"></div>
 </div>
 </body>
@@ -27,15 +27,16 @@ map.addControl(new BMap.NavigationControl());
 
 //点击地图进行地址解析
 var gc = new BMap.Geocoder();
-map.addEventListener("click", function(e){
-    var pt = e.point;
-    document.getElementById("pointX").innerHTML = "经度lat: " + pt.lat;
-    document.getElementById("pointY").innerHTML = "纬度lng: " + pt.lng;
+function WorldGeo(){
+    var xx = document.getElementById("pointX").value;
+    var yy = document.getElementById("pointY").value;
+    var pt = new BMap.Point(xx,yy);
 
-    var projection1 = this.getMapType().getProjection();
+    var projection1 = map.getMapType().getProjection();
     var worldCoordinate = projection1.lngLatToPoint(pt);
-    document.getElementById("mctX").value = worldCoordinate.x;
-    document.getElementById("mctY").value = worldCoordinate.y;
+
+    document.getElementById("mctX").innerHTML = worldCoordinate.x;
+    document.getElementById("mctY").innerHTML = worldCoordinate.y;
 
     map.clearOverlays();
     document.getElementById("panel").innerHTML = "";
@@ -52,36 +53,5 @@ for(i=0;i<allPois.length;++i){
             map.addOverlay(new BMap.Marker(allPois[i].point));
         }
     },mOption);
-});
-
-//摩卡托反地址解析
-var mOption = {
-    poiRadius : 500,           //半径为1000米内的POI,默认100米
-    numPois : 12//列举出50个POI,默认10个
-}
-function mctGeo(){
-    map.clearOverlays();
-    document.getElementById("panel").innerHTML = "";
-
-    var mctXX = document.getElementById("mctX").value;
-    var mctYY = document.getElementById("mctY").value;
-    var mctXY = new BMap.Pixel(mctXX,mctYY);
-
-    var projection2 = map.getMapType().getProjection();
-    var LngLat = projection2.pointToLngLat(mctXY);
-
-    document.getElementById("pointX").innerHTML = "纬度lat:" + LngLat.lat + ";";
-    document.getElementById("pointY").innerHTML = "经度lng:" + LngLat.lng + ";";
-
-    gc.getLocation(LngLat, function(rs){
-        var addComp = rs.addressComponents;
-        document.getElementById("entertaiment").innerHTML = addComp.province + ", " + addComp.city + ", " + addComp.district + ", " + addComp.street + ", " + addComp.streetNumber;
-
-        var allPois = rs.surroundingPois;       //获取全部POI（该点半径为100米内有6个POI点）
-for(i=0;i<allPois.length;++i){
-            document.getElementById("panel").innerHTML += "<p style='font-size:12px;'>" + (i+1) + "、" + allPois[i].title + ",地址:" + allPois[i].address + "</p>";
-            map.addOverlay(new BMap.Marker(allPois[i].point));
-        }
-    },mOption);
-}
+};
 </script>
