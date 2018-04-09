@@ -40,8 +40,20 @@ def __get_education_list(page_no: int):
         f.close()
         '''
 
-        __htm_content = BeautifulSoup(__htm_code, "lxml")
-        print(__htm_content)
+        ''' ---- tranlate jason str to html file ------'''
+        __htm_content = BeautifulSoup(__htm_code, "html.parser")
+
+        ''' ----- find the page num in the html -------'''
+        __page = __htm_content.find_all(attrs={"class": "quotes"})
+        if __page:
+            print(__page)
+
+        __htm_ul = __htm_content.find_all(attrs={"class": "index_ul01"})
+        if __htm_ul:
+            for __r in __htm_ul:
+                print(__r)
+        else:
+            print("不存在！")
 
     except ValueError as e:
         raise e

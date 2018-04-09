@@ -728,3 +728,4 @@ See /usr/include/servers/bootstrap_defs.h for the error codes.
 See /usr/include/servers/bootstrap_defs.h for the error codes.
 JavaScript warning: http://api.map.baidu.com/getscript?v=1.2&ak=&services=&t=20130716024057, line 1: unreachable code after return statement
 1522828090722	geckodriver::marionette	ERROR	Failed to stop browser process
+[GFX1-]: Receive IPC close with reason=AbnormalShutdown

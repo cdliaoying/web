@@ -168,7 +168,7 @@ def __get_proj_shape(street_id):
         pass
 
 
-def _proj_search(region, kw, n):
+def __proj_search(region, kw, n):
     """
 
     :param region: the city code where the objects inside, you can input code or name
@@ -252,7 +252,7 @@ def __proj_mct_2_bd09(proj_geo: list):
 _get_project_list("631", "小区", 2)
 
 
-# proj_search("631", "小区", 2)
+# __proj_search("631", "小区", 2)
 # __get_proj_shape("82061b7f137f08c2ed74f823")
 
 __proj_shape = [['11573980.55', '3568447.03'], ['11574101.0', '3568446.52'], ['11574118.48', '3568538.47'],
@@ -266,4 +266,3 @@ __proj_mct_2_bd09(__proj_shape)
 
 
 '''
-
