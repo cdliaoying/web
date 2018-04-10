@@ -214,3 +214,8 @@ while __n <= len(__list):
     __m = __m + 2
     __n = __n + 2
 print("__geo: %s" % __geo)
+
+__id = "/Home/School?Id=f4b3d2d7-0d5e-4347-8a32-8354d2ef6efd;"
+__p = r'(?<=Id=).+?(?=;)'
+__r1 = re.findall(__id, __p)
+print(__r1)
