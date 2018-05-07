@@ -27,7 +27,13 @@ def _dict_factory(cursor, row):
 
 
 def parameter_search():
-    _parameter = {
+    """ it's used for define parameters in the post method
+    Arguments：
+        No any more
+    :return:
+        parameters {list} -- a list of parameters
+    """
+    __parameter = {
         """
         if the value of param is zero that means it's not used
         """
@@ -57,14 +63,15 @@ def parameter_search():
         # "b": "(11845157.18,3047692.2;11922085.18,3073932.2)",  #这个应该是地理位置坐标，可以忽略
         # "t": "1468896652886" # time
     }
-    return _parameter
+    return __parameter
 
 
 def _get_area_name(r_split: str):
-    """
-
-    :param r_split:
+    """  used for getting area_name from the web
+    :param
+        r_split {string} -- the string that getting from web
     :return:
+        area_name[0] {string} -- region name of objects in th city
     """
     __r = r_split
     __pattern = r'(?<=area_name.:.).+?(?=.,)'
@@ -73,10 +80,11 @@ def _get_area_name(r_split: str):
 
 
 def _get_area_code(r_split: str):
-    """
-
-    :param r_split:
+    """ used for getting area_code from web
+    :param
+        r_split {string} -- the string that getting from web
     :return:
+        area_code[0] {string} -- region name of objects in th city
     """
     __r = r_split
     __pattern = r'(?<=area":).+?(?=,)'
@@ -84,11 +92,12 @@ def _get_area_code(r_split: str):
     return __area_code[0]
 
 
-def _get_id(r_split):
-    """
-    :usage: it's used for find the object's id
-    :param r_split: the input is a list
-    :return: ID, the object's id in the spider results
+def _get_id(r_split: str):
+    """ used for getting objects' id from web
+    :param
+        r_split {string} -- the string that getting from web
+    :return:
+        ID {string} -- objects' id in th city
     """
     __r = r_split
     __pattern = r'(?<=primary_uid.:.).+?(?=")'
@@ -98,11 +107,12 @@ def _get_id(r_split):
 
 
 def _get_name(r_split: str):
-    """
-    it's used for find the object's name,just like project_name, school_name,maybe different object has
+    """ used for find the object's name,just like project_name, school_name,maybe different object has
     different rules
-    :param r_split: the input is a list
-    :return: Name, the object's name in the spider results
+    :param
+        r_split {string} -- the string that getting from web
+    :return:
+        Name {string} -- the object's name in the spider results
     """
     __r = r_split
     __pattern = r'(?<=\b"\},"name":").+?(?=")'
