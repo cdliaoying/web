@@ -103,3 +103,13 @@ class or_proj:
     def addr_lat(self):
         __r_addr_lat = self.__r["ADD_LAT"]
         return __r_addr_lat
+
+    @property
+    def name_lng(self):
+        __r_name_lng = self.__r["NAME_LNG"]
+        return __r_name_lng
+
+    @property
+    def name_lat(self):
+        __r_name_lat = self.__r["NAME_LAT"]
+        return __r_name_lat
